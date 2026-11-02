@@ -1,9 +1,17 @@
 name: Maintain
 
-# Every 6 hours: check links, commit data changes to main, record link health on
-# the orphan `bot-state` branch, then rebuild and deploy the site. Pushes made
-# with GITHUB_TOKEN do not start other workflows, so the deploy job calls
-# deploy.yml directly.
+# Every 6 hours: check links, propose data changes to main in a pull request
+# from the `bot/link-health` branch, record link health on the orphan
+# `bot-state` branch, then rebuild and deploy the site.
+#
+# main requires a pull request and CI, and GITHUB_TOKEN cannot bypass that.
+# Events made with GITHUB_TOKEN start no other workflow except
+# workflow_dispatch, so this job starts ci.yml on the bot branch itself and
+# the deploy job calls deploy.yml directly.
+#
+# While the pull request is open, later runs check and commit on top of its
+# branch: a restored tool is written only once (on the Recovering -> Active
+# transition), so rebuilding the branch from main would drop it.
 
 on:
   schedule:
@@ -22,9 +30,12 @@ jobs:
       cancel-in-progress: false
     permissions:
       contents: write
-      actions: write # keepalive: re-enable this workflow so the 60-day inactivity rule does not stop it
+      pull-requests: write # open and comment on the bot pull request
+      actions: write # start ci.yml on the bot branch; keepalive: re-enable this workflow so the 60-day inactivity rule does not stop it
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BOT_BRANCH: bot/link-health
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -45,28 +56,46 @@ jobs:
             git -C .bot-state rm -rf --quiet . || true
           fi
 
+      - name: Continue the open link-health pull request
+        run: |
+          open_pr=$(gh pr list --head "$BOT_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+          echo "OPEN_PR=$open_pr" >> "$GITHUB_ENV"
+          if [ -n "$open_pr" ]; then
+            git fetch --depth=1 origin "$BOT_BRANCH"
+            git switch -C "$BOT_BRANCH" FETCH_HEAD
+          else
+            git switch -C "$BOT_BRANCH"
+          fi
+
       - name: Check links
         run: cargo run --release -p radar-cli -- check-links --state .bot-state/health.json
 
-      - name: Commit data changes to main
+      - name: Propose data changes in a pull request
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git diff --quiet -- data; then
             echo "No data changes."
-          else
-            {
-              echo "Update link health"
-              echo
-              git diff --name-status -- data
-              echo
-              git diff -U0 -- data | grep -E '^[+-](status|hidden_reason|repo|[a-z0-9_-]+ = "http)' || true
-            } > "$RUNNER_TEMP/commit-message.txt"
-            git add data
-            git commit --file "$RUNNER_TEMP/commit-message.txt"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            exit 0
           fi
+          {
+            echo "Update link health"
+            echo
+            git diff --name-status -- data
+            echo
+            git diff -U0 -- data | grep -E '^[+-](status|hidden_reason|repo|[a-z0-9_-]+ = "http)' || true
+          } > "$RUNNER_TEMP/commit-message.txt"
+          git add data
+          git commit --file "$RUNNER_TEMP/commit-message.txt"
+          if [ -n "$OPEN_PR" ]; then
+            git push origin "$BOT_BRANCH"
+            gh pr comment "$OPEN_PR" --body-file "$RUNNER_TEMP/commit-message.txt"
+          else
+            # Replaces a branch left behind by a closed pull request.
+            git push --force origin "$BOT_BRANCH"
+            gh pr create --base main --head "$BOT_BRANCH" --title "Update link health" --body-file "$RUNNER_TEMP/commit-message.txt"
+          fi
+          gh workflow run ci.yml --ref "$BOT_BRANCH"
 
       - name: Save link health to bot-state
         working-directory: .bot-state
@@ -82,8 +111,6 @@ jobs:
           fi
 
       - name: Keep the schedule alive
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/maintain.yml/enable"
 
   deploy:

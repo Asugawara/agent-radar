@@ -83,7 +83,7 @@ python3 -m http.server 8765 -d dist   # http://localhost:8765/ を開く
 自分のコピー（フォークなど）を GitHub Pages で公開するには:
 
 1. Settings → Pages → Source で **GitHub Actions** を選びます。
-2. `deploy.yml` は `main` への push のたびに公開します。`maintain.yml` は 6 時間ごとに実行され、リンクを確認し、データの変更を `main` にコミットし、リンクの状態を `bot-state` ブランチに保存してから、`deploy.yml` を呼び出します。
+2. `deploy.yml` は `main` への push のたびに公開します。`maintain.yml` は 6 時間ごとに実行され、リンクを確認し、データの変更があれば `bot/link-health` ブランチから PR を作って CI を起動し、リンクの状態を `bot-state` ブランチに保存してから、`deploy.yml` を呼び出します。データの変更はその PR をマージすると公開されます。
 
 ## ライセンス
 

@@ -83,7 +83,7 @@ Run everything by hand with `pre-commit run --all-files` (add `--hook-stage pre-
 To publish your own copy (for example a fork) on GitHub Pages:
 
 1. Settings → Pages → Source: **GitHub Actions**.
-2. `deploy.yml` publishes on every push to `main`. `maintain.yml` runs every 6 hours: it checks links, commits data changes to `main`, stores link health on the `bot-state` branch and then calls `deploy.yml`.
+2. `deploy.yml` publishes on every push to `main`. `maintain.yml` runs every 6 hours: it checks links, opens a pull request from the `bot/link-health` branch with any data changes (and starts CI on it), stores link health on the `bot-state` branch and then calls `deploy.yml`. Data changes go live when that pull request is merged.
 
 ## License
 
