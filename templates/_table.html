@@ -2,9 +2,9 @@
 <thead>
 <tr>
 <th class="col-name"{% if interactive %} aria-sort="ascending"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.name") }}{{ page.icon("arrow-up")|safe }}</span>{% else %}{{ page.t("table.name") }}{% endif %}</th>
-<th class="col-category">{{ page.t("table.category") }}</th>
-<th class="col-pricing">{{ page.t("table.pricing") }}</th>
-<th class="col-oss">{{ page.t("table.oss") }}</th>
+<th class="col-category">{% if interactive %}<span class="colfilter"><span class="thlabel">{{ page.t("table.category") }}</span><button type="button" class="colfilter-btn" disabled aria-label="{{ page.filter_by("table.category") }}">{{ page.icon("list-filter")|safe }}</button></span>{% else %}{{ page.t("table.category") }}{% endif %}</th>
+<th class="col-pricing">{% if interactive %}<span class="colfilter"><span class="thlabel">{{ page.t("table.pricing") }}</span><button type="button" class="colfilter-btn" disabled aria-label="{{ page.filter_by("table.pricing") }}">{{ page.icon("list-filter")|safe }}</button></span>{% else %}{{ page.t("table.pricing") }}{% endif %}</th>
+<th class="col-oss">{% if interactive %}<span class="colfilter"><span class="thlabel">{{ page.t("table.oss") }}</span><button type="button" class="colfilter-btn" disabled aria-label="{{ page.filter_by("table.oss") }}">{{ page.icon("list-filter")|safe }}</button></span>{% else %}{{ page.t("table.oss") }}{% endif %}</th>
 <th class="col-stars num"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.stars") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.stars") }}{% endif %}</th>
 <th class="col-updated"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.updated") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.updated") }}{% endif %}</th>
 </tr>
@@ -12,7 +12,7 @@
 <tbody>
 {% for r in rows %}
 <tr data-id="{{ r.id }}">
-<td class="col-name"><div class="tool-cell"><span class="fav">{{ page.fav(r)|safe }}</span><div class="tool-main"><a class="tool-name" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% if let Some(repo) = r.repo %}<a class="repo-link" href="https://github.com/{{ repo }}" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">{{ page.icon("code")|safe }}</a>{% endif %}<div class="summary">{{ r.summary }}</div></div></div></td>
+<td class="col-name"><div class="tool-cell"><span class="fav">{{ page.fav(r)|safe }}</span><div class="tool-main"><a class="tool-name" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% if let Some(repo) = r.repo %}<a class="repo-link" href="https://github.com/{{ repo }}" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">{{ page.icon("code")|safe }}</a>{% endif %}<div class="summary">{{ r.summary }}</div>{% if !r.categories.is_empty() %}<div class="tool-cats">{% for b in r.categories %}<a class="badge badge-category" href="{{ page.url(b.path) }}">{{ page.icon(b.icon)|safe }}{{ b.label }}</a> {% endfor %}</div>{% endif %}</div></div></td>
 <td class="col-category">{% for b in r.categories %}<a class="badge badge-category" href="{{ page.url(b.path) }}">{{ page.icon(b.icon)|safe }}{{ b.label }}</a> {% endfor %}</td>
 <td class="col-pricing">{{ r.pricing }}</td>
 {% if r.oss %}<td class="col-oss" title="{{ page.t("table.oss_yes") }}">{{ page.icon("git-branch")|safe }}</td>{% else %}<td class="col-oss muted" title="{{ page.t("table.oss_no") }}">—</td>{% endif %}

@@ -50,6 +50,12 @@ impl Page {
     pub fn t(&self, key: &str) -> String {
         self.i18n.t(key)
     }
+    /// `Filter by Category` / `Categoryで絞り込む`: the label of a column filter button.
+    pub fn filter_by(&self, column_key: &str) -> String {
+        self.i18n
+            .t("ui.filter_by")
+            .replace("{col}", &self.i18n.t(column_key))
+    }
     pub fn site_title(&self) -> &str {
         &self.site.title
     }

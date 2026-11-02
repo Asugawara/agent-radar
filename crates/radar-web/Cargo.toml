@@ -15,4 +15,4 @@ serde_json = "1.0.154"
 any_spawner = { version = "0.3", features = ["wasm-bindgen"] }
 console_error_panic_hook = "0.1"
 wasm-bindgen = "0.2"
-web-sys = { version = "0.3", features = ["Window", "Document", "Element", "History", "Location", "HtmlElement", "HtmlInputElement"] }
+web-sys = { version = "0.3", features = ["Window", "Document", "Element", "History", "Location", "HtmlElement", "HtmlInputElement", "DomRect", "Event", "EventTarget", "KeyboardEvent", "MouseEvent"] }

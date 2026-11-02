@@ -136,19 +136,42 @@ button.sort { all: unset; display: inline-flex; align-items: center; gap: 4px; c
 .sort { display: inline-flex; align-items: center; gap: 4px; }
 button.sort:hover, button.sort:focus-visible { color: var(--fg); }
 th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(--fg); }
+/* column header filters: a button in the header opens a popover of choices */
+.colfilter { display: inline-flex; align-items: center; gap: 4px; }
+.colfilter-btn { display: inline-flex; align-items: center; gap: 4px; min-width: 24px; height: 24px; padding: 0 4px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--muted); font: inherit; cursor: pointer; }
+.colfilter-btn:hover:not(:disabled), .colfilter-btn[aria-expanded="true"] { background: var(--hover); color: var(--fg); border-color: var(--border); }
+.colfilter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.colfilter-btn:disabled { opacity: 0.4; cursor: default; }
+.colfilter-btn.active { color: var(--accent); border-color: var(--accent); }
+.colfilter-btn .ic { pointer-events: none; }
+.colfilter-btn .icon { width: 14px; height: 14px; }
+.colfilter-btn .count-badge { min-width: 1.3em; padding: 0 5px; font-size: 0.7rem; line-height: 1.4; }
+/* position: fixed (placed by the WASM) so the scrolling table wrapper does not clip it */
+.colfilter-pop { position: fixed; z-index: 20; display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); font-weight: 400; font-size: 0.9rem; white-space: normal; }
+.colfilter-pop[hidden] { display: none; }
+.colfilter-opts { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; min-height: 0; }
+.colfilter-opts .opt { display: flex; align-items: center; gap: 6px; padding: 5px 4px; border-radius: 4px; cursor: pointer; }
+.colfilter-opts .opt:hover { background: var(--hover); }
+.colfilter-opts .opt input { margin: 0; }
+.colfilter-opts .count { margin-left: auto; }
+.colfilter-clear { align-self: flex-start; padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--badge); color: var(--fg); font: inherit; font-size: 0.85rem; cursor: pointer; }
+.colfilter-clear:disabled { opacity: 0.5; cursor: default; }
+.colfilter-clear:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* category badges under the summary: phones only (the column is hidden there) */
+.tool-cats { display: none; }
 @media (max-width: 639px) {
-  .col-pricing, .col-oss { display: none; }
+  .col-pricing, .col-oss, .col-category { display: none; }
+  .tool-cats { display: block; margin-top: 4px; }
+  .tool-cats .badge { white-space: normal; font-size: 0.75rem; }
+  .tool-cats .badge .icon { display: none; }
   th, td { padding-left: 4px; padding-right: 4px; }
   td { font-size: 0.85rem; }
   .col-name { min-width: 0; }
-  .col-category { width: 5.5rem; }
-  .col-category .badge .icon { display: none; }
   .summary { -webkit-line-clamp: 3; line-clamp: 3; }
   .tool-name { overflow-wrap: anywhere; }
   main { padding-left: 12px; padding-right: 12px; }
   th { font-size: 0.78rem; }
   .col-stars .icon { display: none; }
-  .col-category .badge { white-space: normal; font-size: 0.75rem; padding: 1px 8px; }
   .tool-name { font-size: 0.95rem; }
   .toolbar { flex-wrap: wrap; }
   button.filter-toggle, button.clear { min-height: 40px; }
