@@ -1,5 +1,5 @@
 name: Set up build
-description: Rust stable with the wasm32 target and cargo cache; optionally wasm-bindgen-cli (pinned to Cargo.lock) and binaryen for the site build.
+description: Rust stable with the wasm32 target and cargo cache; optionally wasm-bindgen-cli (pinned to Cargo.lock) and pinned binaryen for the site build.
 
 inputs:
   components:
@@ -35,7 +35,31 @@ runs:
       if: inputs.site-tools == 'true' && steps.wbg.outputs.cache-hit != 'true'
       shell: bash
       run: cargo install wasm-bindgen-cli --version "$WASM_BINDGEN_VERSION" --locked --root target/tools
-    - name: Install binaryen (wasm-opt)
+    - name: Read binaryen version
       if: inputs.site-tools == 'true'
       shell: bash
-      run: sudo apt-get update && sudo apt-get install -y binaryen
+      run: |
+        echo "BINARYEN_VERSION=133" >> "$GITHUB_ENV"
+        echo "BINARYEN_SHA256=2dc9c7813f5375db93d96ead4b78222fcc3e2677bbb832297af4797782a37489" >> "$GITHUB_ENV"
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      if: inputs.site-tools == 'true'
+      id: binaryen
+      with:
+        path: target/tools/binaryen
+        key: binaryen-${{ runner.os }}-${{ env.BINARYEN_VERSION }}-${{ env.BINARYEN_SHA256 }}
+    - name: Install binaryen (wasm-opt, pinned release)
+      if: inputs.site-tools == 'true' && steps.binaryen.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        # Ubuntu's apt binaryen (108) breaks wasm-bindgen's reference-types output.
+        tgz="binaryen-version_${BINARYEN_VERSION}-x86_64-linux.tar.gz"
+        curl -fsSL -o "$RUNNER_TEMP/$tgz" \
+          "https://github.com/WebAssembly/binaryen/releases/download/version_${BINARYEN_VERSION}/$tgz"
+        echo "$BINARYEN_SHA256  $RUNNER_TEMP/$tgz" | sha256sum -c -
+        mkdir -p target/tools/binaryen
+        tar -xzf "$RUNNER_TEMP/$tgz" -C target/tools/binaryen --strip-components=1 \
+          "binaryen-version_${BINARYEN_VERSION}/bin/wasm-opt"
+    - name: Add wasm-opt to PATH
+      if: inputs.site-tools == 'true'
+      shell: bash
+      run: echo "$PWD/target/tools/binaryen/bin" >> "$GITHUB_PATH"

@@ -43,12 +43,9 @@ rm -rf crates/radar-web/pkg
 wasm-bindgen --target web --out-dir crates/radar-web/pkg \
   target/wasm32-unknown-unknown/wasm-release/radar_web.wasm
 if command -v wasm-opt >/dev/null 2>&1; then
-  # Features rustc enables by default for wasm32-unknown-unknown; older binaryen
-  # (e.g. the apt package) rejects the module without them.
-  if wasm-opt -Oz \
-      --enable-bulk-memory --enable-mutable-globals --enable-nontrapping-float-to-int \
-      --enable-reference-types --enable-sign-ext --enable-multivalue \
-      crates/radar-web/pkg/radar_web_bg.wasm -o target/radar_web_bg.opt.wasm; then
+  # No --enable-* flags: binaryen 133 accepts the module as is (verified).
+  # Needs a recent wasm-opt: the apt build (108) corrupts the function table.
+  if wasm-opt -Oz crates/radar-web/pkg/radar_web_bg.wasm -o target/radar_web_bg.opt.wasm; then
     mv target/radar_web_bg.opt.wasm crates/radar-web/pkg/radar_web_bg.wasm
   else
     echo "warning: wasm-opt failed; using the unoptimized wasm" >&2
