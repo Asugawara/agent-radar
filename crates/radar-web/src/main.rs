@@ -164,19 +164,28 @@ fn current_query(data: &SiteData) -> Query {
 }
 
 /// Mirror the state into the address bar without adding history entries.
-fn sync_url(q: &Query) {
+/// Pairs the table does not own (`utm_*`, `gclid`, …) stay. `initial`: the
+/// state was just read from the address bar, so it is left alone (a rewrite
+/// would look like another page view to analytics).
+fn sync_url(q: &Query, initial: bool) {
     let Some(w) = web_sys::window() else { return };
     let loc = w.location();
-    let path = loc.pathname().unwrap_or_default();
     let hash = loc.hash().unwrap_or_default();
     let qs = q.to_query_string();
-    let url = if qs.is_empty() {
-        format!("{path}{hash}")
-    } else {
-        format!("{path}?{qs}{hash}")
-    };
-    if let Ok(h) = w.history() {
-        let _ = h.replace_state_with_url(&JsValue::NULL, "", Some(&url));
+    if !initial {
+        let path = loc.pathname().unwrap_or_default();
+        let search = loc.search().unwrap_or_default();
+        let merged = radar_core::merge_query_string(&qs, &search);
+        if merged != search.trim_start_matches('?') {
+            let url = if merged.is_empty() {
+                format!("{path}{hash}")
+            } else {
+                format!("{path}?{merged}{hash}")
+            };
+            if let Ok(h) = w.history() {
+                let _ = h.replace_state_with_url(&JsValue::NULL, "", Some(&url));
+            }
+        }
     }
     sync_lang_switch(
         &w,
@@ -244,7 +253,7 @@ fn start() {
         .unwrap_or_else(|| "/".into());
 
     let query = RwSignal::new(current_query(&data));
-    Effect::new(move |_| sync_url(&query.get()));
+    Effect::new(move |prev: Option<()>| sync_url(&query.get(), prev.is_none()));
 
     let data = StoredValue::new(data);
     // The column filter popover that is open (at most one) and where it sits.

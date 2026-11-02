@@ -10,7 +10,7 @@ pub mod site;
 pub mod validate;
 
 pub use model::*;
-pub use query::{ALL_PLATFORMS, Counts, Group, Query, Sort, SortKey};
+pub use query::{ALL_PLATFORMS, Counts, Group, Query, Sort, SortKey, merge_query_string};
 pub use site::*;
 pub use validate::{
     Diagnostic, Project, Severity, SourceFile, check_issue_form, has_errors, is_slug, validate,
