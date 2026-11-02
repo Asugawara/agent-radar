@@ -119,6 +119,18 @@ impl Page {
             String::new()
         }
     }
+    /// Google Tag Manager loader, only on the production origin (empty when `gtm_id` is unset).
+    pub fn gtm_script(&self) -> String {
+        let Some(id) = self.site.gtm_id.as_deref() else {
+            return String::new();
+        };
+        let origin = serde_json::to_string(self.site.origin.trim_end_matches('/'))
+            .unwrap_or_else(|_| "\"\"".into())
+            .replace('<', "\\u003c");
+        format!(
+            "<script>\nif (location.origin === {origin}) {{\n  window.dataLayer = window.dataLayer || [];\n  window.gtag = function(){{dataLayer.push(arguments);}};\n  gtag('js', new Date());\n  var s = document.createElement('script');\n  s.async = true;\n  s.src = 'https://www.googletagmanager.com/gtm.js?id={id}';\n  document.head.appendChild(s);\n}}\n</script>"
+        )
+    }
     /// JSON of the UI texts the table needs (safe inside `<script>`).
     pub fn ui_strings_json(&self) -> String {
         let map: BTreeMap<&String, &String> = self

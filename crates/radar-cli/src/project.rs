@@ -67,7 +67,22 @@ impl Sources {
     }
 }
 
+fn is_gtm_id(id: &str) -> bool {
+    id.strip_prefix("GTM-").is_some_and(|r| {
+        r.len() >= 4
+            && r.bytes()
+                .all(|b| b.is_ascii_uppercase() || b.is_ascii_digit())
+    })
+}
+
 pub fn load_site_config(root: &Path) -> Result<SiteConfig> {
     let f = read(root, "site.toml")?;
-    SiteConfig::parse(&f.text).map_err(|e| anyhow::anyhow!("site.toml: {}", e.message()))
+    let site =
+        SiteConfig::parse(&f.text).map_err(|e| anyhow::anyhow!("site.toml: {}", e.message()))?;
+    if let Some(id) = &site.gtm_id
+        && !is_gtm_id(id)
+    {
+        anyhow::bail!("site.toml: gtm_id must look like GTM-XXXXXXX (got {id:?})");
+    }
+    Ok(site)
 }

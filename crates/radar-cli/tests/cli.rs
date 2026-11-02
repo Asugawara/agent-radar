@@ -230,6 +230,7 @@ fn build_renders_both_languages() {
         assert!(!html.contains("addEventListener"));
     }
     // Only the list pages are built: no per-tool or per-tag pages, no third-party scripts.
+    assert!(!en.contains("googletagmanager"));
     for gone in ["tools", "tags", "ja/tools", "ja/tags"] {
         assert!(!out.join(gone).exists(), "{gone} should not be built");
     }
@@ -252,6 +253,48 @@ fn build_renders_both_languages() {
             "{f} has a missing i18n key"
         );
     }
+}
+
+#[test]
+fn build_embeds_gtm_when_configured() {
+    let root = fixture("gtm");
+    edit(&root.join("site.toml"), |s| {
+        format!("{s}gtm_id = \"GTM-TEST123\"\n")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+    for p in ["index.html", "ja/index.html"] {
+        let html = fs::read_to_string(out.join(p)).unwrap();
+        assert!(html.contains("gtm.js?id=GTM-TEST123"), "{p}");
+        assert!(html.contains("gtag('js', new Date())"), "{p}");
+        assert!(
+            html.contains("location.origin === \"https://asugawara.github.io\""),
+            "{p}"
+        );
+    }
+}
+
+#[test]
+fn build_rejects_malformed_gtm_id() {
+    let root = fixture("gtm-bad");
+    edit(&root.join("site.toml"), |s| {
+        format!("{s}gtm_id = \"GTM-1'</script>\"\n")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(!o.status.success());
+    assert!(
+        String::from_utf8_lossy(&o.stderr).contains("gtm_id"),
+        "{:?}",
+        o
+    );
 }
 
 #[test]
