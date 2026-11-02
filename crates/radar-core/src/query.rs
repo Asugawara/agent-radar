@@ -1,0 +1,760 @@
+//! Filtering, searching and sorting of the tool table, plus the URL query
+//! (`?tag=cli&q=agent&sort=-stars`) it is synchronised with. Pure logic, no
+//! I/O, so the browser (WASM) and the tests use the same code.
+
+use std::collections::{BTreeMap, BTreeSet};
+
+use crate::model::{Platform, Pricing};
+use crate::site::{SiteData, SiteTool};
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SortKey {
+    Name,
+    Stars,
+    /// `pushed_at`
+    Updated,
+    Added,
+}
+
+impl SortKey {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            SortKey::Name => "name",
+            SortKey::Stars => "stars",
+            SortKey::Updated => "updated",
+            SortKey::Added => "added",
+        }
+    }
+
+    fn parse(s: &str) -> Option<Self> {
+        Some(match s {
+            "name" => SortKey::Name,
+            "stars" => SortKey::Stars,
+            "updated" => SortKey::Updated,
+            "added" => SortKey::Added,
+            _ => return None,
+        })
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Sort {
+    pub key: SortKey,
+    pub desc: bool,
+}
+
+impl Default for Sort {
+    fn default() -> Self {
+        Sort {
+            key: SortKey::Name,
+            desc: false,
+        }
+    }
+}
+
+/// What the visitor selected. Inside one group (a tag facet, pricing,
+/// platforms) values are OR-ed; the groups are AND-ed.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct Query {
+    pub tags: BTreeSet<String>,
+    pub q: String,
+    pub pricing: BTreeSet<Pricing>,
+    pub open_source: bool,
+    pub platforms: BTreeSet<Platform>,
+    pub sort: Sort,
+}
+
+/// A group of conditions; used to leave one group out when counting.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Group<'a> {
+    Facet(&'a str),
+    Pricing,
+    OpenSource,
+    Platforms,
+}
+
+/// Number of tools each choice would show, counted with every condition
+/// except the one of its own group applied.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct Counts {
+    pub tags: BTreeMap<String, usize>,
+    pub pricing: BTreeMap<Pricing, usize>,
+    pub open_source: usize,
+    pub platforms: BTreeMap<Platform, usize>,
+}
+
+fn facet_of<'a>(data: &'a SiteData, tag: &str) -> Option<&'a str> {
+    data.facets
+        .iter()
+        .find(|f| f.tags.iter().any(|t| t.id == tag))
+        .map(|f| f.id.as_str())
+}
+
+fn tag_label<'a>(data: &'a SiteData, tag: &str, lang: &str) -> &'a str {
+    data.facets
+        .iter()
+        .flat_map(|f| f.tags.iter())
+        .find(|t| t.id == tag)
+        .map(|t| t.label.get(lang))
+        .unwrap_or("")
+}
+
+impl Query {
+    pub fn is_empty(&self) -> bool {
+        self.tags.is_empty()
+            && self.q.trim().is_empty()
+            && self.pricing.is_empty()
+            && !self.open_source
+            && self.platforms.is_empty()
+    }
+
+    /// Number of active filter conditions (the search text is not counted).
+    pub fn filter_count(&self) -> usize {
+        self.tags.len() + self.pricing.len() + self.platforms.len() + usize::from(self.open_source)
+    }
+
+    /// Drop every condition (the sort order stays).
+    pub fn cleared(&self) -> Query {
+        Query {
+            sort: self.sort,
+            ..Query::default()
+        }
+    }
+
+    fn matches_text(&self, data: &SiteData, tool: &SiteTool, lang: &str) -> bool {
+        let words: Vec<String> = self
+            .q
+            .split_whitespace()
+            .map(|w| w.to_lowercase())
+            .collect();
+        if words.is_empty() {
+            return true;
+        }
+        let mut hay = format!("{}\n{}", tool.name, tool.summary.get(lang));
+        for t in &tool.tags {
+            hay.push('\n');
+            hay.push_str(tag_label(data, t, lang));
+        }
+        let hay = hay.to_lowercase();
+        words.iter().all(|w| hay.contains(w.as_str()))
+    }
+
+    /// Does `tool` satisfy every condition, ignoring the `skip` group?
+    pub fn matches(
+        &self,
+        data: &SiteData,
+        tool: &SiteTool,
+        lang: &str,
+        skip: Option<&Group>,
+    ) -> bool {
+        let skipped = |g: Group| skip == Some(&g);
+        if !self.matches_text(data, tool, lang) {
+            return false;
+        }
+        if !skipped(Group::Pricing)
+            && !self.pricing.is_empty()
+            && !self.pricing.contains(&tool.pricing)
+        {
+            return false;
+        }
+        if !skipped(Group::OpenSource) && self.open_source && !tool.open_source {
+            return false;
+        }
+        if !skipped(Group::Platforms)
+            && !self.platforms.is_empty()
+            && !tool.platforms.iter().any(|p| self.platforms.contains(p))
+        {
+            return false;
+        }
+        for facet in &data.facets {
+            if skipped(Group::Facet(&facet.id)) {
+                continue;
+            }
+            let selected: Vec<&String> = facet
+                .tags
+                .iter()
+                .map(|t| &t.id)
+                .filter(|id| self.tags.contains(*id))
+                .collect();
+            if !selected.is_empty() && !selected.iter().any(|id| tool.tags.contains(*id)) {
+                return false;
+            }
+        }
+        true
+    }
+
+    /// Matching tools in the requested order.
+    pub fn apply<'a>(&self, data: &'a SiteData, lang: &str) -> Vec<&'a SiteTool> {
+        let mut out: Vec<&SiteTool> = data
+            .tools
+            .iter()
+            .filter(|t| self.matches(data, t, lang, None))
+            .collect();
+        sort_tools(&mut out, self.sort);
+        out
+    }
+
+    pub fn counts(&self, data: &SiteData, lang: &str) -> Counts {
+        let mut c = Counts::default();
+        for facet in &data.facets {
+            let g = Group::Facet(&facet.id);
+            for t in &facet.tags {
+                let n = data
+                    .tools
+                    .iter()
+                    .filter(|tool| {
+                        tool.tags.contains(&t.id) && self.matches(data, tool, lang, Some(&g))
+                    })
+                    .count();
+                c.tags.insert(t.id.clone(), n);
+            }
+        }
+        for p in [Pricing::Free, Pricing::Freemium, Pricing::Paid] {
+            let n = data
+                .tools
+                .iter()
+                .filter(|t| t.pricing == p && self.matches(data, t, lang, Some(&Group::Pricing)))
+                .count();
+            c.pricing.insert(p, n);
+        }
+        c.open_source = data
+            .tools
+            .iter()
+            .filter(|t| t.open_source && self.matches(data, t, lang, Some(&Group::OpenSource)))
+            .count();
+        for p in ALL_PLATFORMS {
+            let n = data
+                .tools
+                .iter()
+                .filter(|t| {
+                    t.platforms.contains(&p) && self.matches(data, t, lang, Some(&Group::Platforms))
+                })
+                .count();
+            c.platforms.insert(p, n);
+        }
+        c
+    }
+
+    /// Parse `a=b&c=d` (a leading `?` is fine). Unknown keys and values are
+    /// ignored; tags are checked against `data`.
+    pub fn parse(query: &str, data: &SiteData) -> Query {
+        let mut out = Query::default();
+        for pair in query.trim_start_matches('?').split('&') {
+            let (k, v) = pair.split_once('=').unwrap_or((pair, ""));
+            let (k, v) = (decode(k), decode(v));
+            match k.as_str() {
+                "tag" => {
+                    if facet_of(data, &v).is_some() {
+                        out.tags.insert(v);
+                    }
+                }
+                "q" => out.q = v,
+                "pricing" => {
+                    if let Some(p) = parse_pricing(&v) {
+                        out.pricing.insert(p);
+                    }
+                }
+                "oss" => out.open_source = v == "1",
+                "platform" => {
+                    if let Some(p) = parse_platform(&v) {
+                        out.platforms.insert(p);
+                    }
+                }
+                "sort" => {
+                    let (desc, name) = match v.strip_prefix('-') {
+                        Some(rest) => (true, rest),
+                        None => (false, v.as_str()),
+                    };
+                    if let Some(key) = SortKey::parse(name) {
+                        out.sort = Sort { key, desc };
+                    }
+                }
+                _ => {}
+            }
+        }
+        out
+    }
+
+    /// Inverse of [`Query::parse`], without the leading `?`. Empty when
+    /// nothing differs from the default.
+    pub fn to_query_string(&self) -> String {
+        let mut parts: Vec<String> = Vec::new();
+        for t in &self.tags {
+            parts.push(format!("tag={}", encode(t)));
+        }
+        if !self.q.trim().is_empty() {
+            parts.push(format!("q={}", encode(self.q.trim())));
+        }
+        for p in &self.pricing {
+            parts.push(format!("pricing={}", p.as_str()));
+        }
+        if self.open_source {
+            parts.push("oss=1".into());
+        }
+        for p in &self.platforms {
+            parts.push(format!("platform={}", p.as_str()));
+        }
+        if self.sort != Sort::default() {
+            let dash = if self.sort.desc { "-" } else { "" };
+            parts.push(format!("sort={dash}{}", self.sort.key.as_str()));
+        }
+        parts.join("&")
+    }
+}
+
+pub const ALL_PLATFORMS: [Platform; 6] = [
+    Platform::Macos,
+    Platform::Windows,
+    Platform::Linux,
+    Platform::Web,
+    Platform::Ios,
+    Platform::Android,
+];
+
+fn parse_pricing(s: &str) -> Option<Pricing> {
+    [Pricing::Free, Pricing::Freemium, Pricing::Paid]
+        .into_iter()
+        .find(|p| p.as_str() == s)
+}
+
+fn parse_platform(s: &str) -> Option<Platform> {
+    ALL_PLATFORMS.into_iter().find(|p| p.as_str() == s)
+}
+
+/// Sort in place. Tools without a value for `stars` / `updated` always come
+/// last, whichever the direction. Ties fall back to the name (A–Z).
+pub fn sort_tools(tools: &mut [&SiteTool], sort: Sort) {
+    use std::cmp::Ordering;
+    tools.sort_by(|a, b| {
+        let by_name = || a.name.to_lowercase().cmp(&b.name.to_lowercase());
+        let ord = match sort.key {
+            SortKey::Name => {
+                let o = by_name();
+                return if sort.desc { o.reverse() } else { o };
+            }
+            SortKey::Added => directed(a.added.cmp(&b.added), sort.desc),
+            SortKey::Stars => match (a.stars, b.stars) {
+                (Some(x), Some(y)) => directed(x.cmp(&y), sort.desc),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
+            SortKey::Updated => match (&a.pushed_at, &b.pushed_at) {
+                (Some(x), Some(y)) => directed(x.cmp(y), sort.desc),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
+        };
+        ord.then_with(by_name)
+    });
+}
+
+fn directed(o: std::cmp::Ordering, desc: bool) -> std::cmp::Ordering {
+    if desc { o.reverse() } else { o }
+}
+
+/// Percent-decode (`+` is a space). Invalid escapes are kept as they are.
+pub fn decode(s: &str) -> String {
+    let b = s.as_bytes();
+    let mut out = Vec::with_capacity(b.len());
+    let mut i = 0;
+    while i < b.len() {
+        match b[i] {
+            b'+' => out.push(b' '),
+            b'%' if i + 2 < b.len() && hex(b[i + 1]).is_some() && hex(b[i + 2]).is_some() => {
+                out.push(hex(b[i + 1]).unwrap() * 16 + hex(b[i + 2]).unwrap());
+                i += 2;
+            }
+            c => out.push(c),
+        }
+        i += 1;
+    }
+    String::from_utf8_lossy(&out).into_owned()
+}
+
+fn hex(c: u8) -> Option<u8> {
+    (c as char).to_digit(16).map(|d| d as u8)
+}
+
+/// Percent-encode everything except unreserved characters.
+pub fn encode(s: &str) -> String {
+    let mut out = String::new();
+    for b in s.bytes() {
+        if b.is_ascii_alphanumeric() || matches!(b, b'-' | b'_' | b'.' | b'~') {
+            out.push(b as char);
+        } else {
+            out.push_str(&format!("%{b:02X}"));
+        }
+    }
+    out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::Lang;
+    use crate::site::{SiteFacet, SiteTag};
+
+    fn l(en: &str, ja: &str) -> Lang {
+        Lang {
+            en: en.into(),
+            ja: ja.into(),
+        }
+    }
+
+    fn tag(id: &str, en: &str, ja: &str) -> SiteTag {
+        SiteTag {
+            id: id.into(),
+            label: l(en, ja),
+            icon: None,
+        }
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn tool(
+        id: &str,
+        pricing: Pricing,
+        oss: bool,
+        platforms: &[Platform],
+        tags: &[&str],
+        added: &str,
+        stars: Option<u64>,
+        pushed: Option<&str>,
+    ) -> SiteTool {
+        SiteTool {
+            id: id.into(),
+            name: id.to_string(),
+            url: format!("https://example.com/{id}"),
+            repo: None,
+            summary: l(&format!("{id} summary"), &format!("{id} の概要")),
+            pricing,
+            open_source: oss,
+            platforms: platforms.to_vec(),
+            tags: tags.iter().map(|s| s.to_string()).collect(),
+            added: added.into(),
+            links: Default::default(),
+            stars,
+            pushed_at: pushed.map(String::from),
+            archived: false,
+            favicon: None,
+        }
+    }
+
+    fn data() -> SiteData {
+        use Platform::*;
+        use Pricing::*;
+        SiteData {
+            generated_at: "2026-01-01T00:00:00Z".into(),
+            facets: vec![
+                SiteFacet {
+                    id: "category".into(),
+                    label: l("Category", "カテゴリ"),
+                    min: 1,
+                    max: Some(3),
+                    tags: vec![
+                        tag("cli", "CLI", "CLI"),
+                        tag("mcp-server", "MCP server", "MCP サーバー"),
+                        tag("sandbox", "Sandbox", "サンドボックス"),
+                    ],
+                },
+                SiteFacet {
+                    id: "works".into(),
+                    label: l("Works with", "対応"),
+                    min: 0,
+                    max: None,
+                    tags: vec![tag("works-with-claude", "Claude", "Claude")],
+                },
+            ],
+            tools: vec![
+                tool(
+                    "alpha",
+                    Free,
+                    true,
+                    &[Macos, Linux],
+                    &["cli", "works-with-claude"],
+                    "2026-01-03",
+                    Some(100),
+                    Some("2026-03-01T00:00:00Z"),
+                ),
+                tool(
+                    "Beta",
+                    Freemium,
+                    false,
+                    &[Web],
+                    &["mcp-server"],
+                    "2026-01-01",
+                    Some(5000),
+                    Some("2026-02-01T00:00:00Z"),
+                ),
+                tool(
+                    "gamma",
+                    Paid,
+                    true,
+                    &[Windows, Web],
+                    &["cli", "sandbox"],
+                    "2026-01-02",
+                    None,
+                    None,
+                ),
+                tool(
+                    "delta",
+                    Free,
+                    false,
+                    &[Linux],
+                    &["sandbox", "works-with-claude"],
+                    "2026-01-04",
+                    Some(100),
+                    Some("2026-04-01T00:00:00Z"),
+                ),
+            ],
+        }
+    }
+
+    fn ids(v: &[&SiteTool]) -> Vec<String> {
+        v.iter().map(|t| t.id.clone()).collect()
+    }
+
+    fn q(s: &str) -> Query {
+        Query::parse(s, &data())
+    }
+
+    #[test]
+    fn filter_count_ignores_search_text() {
+        let mut q = Query::default();
+        assert_eq!(q.filter_count(), 0);
+        q.q = "mcp".into();
+        q.tags.insert("cli".into());
+        q.pricing.insert(Pricing::Free);
+        q.open_source = true;
+        assert_eq!(q.filter_count(), 3);
+    }
+
+    #[test]
+    fn empty_query_shows_everything_by_name() {
+        let d = data();
+        assert_eq!(
+            ids(&Query::default().apply(&d, "en")),
+            ["alpha", "Beta", "delta", "gamma"]
+        );
+    }
+
+    #[test]
+    fn tags_in_a_facet_are_or() {
+        let d = data();
+        assert_eq!(
+            ids(&q("tag=cli&tag=mcp-server").apply(&d, "en")),
+            ["alpha", "Beta", "gamma"]
+        );
+    }
+
+    #[test]
+    fn facets_are_and() {
+        let d = data();
+        assert_eq!(
+            ids(&q("tag=cli&tag=sandbox&tag=works-with-claude").apply(&d, "en")),
+            ["alpha", "delta"]
+        );
+    }
+
+    #[test]
+    fn pricing_and_platforms_or_inside_and_between() {
+        let d = data();
+        assert_eq!(
+            ids(&q("pricing=free&pricing=paid").apply(&d, "en")),
+            ["alpha", "delta", "gamma"]
+        );
+        assert_eq!(
+            ids(&q("platform=web&platform=linux").apply(&d, "en")),
+            ["alpha", "Beta", "delta", "gamma"]
+        );
+        assert_eq!(
+            ids(&q("pricing=free&platform=linux&oss=1").apply(&d, "en")),
+            ["alpha"]
+        );
+    }
+
+    #[test]
+    fn open_source_flag() {
+        let d = data();
+        assert_eq!(ids(&q("oss=1").apply(&d, "en")), ["alpha", "gamma"]);
+        assert_eq!(ids(&q("oss=0").apply(&d, "en")).len(), 4);
+    }
+
+    #[test]
+    fn text_search_covers_name_summary_and_tag_labels_ignoring_case() {
+        let d = data();
+        assert_eq!(ids(&q("q=BETA").apply(&d, "en")), ["Beta"]);
+        assert_eq!(ids(&q("q=gamma%20summary").apply(&d, "en")), ["gamma"]);
+        assert_eq!(ids(&q("q=mcp+server").apply(&d, "en")), ["Beta"]);
+        // the tag label of the displayed language is searched
+        assert_eq!(
+            ids(&q("q=サンドボックス").apply(&d, "ja")),
+            ["delta", "gamma"]
+        );
+        assert!(q("q=サンドボックス").apply(&d, "en").is_empty());
+        // summary of the other language is not searched
+        assert!(
+            q("q=%E3%81%AE%E6%A6%82%E8%A6%81")
+                .apply(&d, "en")
+                .is_empty()
+        );
+        assert_eq!(q("q=%E3%81%AE%E6%A6%82%E8%A6%81").apply(&d, "ja").len(), 4);
+    }
+
+    #[test]
+    fn text_search_combines_with_filters() {
+        let d = data();
+        assert_eq!(
+            ids(&q("q=a&tag=sandbox").apply(&d, "en")),
+            ["delta", "gamma"]
+        );
+        assert_eq!(
+            ids(&q("q=alpha&tag=sandbox").apply(&d, "en")),
+            Vec::<String>::new()
+        );
+    }
+
+    #[test]
+    fn counts_ignore_only_their_own_group() {
+        let d = data();
+        let query = q("tag=cli&pricing=free");
+        let c = query.counts(&d, "en");
+        // category count: pricing=free applied, category ignored
+        assert_eq!(c.tags["cli"], 1); // alpha
+        assert_eq!(c.tags["sandbox"], 1); // delta
+        assert_eq!(c.tags["mcp-server"], 0);
+        // works facet: category=cli and pricing=free applied
+        assert_eq!(c.tags["works-with-claude"], 1); // alpha
+        // pricing: category=cli applied, pricing ignored
+        assert_eq!(c.pricing[&Pricing::Free], 1);
+        assert_eq!(c.pricing[&Pricing::Paid], 1);
+        assert_eq!(c.pricing[&Pricing::Freemium], 0);
+        assert_eq!(c.open_source, 1);
+        assert_eq!(c.platforms[&Platform::Linux], 1);
+    }
+
+    #[test]
+    fn counts_include_the_search_text() {
+        let d = data();
+        let c = q("q=delta").counts(&d, "en");
+        assert_eq!(c.tags["sandbox"], 1);
+        assert_eq!(c.tags["cli"], 0);
+    }
+
+    #[test]
+    fn sort_stars_missing_last_both_directions() {
+        let d = data();
+        let mut query = q("sort=stars");
+        assert_eq!(
+            ids(&query.apply(&d, "en")),
+            ["alpha", "delta", "Beta", "gamma"]
+        );
+        query = q("sort=-stars");
+        assert_eq!(
+            ids(&query.apply(&d, "en")),
+            ["Beta", "alpha", "delta", "gamma"]
+        );
+    }
+
+    #[test]
+    fn sort_updated_and_added() {
+        let d = data();
+        assert_eq!(
+            ids(&q("sort=-updated").apply(&d, "en")),
+            ["delta", "alpha", "Beta", "gamma"]
+        );
+        assert_eq!(
+            ids(&q("sort=updated").apply(&d, "en")),
+            ["Beta", "alpha", "delta", "gamma"]
+        );
+        assert_eq!(
+            ids(&q("sort=added").apply(&d, "en")),
+            ["Beta", "gamma", "alpha", "delta"]
+        );
+        assert_eq!(
+            ids(&q("sort=-added").apply(&d, "en")),
+            ["delta", "alpha", "gamma", "Beta"]
+        );
+    }
+
+    #[test]
+    fn sort_name_desc_is_case_insensitive() {
+        let d = data();
+        assert_eq!(
+            ids(&q("sort=-name").apply(&d, "en")),
+            ["gamma", "delta", "Beta", "alpha"]
+        );
+    }
+
+    #[test]
+    fn parse_ignores_unknown_keys_and_values() {
+        let query =
+            q("?tag=nope&tag=cli&foo=bar&pricing=gold&platform=amiga&sort=bogus&oss=yes&q=x");
+        assert_eq!(query.tags, BTreeSet::from(["cli".to_string()]));
+        assert!(query.pricing.is_empty() && query.platforms.is_empty());
+        assert_eq!(query.sort, Sort::default());
+        assert!(!query.open_source);
+        assert_eq!(query.q, "x");
+    }
+
+    #[test]
+    fn parse_the_documented_example() {
+        let query =
+            q("?tag=cli&tag=mcp-server&q=agent&pricing=free&oss=1&platform=macos&sort=-stars");
+        assert_eq!(query.tags.len(), 2);
+        assert_eq!(query.q, "agent");
+        assert!(query.pricing.contains(&Pricing::Free));
+        assert!(query.open_source);
+        assert!(query.platforms.contains(&Platform::Macos));
+        assert_eq!(
+            query.sort,
+            Sort {
+                key: SortKey::Stars,
+                desc: true
+            }
+        );
+    }
+
+    #[test]
+    fn query_string_round_trips() {
+        let query =
+            q("tag=mcp-server&tag=cli&q=a%20b%26c&pricing=free&oss=1&platform=macos&sort=-stars");
+        let s = query.to_query_string();
+        assert_eq!(
+            s,
+            "tag=cli&tag=mcp-server&q=a%20b%26c&pricing=free&oss=1&platform=macos&sort=-stars"
+        );
+        assert_eq!(q(&s), query);
+        assert_eq!(Query::default().to_query_string(), "");
+        // default sort is not written
+        assert_eq!(q("sort=name").to_query_string(), "");
+        assert_eq!(q("sort=-name").to_query_string(), "sort=-name");
+    }
+
+    #[test]
+    fn non_ascii_search_round_trips() {
+        let query = Query {
+            q: "サンド ボックス".into(),
+            ..Query::default()
+        };
+        let s = query.to_query_string();
+        assert!(s.is_ascii());
+        assert_eq!(q(&s).q, "サンド ボックス");
+    }
+
+    #[test]
+    fn clear_keeps_sort() {
+        let c = q("tag=cli&q=x&sort=-stars").cleared();
+        assert!(c.is_empty());
+        assert_eq!(c.sort.key, SortKey::Stars);
+    }
+
+    #[test]
+    fn decode_handles_plus_and_bad_escapes() {
+        assert_eq!(decode("a+b%20c"), "a b c");
+        assert_eq!(decode("100%"), "100%");
+        assert_eq!(decode("%zz"), "%zz");
+        assert_eq!(decode("%41"), "A");
+    }
+}

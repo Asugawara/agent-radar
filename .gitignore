@@ -1,0 +1,13 @@
+# Rust build output
+/target/
+
+# Generated site
+/dist/
+
+# wasm-bindgen output for the table UI
+/crates/radar-web/pkg/
+
+# Local checkout of the bot-state branch (link health state)
+/.bot-state/
+
+.DS_Store
