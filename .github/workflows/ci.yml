@@ -4,6 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  # maintain.yml starts CI on its bot branch: pull requests opened with
+  # GITHUB_TOKEN do not trigger pull_request.
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
