@@ -30,6 +30,7 @@ icons!(
     "git-branch",
     "languages",
     "layers",
+    "moon",
     "mouse-pointer-click",
     "plug",
     "puzzle",
@@ -37,6 +38,7 @@ icons!(
     "search",
     "sliders-horizontal",
     "star",
+    "sun",
     "x",
 );
 

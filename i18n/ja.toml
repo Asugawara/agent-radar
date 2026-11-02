@@ -3,7 +3,8 @@ en = "English"
 ja = "日本語"
 
 [header]
-github = "GitHub"
+github = "GitHub でソースを見る"
+theme = "ライト/ダークを切り替え"
 home = "ホーム"
 
 [table]

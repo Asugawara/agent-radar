@@ -4,6 +4,7 @@ ja = "日本語"
 
 [header]
 github = "GitHub"
+theme = "Theme"
 home = "ホーム"
 
 [table]
