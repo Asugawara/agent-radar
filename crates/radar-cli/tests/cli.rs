@@ -195,11 +195,16 @@ fn build_renders_both_languages() {
         "ja/removed/index.html",
         "tools.json",
         "static/style.css",
+        "static/brand/favicon-32.png",
+        "static/brand/apple-touch-icon.png",
+        "static/brand/logo-48.png",
     ] {
         assert!(out.join(p).exists(), "missing {p}");
     }
     let en = fs::read_to_string(out.join("index.html")).unwrap();
     let ja = fs::read_to_string(out.join("ja/index.html")).unwrap();
+    assert!(en.contains("href=\"/x/static/brand/favicon-32.png\""));
+    assert!(en.contains("src=\"/x/static/brand/logo-48.png\""));
     assert_eq!(en.matches("<tr").count(), 3);
     assert!(
         en.contains("<div id=\"filters\">")
@@ -366,8 +371,9 @@ fn build_with_favicons_shows_image_or_initial() {
     assert!(en.contains(
         "<img src=\"/x/favicons/alpha.png\" width=\"20\" height=\"20\" loading=\"lazy\" alt=\"\""
     ));
-    // beta has no icon: its initial in a circle, and no <img>.
-    assert_eq!(en.matches("<img").count(), 1);
+    // beta has no icon: its initial in a circle, and no favicon <img>.
+    // (The header logo is an <img> too, so only count favicon images.)
+    assert_eq!(en.matches("<img src=\"/x/favicons/").count(), 1);
     assert!(en.contains("class=\"fav-i\"") && en.contains(">B</span>"));
     assert!(en.contains("\"favicon\":\"/x/favicons/alpha.png\""));
 }
