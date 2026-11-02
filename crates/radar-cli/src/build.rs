@@ -15,7 +15,7 @@ use time::format_description::well_known::Rfc3339;
 use crate::project::{Sources, load_site_config};
 
 const CSS: &str = include_str!("../../../static/style.css");
-/// Brand images copied to `static/brand/`; `icon-512.png` is only for the README.
+/// Brand images copied to `static/brand/`; `icon-256.png` is only for the README.
 const BRAND: &[(&str, &[u8])] = &[
     (
         "static/brand/favicon-32.png",
