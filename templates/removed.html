@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ page.t("removed.title") }}</h1>
+<p>{{ page.t("removed.intro") }}</p>
+{% if items.is_empty() %}
+<p>{{ page.t("removed.empty") }}</p>
+{% else %}
+<table>
+<thead>
+<tr>
+<th>{{ page.t("table.name") }}</th>
+<th>{{ page.t("removed.reason") }}</th>
+<th>{{ page.t("removed.since") }}</th>
+</tr>
+</thead>
+<tbody>
+{% for i in items %}
+<tr>
+<td><a href="{{ i.url }}">{{ i.name }}</a></td>
+<td>{{ i.reason }}</td>
+<td>{{ i.since }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% endblock %}

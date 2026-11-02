@@ -1,0 +1,46 @@
+[[facet]]
+id = "category"
+label = { en = "Category", ja = "カテゴリ" }
+min = 1
+max = 3
+
+  [[facet.tag]]
+  id = "coding-agent"
+  icon = "code"
+  label = { en = "Coding agent", ja = "コーディングエージェント" }
+  description = { en = "Coding agent d", ja = "コーディングエージェント 説明" }
+
+  [[facet.tag]]
+  id = "sandbox"
+  label = { en = "Sandbox", ja = "サンドボックス" }
+  description = { en = "Sandbox d", ja = "サンドボックス 説明" }
+
+  [[facet.tag]]
+  id = "memory"
+  label = { en = "Memory", ja = "メモリ" }
+  description = { en = "Memory d", ja = "メモリ 説明" }
+
+  [[facet.tag]]
+  id = "gateway"
+  label = { en = "Gateway", ja = "ゲートウェイ" }
+  description = { en = "Gateway d", ja = "ゲートウェイ 説明" }
+
+[[facet]]
+id = "interface"
+label = { en = "Interface", ja = "インターフェース" }
+min = 1
+
+  [[facet.tag]]
+  id = "cli"
+  label = { en = "CLI", ja = "CLI" }
+  description = { en = "CLI d", ja = "CLI 説明" }
+
+[[facet]]
+id = "capability"
+label = { en = "Capability", ja = "機能" }
+min = 0
+
+  [[facet.tag]]
+  id = "parallel"
+  label = { en = "Parallel", ja = "並列" }
+  description = { en = "Parallel d", ja = "並列 説明" }

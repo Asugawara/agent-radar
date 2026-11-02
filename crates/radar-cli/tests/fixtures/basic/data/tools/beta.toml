@@ -1,0 +1,9 @@
+name = "Beta"
+url = "https://beta.example"
+summary.en = "Beta in English"
+summary.ja = "Beta の日本語説明"
+pricing = "free"
+open_source = true
+platforms = ["linux"]
+tags = ["memory", "gateway", "cli"]
+added = 2026-11-02

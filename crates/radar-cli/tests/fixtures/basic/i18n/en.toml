@@ -1,0 +1,57 @@
+[lang]
+en = "English"
+ja = "日本語"
+
+[header]
+github = "GitHub"
+home = "Home"
+
+[table]
+name = "Name"
+category = "Category"
+summary = "Summary"
+tags = "Tags"
+pricing = "Pricing"
+oss = "OSS"
+platforms = "Platforms"
+stars = "Stars"
+added = "Added"
+updated = "Updated"
+oss_yes = "Open source"
+oss_no = "Not open source"
+empty = "No tools yet."
+
+[pricing]
+free = "Free"
+freemium = "Freemium"
+paid = "Paid"
+
+[platform]
+macos = "macOS"
+windows = "Windows"
+linux = "Linux"
+web = "Web"
+ios = "iOS"
+android = "Android"
+
+[footer]
+add_tool = "Add a tool"
+suggest_tool = "Suggest a tool"
+updated = "Last updated"
+removed = "Removed tools"
+
+[removed]
+title = "Removed tools"
+intro = "These tools are hidden from the list because their site stopped responding. They come back automatically when the site recovers."
+reason = "Reason"
+since = "Hidden since"
+empty = "No tools have been removed."
+
+[ui]
+search_placeholder = "Search name, summary, tags"
+search_label = "Search"
+count = "{shown} / {total}"
+filters = "Filters"
+clear = "Clear"
+oss_only = "Open source only"
+no_match = "No tools match the filters."

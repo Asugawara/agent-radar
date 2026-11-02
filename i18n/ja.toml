@@ -1,0 +1,57 @@
+[lang]
+en = "English"
+ja = "日本語"
+
+[header]
+github = "GitHub"
+home = "ホーム"
+
+[table]
+name = "名前"
+category = "カテゴリ"
+summary = "概要"
+tags = "タグ"
+pricing = "価格"
+oss = "OSS"
+platforms = "対応環境"
+stars = "スター"
+added = "追加日"
+updated = "更新"
+oss_yes = "オープンソース"
+oss_no = "オープンソースではない"
+empty = "ツールはまだありません。"
+
+[pricing]
+free = "無料"
+freemium = "一部無料"
+paid = "有料"
+
+[platform]
+macos = "macOS"
+windows = "Windows"
+linux = "Linux"
+web = "Web"
+ios = "iOS"
+android = "Android"
+
+[footer]
+add_tool = "ツールを追加"
+suggest_tool = "ツールを提案"
+updated = "最終更新"
+removed = "削除されたツール"
+
+[removed]
+title = "削除されたツール"
+intro = "サイトが応答しなくなったため、一覧から非表示にしているツールです。サイトが復旧すると自動で戻ります。"
+reason = "理由"
+since = "非表示にした日"
+empty = "削除されたツールはありません。"
+
+[ui]
+search_placeholder = "名前・概要・タグで検索"
+search_label = "検索"
+count = "{shown} / {total}"
+filters = "絞り込み"
+clear = "クリア"
+oss_only = "オープンソースのみ"
+no_match = "条件に合うツールがありません。"

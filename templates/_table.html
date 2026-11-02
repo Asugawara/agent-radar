@@ -1,0 +1,24 @@
+<table>
+<thead>
+<tr>
+<th class="col-name"{% if interactive %} aria-sort="ascending"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.name") }}{{ page.icon("arrow-up")|safe }}</span>{% else %}{{ page.t("table.name") }}{% endif %}</th>
+<th class="col-category">{{ page.t("table.category") }}</th>
+<th class="col-pricing">{{ page.t("table.pricing") }}</th>
+<th class="col-oss">{{ page.t("table.oss") }}</th>
+<th class="col-stars num"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.stars") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.stars") }}{% endif %}</th>
+<th class="col-updated"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.updated") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.updated") }}{% endif %}</th>
+</tr>
+</thead>
+<tbody>
+{% for r in rows %}
+<tr data-id="{{ r.id }}">
+<td class="col-name"><div class="tool-cell"><span class="fav">{{ page.fav(r)|safe }}</span><div class="tool-main"><a class="tool-name" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% if let Some(repo) = r.repo %}<a class="repo-link" href="https://github.com/{{ repo }}" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">{{ page.icon("code")|safe }}</a>{% endif %}<div class="summary">{{ r.summary }}</div></div></div></td>
+<td class="col-category">{% for b in r.categories %}<a class="badge badge-category" href="{{ page.url(b.path) }}">{{ page.icon(b.icon)|safe }}{{ b.label }}</a> {% endfor %}</td>
+<td class="col-pricing">{{ r.pricing }}</td>
+{% if r.oss %}<td class="col-oss" title="{{ page.t("table.oss_yes") }}">{{ page.icon("git-branch")|safe }}</td>{% else %}<td class="col-oss muted" title="{{ page.t("table.oss_no") }}">—</td>{% endif %}
+{% if r.stars.is_empty() %}<td class="col-stars num muted">—</td>{% else %}<td class="col-stars num" title="{{ r.stars_full }}">{{ page.icon("star")|safe }}{{ r.stars }}</td>{% endif %}
+{% if r.updated.is_empty() %}<td class="col-updated muted">—</td>{% else %}<td class="col-updated" title="{{ r.updated_title }}">{{ r.updated }}</td>{% endif %}
+</tr>
+{% endfor %}
+</tbody>
+</table>

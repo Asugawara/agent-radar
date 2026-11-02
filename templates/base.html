@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ page.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }}</title>
+<link rel="stylesheet" href="{{ page.css_url() }}">
+<link rel="canonical" href="{{ page.canonical() }}">
+<link rel="alternate" hreflang="en" href="{{ page.abs_url_for("en") }}">
+<link rel="alternate" hreflang="ja" href="{{ page.abs_url_for("ja") }}">
+<link rel="alternate" hreflang="x-default" href="{{ page.abs_url_for("en") }}">
+</head>
+<body>
+<header class="site-header">
+<a class="site-name" href="{{ page.url("") }}">{{ page.site_title() }}</a>
+<nav>
+<a id="lang-switch" data-lang-switch data-base="{{ page.url_for(page.other_lang()) }}" href="{{ page.url_for(page.other_lang()) }}" hreflang="{{ page.other_lang() }}">{{ page.icon("languages")|safe }}{{ page.other_lang_name() }}</a>
+<a href="https://github.com/{{ page.repo() }}">{{ page.icon("external-link")|safe }}{{ page.t("header.github") }}</a>
+</nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+<a href="{{ page.add_tool_url() }}">{{ page.t("footer.add_tool") }}</a>
+<a href="{{ page.suggest_tool_url() }}">{{ page.t("footer.suggest_tool") }}</a>
+<a href="{{ page.url("removed/") }}">{{ page.t("footer.removed") }}</a>
+<span>{{ page.t("footer.updated") }}: <time datetime="{{ page.generated_at }}">{{ page.generated_at }}</time></span>
+</footer>
+<script>
+document.querySelectorAll('a[data-lang-switch]').forEach(function (a) {
+  a.href = a.dataset.base + location.search + location.hash;
+});
+</script>
+</body>
+</html>

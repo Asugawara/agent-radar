@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="filters">
+{% if page.has_wasm() %}
+<div class="toolbar">
+<label class="searchbox">{{ page.icon("search")|safe }}<input type="search" class="search" disabled placeholder="{{ page.t("ui.search_placeholder") }}" aria-label="{{ page.t("ui.search_label") }}"></label>
+<button type="button" class="filter-toggle" disabled aria-expanded="false">{{ page.icon("sliders-horizontal")|safe }}<span>{{ page.t("ui.filters") }}</span></button>
+<span class="result-count">{{ count }}</span>
+</div>
+{% endif %}
+</div>
+<div id="tool-table" data-base="{{ page.data_base() }}">
+{% include "_table.html" %}
+</div>
+<script type="application/json" id="site-data">{{ site_json|safe }}</script>
+<script type="application/json" id="ui-strings">{{ page.ui_strings_json()|safe }}</script>
+{{ page.wasm_script()|safe }}
+{% endblock %}

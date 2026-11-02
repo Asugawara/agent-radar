@@ -1,0 +1,9 @@
+name = "Alpha"
+url = "https://alpha.example"
+summary.en = "Alpha in English"
+summary.ja = "Alpha の日本語説明"
+pricing = "free"
+open_source = true
+platforms = ["linux"]
+tags = ["coding-agent", "sandbox", "cli", "parallel"]
+added = 2026-11-02
