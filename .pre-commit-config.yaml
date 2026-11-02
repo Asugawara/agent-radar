@@ -1,0 +1,65 @@
+# Install once: pre-commit install   (also installs the pre-push hooks)
+default_install_hook_types: [pre-commit, pre-push]
+
+# Generated/vendored files that should not be rewritten by whitespace fixers:
+# static/icons/*.svg are third-party SVGs kept byte-for-byte, Cargo.lock is
+# written by cargo.
+exclude: ^(static/icons/.*\.svg|Cargo\.lock)$
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: mixed-line-ending
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+
+  - repo: local
+    hooks:
+      - id: cargo-fmt
+        name: cargo fmt --check
+        entry: cargo fmt --all -- --check
+        language: system
+        types: [rust]
+        pass_filenames: false
+      - id: radar-validate
+        name: radar validate
+        entry: cargo run -q -p radar-cli -- validate
+        language: system
+        files: ^(data/|i18n/|site\.toml$|\.github/ISSUE_TEMPLATE/)
+        pass_filenames: false
+      - id: radar-fmt
+        name: radar fmt --check
+        entry: cargo run -q -p radar-cli -- fmt --check
+        language: system
+        files: ^(data/|i18n/|site\.toml$|\.github/ISSUE_TEMPLATE/)
+        pass_filenames: false
+      # Slow: run on push only.
+      - id: cargo-clippy
+        name: cargo clippy
+        entry: cargo clippy --workspace --all-targets -- -D warnings
+        language: system
+        types: [rust]
+        pass_filenames: false
+        stages: [pre-push]
+      - id: cargo-test
+        name: cargo test
+        entry: cargo test --workspace
+        language: system
+        types: [rust]
+        pass_filenames: false
+        stages: [pre-push]

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Add it yourself with a pull request / PR で直接追加する
+    url: https://github.com/Asugawara/agent-radar#add-a-tool
+    about: Draft a tool file with `radar add <URL>` and open a PR / `radar add <URL>` で下書きを作って PR を送る

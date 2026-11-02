@@ -1,0 +1,41 @@
+name: Set up build
+description: Rust stable with the wasm32 target and cargo cache; optionally wasm-bindgen-cli (pinned to Cargo.lock) and binaryen for the site build.
+
+inputs:
+  components:
+    description: Extra rustup components (comma separated), e.g. "rustfmt, clippy"
+    required: false
+    default: ""
+  site-tools:
+    description: Install wasm-bindgen-cli and binaryen ("true" / "false")
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+      with:
+        components: ${{ inputs.components }}
+        targets: wasm32-unknown-unknown
+    - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+    - name: Read wasm-bindgen version from Cargo.lock
+      if: inputs.site-tools == 'true'
+      shell: bash
+      run: |
+        v=$(grep -A1 '^name = "wasm-bindgen"$' Cargo.lock | sed -n 's/version = "\(.*\)"/\1/p')
+        echo "WASM_BINDGEN_VERSION=$v" >> "$GITHUB_ENV"
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      if: inputs.site-tools == 'true'
+      id: wbg
+      with:
+        path: target/tools
+        key: wasm-bindgen-cli-${{ runner.os }}-${{ env.WASM_BINDGEN_VERSION }}
+    - name: Install wasm-bindgen-cli
+      if: inputs.site-tools == 'true' && steps.wbg.outputs.cache-hit != 'true'
+      shell: bash
+      run: cargo install wasm-bindgen-cli --version "$WASM_BINDGEN_VERSION" --locked --root target/tools
+    - name: Install binaryen (wasm-opt)
+      if: inputs.site-tools == 'true'
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y binaryen

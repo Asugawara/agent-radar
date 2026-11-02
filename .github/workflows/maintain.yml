@@ -1,0 +1,95 @@
+name: Maintain
+
+# Every 6 hours: check links, commit data changes to main, record link health on
+# the orphan `bot-state` branch, then rebuild and deploy the site. Pushes made
+# with GITHUB_TOKEN do not start other workflows, so the deploy job calls
+# deploy.yml directly.
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    # Not the "pages" group: deploy.yml (called below) owns that one.
+    concurrency:
+      group: maintain
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      actions: write # keepalive: re-enable this workflow so the 60-day inactivity rule does not stop it
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+      - uses: ./.github/actions/setup-build
+        with:
+          site-tools: "false"
+
+      - name: Check out bot-state (create it when missing)
+        run: |
+          if git ls-remote --exit-code --heads origin bot-state >/dev/null 2>&1; then
+            git fetch --depth=1 origin bot-state
+            git worktree add .bot-state FETCH_HEAD
+            git -C .bot-state checkout -B bot-state
+          else
+            git worktree add --detach .bot-state
+            git -C .bot-state checkout --orphan bot-state
+            git -C .bot-state rm -rf --quiet . || true
+          fi
+
+      - name: Check links
+        run: cargo run --release -p radar-cli -- check-links --state .bot-state/health.json
+
+      - name: Commit data changes to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data; then
+            echo "No data changes."
+          else
+            {
+              echo "Update link health"
+              echo
+              git diff --name-status -- data
+              echo
+              git diff -U0 -- data | grep -E '^[+-](status|hidden_reason|repo|[a-z0-9_-]+ = "http)' || true
+            } > "$RUNNER_TEMP/commit-message.txt"
+            git add data
+            git commit --file "$RUNNER_TEMP/commit-message.txt"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Save link health to bot-state
+        working-directory: .bot-state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add health.json
+          if git diff --cached --quiet; then
+            echo "health.json unchanged."
+          else
+            git commit -m "Update health.json ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git push origin bot-state
+          fi
+
+      - name: Keep the schedule alive
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/maintain.yml/enable"
+
+  deploy:
+    needs: check
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml

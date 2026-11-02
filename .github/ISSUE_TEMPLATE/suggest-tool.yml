@@ -1,0 +1,45 @@
+name: Suggest a tool / ツールを提案
+description: Suggest a tool for agent-radar / agent-radar に載せたいツールを提案する
+title: "[Tool] "
+labels: ["suggestion"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: URL (official site or GitHub) / URL (公式サイトか GitHub)
+      placeholder: https://github.com/owner/name
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name / 名前
+      description: Optional / 任意
+    validations:
+      required: false
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category / カテゴリ
+      description: Optional / 任意
+      options:
+        - Coding agent
+        - Orchestrator
+        - Agent framework
+        - MCP server
+        - Sandbox
+        - Browser automation
+        - Memory
+        - Observability
+        - Gateway
+        - Skills & plugins
+        - Not sure / わからない
+    validations:
+      required: false
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it's useful / ひとこと
+      description: Optional / 任意
+    validations:
+      required: false
