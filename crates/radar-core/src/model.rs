@@ -201,6 +201,9 @@ pub struct SiteConfig {
     pub origin: String,
     pub base_url: String,
     pub repo: String,
+    /// Google Tag Manager container ID (`GTM-XXXXXXX`). No tag is emitted when absent.
+    #[serde(default)]
+    pub gtm_id: Option<String>,
 }
 
 impl SiteConfig {
