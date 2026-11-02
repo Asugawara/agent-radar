@@ -38,6 +38,120 @@ fn ic(name: &str) -> AnyView {
     view! { <span class="ic" inner_html=svg></span> }.into_any()
 }
 
+fn cats_empty(t: &SiteTool, category_ids: &[String]) -> bool {
+    !t.tags.iter().any(|i| category_ids.contains(i))
+}
+
+/// One checkbox row (`label  count`) of a column filter popover.
+fn opt<C, N, H>(label: String, checked: C, count: N, on_change: H) -> AnyView
+where
+    C: Fn() -> bool + Send + Sync + 'static,
+    N: Fn() -> usize + Send + Sync + 'static,
+    H: Fn(bool) + Send + Sync + 'static,
+{
+    view! {
+        <label class="opt">
+            <input type="checkbox"
+                prop:checked=checked
+                on:change=move |ev| on_change(event_target_checked(&ev)) />
+            " " {label} " "
+            <span class="count">{count}</span>
+        </label>
+    }
+    .into_any()
+}
+
+/// Width of a column filter popover (px) and the gap kept to the screen edge.
+const POP_WIDTH: f64 = 288.0;
+const POP_MARGIN: f64 = 8.0;
+
+/// Where the popover goes: below the button, kept inside the viewport.
+fn pop_position(button: &web_sys::Element) -> (f64, f64, f64) {
+    let vw = web_sys::window()
+        .and_then(|w| w.inner_width().ok())
+        .and_then(|v| v.as_f64())
+        .unwrap_or(POP_WIDTH + 2.0 * POP_MARGIN);
+    let width = POP_WIDTH.min(vw - 2.0 * POP_MARGIN);
+    let r = button.get_bounding_client_rect();
+    let left = r.left().min(vw - width - POP_MARGIN).max(POP_MARGIN);
+    (left, r.bottom() + 4.0, width)
+}
+
+/// A table header cell with a filter button that opens a popover of choices.
+/// `n` is the number of selected choices (the button is highlighted above 0).
+#[allow(clippy::too_many_arguments)]
+fn filter_th<H>(
+    id: &'static str,
+    class: &'static str,
+    label: String,
+    aria: String,
+    clear_label: String,
+    open_col: RwSignal<Option<&'static str>>,
+    pos: RwSignal<(f64, f64, f64)>,
+    n: Signal<usize>,
+    on_clear: H,
+    body: AnyView,
+) -> impl IntoView
+where
+    H: Fn() + Send + Sync + 'static,
+{
+    let btn_id = format!("colfilter-btn-{id}");
+    let pop_id = format!("colfilter-pop-{id}");
+    let is_open = move || open_col.get() == Some(id);
+    let btn_class = move || {
+        if n.get() > 0 {
+            "colfilter-btn active"
+        } else {
+            "colfilter-btn"
+        }
+    };
+    view! {
+        <th class=class>
+            <span class="colfilter">
+                <span class="thlabel">{label}</span>
+                <button type="button"
+                    class=btn_class
+                    id=btn_id
+                    aria-label=aria.clone()
+                    aria-controls=pop_id.clone()
+                    aria-expanded=move || if is_open() { "true" } else { "false" }
+                    on:click=move |ev| {
+                        if open_col.get_untracked() == Some(id) {
+                            open_col.set(None);
+                            return;
+                        }
+                        if let Some(el) = ev
+                            .current_target()
+                            .and_then(|t| t.dyn_into::<web_sys::Element>().ok())
+                        {
+                            pos.set(pop_position(&el));
+                        }
+                        open_col.set(Some(id));
+                    }>
+                    {ic("list-filter")}
+                    {move || {
+                        let n = n.get();
+                        (n > 0).then(|| view! { <span class="count-badge">{n}</span> })
+                    }}
+                </button>
+                <div class="colfilter-pop" id=pop_id role="group" aria-label=aria
+                    hidden=move || !is_open()
+                    style=move || {
+                        let (left, top, width) = pos.get();
+                        format!("left:{left}px;top:{top}px;width:{width}px;max-height:calc(100vh - {top}px - {POP_MARGIN}px)")
+                    }>
+                    <div class="colfilter-opts">{body}</div>
+                    <button type="button" class="colfilter-clear"
+                        disabled=move || n.get() == 0
+                        on:click=move |_| on_clear()>
+                        {clear_label}
+                    </button>
+                </div>
+            </span>
+        </th>
+    }
+}
+
 fn json_of(doc: &Document, id: &str) -> Option<String> {
     doc.get_element_by_id(id).and_then(|e| e.text_content())
 }
@@ -133,6 +247,25 @@ fn start() {
     Effect::new(move |_| sync_url(&query.get()));
 
     let data = StoredValue::new(data);
+    // The column filter popover that is open (at most one) and where it sits.
+    let open_col: RwSignal<Option<&'static str>> = RwSignal::new(None);
+    let pop_pos = RwSignal::new((0.0, 0.0, POP_WIDTH));
+    let category_ids: Vec<String> = data.with_value(|d| {
+        d.facets
+            .iter()
+            .filter(|f| f.id == radar_core::CATEGORY_FACET)
+            .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
+            .collect()
+    });
+    // A scroll of the table would leave the popover behind its button.
+    let close_on_scroll = wasm_bindgen::closure::Closure::<dyn FnMut()>::new(move || {
+        if open_col.get_untracked().is_some() {
+            open_col.set(None);
+        }
+    });
+    let _ = table_el
+        .add_event_listener_with_callback("scroll", close_on_scroll.as_ref().unchecked_ref());
+    close_on_scroll.forget();
     let total = data.with_value(|d| d.tools.len());
 
     let results = {
@@ -361,30 +494,150 @@ fn start() {
                 }
             }
         };
-        let plain_th = |k: &str, class: &'static str| view! { <th class=class>{s.t(k)}</th> };
+        // Esc, a click outside the popover and a resize close it.
+        let _ = window_event_listener(leptos::ev::keydown, move |ev| {
+            if ev.key() == "Escape"
+                && let Some(id) = open_col.get_untracked()
+            {
+                open_col.set(None);
+                if let Some(btn) = web_sys::window()
+                    .and_then(|w| w.document())
+                    .and_then(|d| d.get_element_by_id(&format!("colfilter-btn-{id}")))
+                    .and_then(|e| e.dyn_into::<HtmlElement>().ok())
+                {
+                    let _ = btn.focus();
+                }
+            }
+        });
+        let _ = window_event_listener(leptos::ev::click, move |ev| {
+            if open_col.get_untracked().is_none() {
+                return;
+            }
+            let inside = ev
+                .target()
+                .and_then(|t| t.dyn_into::<web_sys::Element>().ok())
+                .and_then(|e| e.closest(".colfilter-btn, .colfilter-pop").ok().flatten())
+                .is_some();
+            if !inside {
+                open_col.set(None);
+            }
+        });
+        let _ = window_event_listener(leptos::ev::resize, move |_| open_col.set(None));
+
+        let clear_label = s.t("ui.clear");
+        let filter_th_of = |id: &'static str, class: &'static str, label_key: &str| {
+            let label = s.t(label_key);
+            let aria = s.t("ui.filter_by").replace("{col}", &label);
+            (id, class, label, aria)
+        };
+
+        let category_body = {
+            let facets = data.with_value(|d| d.facets.clone());
+            facets
+                .into_iter()
+                .filter(|f| f.id == radar_core::CATEGORY_FACET)
+                .flat_map(|f| f.tags)
+                .map(|t| {
+                    let (a, b, c) = (t.id.clone(), t.id.clone(), t.id.clone());
+                    opt(
+                        t.label.get(&lang_t).to_string(),
+                        move || query.get().tags.contains(&a),
+                        move || counts.get().tags.get(&b).copied().unwrap_or(0),
+                        move |on| query.update(|q| toggle(&mut q.tags, &c, on)),
+                    )
+                })
+                .collect_view()
+                .into_any()
+        };
+        let pricing_body = [Pricing::Free, Pricing::Freemium, Pricing::Paid]
+            .into_iter()
+            .map(|p| {
+                opt(
+                    s.t(&format!("pricing.{}", p.as_str())),
+                    move || query.get().pricing.contains(&p),
+                    move || counts.get().pricing.get(&p).copied().unwrap_or(0),
+                    move |on| query.update(|q| toggle(&mut q.pricing, &p, on)),
+                )
+            })
+            .collect_view()
+            .into_any();
+        let oss_body = opt(
+            s.t("table.oss_yes"),
+            move || query.get().open_source,
+            move || counts.get().open_source,
+            move |on| query.update(|q| q.open_source = on),
+        );
+
+        let cat_ids_n = category_ids.clone();
+        let cat_ids_clear = category_ids.clone();
+        let cat_n = Signal::derive(move || {
+            query
+                .get()
+                .tags
+                .iter()
+                .filter(|t| cat_ids_n.contains(*t))
+                .count()
+        });
+        let pricing_n = Signal::derive(move || query.get().pricing.len());
+        let oss_n = Signal::derive(move || usize::from(query.get().open_source));
+
+        let (id, class, label, aria) = filter_th_of("category", "col-category", "table.category");
+        let category_th = filter_th(
+            id,
+            class,
+            label,
+            aria,
+            clear_label.clone(),
+            open_col,
+            pop_pos,
+            cat_n,
+            move || query.update(|q| q.tags.retain(|t| !cat_ids_clear.contains(t))),
+            category_body,
+        );
+        let (id, class, label, aria) = filter_th_of("pricing", "col-pricing", "table.pricing");
+        let pricing_th = filter_th(
+            id,
+            class,
+            label,
+            aria,
+            clear_label.clone(),
+            open_col,
+            pop_pos,
+            pricing_n,
+            move || query.update(|q| q.pricing.clear()),
+            pricing_body,
+        );
+        let (id, class, label, aria) = filter_th_of("oss", "col-oss", "table.oss");
+        let oss_th = filter_th(
+            id,
+            class,
+            label,
+            aria,
+            clear_label,
+            open_col,
+            pop_pos,
+            oss_n,
+            move || query.update(|q| q.open_source = false),
+            oss_body,
+        );
+
         let head = view! {
             <tr>
                 {sort_th(SortKey::Name, "table.name", "col-name")}
-                {plain_th("table.category", "col-category")}
-                {plain_th("table.pricing", "col-pricing")}
-                {plain_th("table.oss", "col-oss")}
+                {category_th}
+                {pricing_th}
+                {oss_th}
                 {sort_th(SortKey::Stars, "table.stars", "col-stars num")}
                 {sort_th(SortKey::Updated, "table.updated", "col-updated")}
             </tr>
         };
 
         let s_rows = s.clone();
+        let category_ids = category_ids.clone();
         let lang = lang_t.clone();
         let base = base.clone();
         let generated_at = generated_at.clone();
         let rows = move || {
-            let category_ids: Vec<String> = data.with_value(|d| {
-                d.facets
-                    .iter()
-                    .filter(|f| f.id == radar_core::CATEGORY_FACET)
-                    .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
-                    .collect()
-            });
             let empty = s_rows.t("table.empty");
             let list = results.get();
             if list.is_empty() {
@@ -397,31 +650,35 @@ fn start() {
             }
             list.into_iter()
                 .map(|t| {
-                    let cats = t
-                        .tags
-                        .iter()
-                        .filter(|i| category_ids.contains(i))
-                        .map(|id| {
-                            let href = format!("{base}?tag={id}");
-                            let tag_id = id.clone();
-                            view! {
-                                <a class="badge badge-category" href=href
-                                    on:click=move |ev| {
-                                        // Let ctrl/cmd/shift/middle clicks open the link normally.
-                                        if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
-                                            return;
-                                        }
-                                        ev.prevent_default();
-                                        query.update(|q| {
-                                            q.tags.insert(tag_id.clone());
-                                        });
-                                    }>
-                                    {ic(&tag_icon(id))}{tag_label(id)}
-                                </a>
-                                " "
-                            }
-                        })
-                        .collect_view();
+                    // Shown in the category column, and (phones) under the summary.
+                    let cats = || {
+                        t.tags
+                            .iter()
+                            .filter(|i| category_ids.contains(i))
+                            .map(|id| {
+                                let href = format!("{base}?tag={id}");
+                                let tag_id = id.clone();
+                                view! {
+                                    <a class="badge badge-category" href=href
+                                        on:click=move |ev| {
+                                            // Let ctrl/cmd/shift/middle clicks open the link normally.
+                                            if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                return;
+                                            }
+                                            ev.prevent_default();
+                                            query.update(|q| {
+                                                q.tags.insert(tag_id.clone());
+                                            });
+                                        }>
+                                        {ic(&tag_icon(id))}{tag_label(id)}
+                                    </a>
+                                    " "
+                                }
+                            })
+                            .collect_view()
+                    };
+                    let tool_cats = (!cats_empty(&t, &category_ids))
+                        .then(|| view! { <div class="tool-cats">{cats()}</div> });
                     let oss = if t.open_source {
                         view! { <td class="col-oss" title=s_rows.t("table.oss_yes")>{ic("git-branch")}</td> }.into_any()
                     } else {
@@ -464,10 +721,11 @@ fn start() {
                                         <a class="tool-name" href=t.url.clone() target="_blank" rel="noopener">{t.name.clone()}</a>
                                         {repo_link}
                                         <div class="summary">{t.summary.get(&lang).to_string()}</div>
+                                        {tool_cats}
                                     </div>
                                 </div>
                             </td>
-                            <td class="col-category">{cats}</td>
+                            <td class="col-category">{cats()}</td>
                             <td class="col-pricing">{s_rows.t(&format!("pricing.{}", t.pricing.as_str()))}</td>
                             {oss}
                             {stars}

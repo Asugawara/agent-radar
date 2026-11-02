@@ -30,6 +30,7 @@ icons!(
     "git-branch",
     "languages",
     "layers",
+    "list-filter",
     "moon",
     "mouse-pointer-click",
     "plug",
