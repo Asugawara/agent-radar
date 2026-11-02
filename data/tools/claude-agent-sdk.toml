@@ -1,0 +1,10 @@
+name = "Claude Agent SDK"
+url = "https://code.claude.com/docs/en/agent-sdk/overview"
+repo = "anthropics/claude-agent-sdk-python"
+summary.en = "SDK for building agents on the same loop and tools that power Claude Code"
+summary.ja = "Claude Code と同じエージェントループとツールでエージェントを作る SDK"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "mcp-support", "works-with-claude-code"]
+added = 2026-11-02

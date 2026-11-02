@@ -1,0 +1,10 @@
+name = "Claude Squad"
+url = "https://smtg-ai.github.io/claude-squad/"
+repo = "smtg-ai/claude-squad"
+summary.en = "Terminal app that manages multiple agent sessions in separate tmux sessions and git worktrees"
+summary.ja = "複数のエージェントセッションを tmux と git worktree で分離して管理するターミナルアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["orchestrator", "tui", "parallel", "git-worktree", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli"]
+added = 2026-11-02

@@ -1,0 +1,13 @@
+name = "E2B"
+url = "https://e2b.dev"
+repo = "e2b-dev/E2B"
+summary.en = "Cloud sandboxes that give each agent session an isolated Linux machine"
+summary.ja = "エージェントのセッションごとに隔離された Linux マシンを用意するクラウドサンドボックス"
+pricing = "freemium"
+open_source = true
+platforms = ["web", "linux", "macos", "windows"]
+tags = ["sandbox", "api", "library", "remote", "self-hostable", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+open-source = "https://e2b.dev/open-source.md"

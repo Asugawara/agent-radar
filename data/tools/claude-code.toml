@@ -1,0 +1,13 @@
+name = "Claude Code"
+url = "https://claude.com/product/claude-code"
+repo = "anthropics/claude-code"
+summary.en = "Anthropic's coding agent for the terminal, IDEs, desktop and web"
+summary.ja = "Anthropic のコーディングエージェント。ターミナル・IDE・デスクトップ・Web で使える"
+pricing = "paid"
+open_source = false
+platforms = ["macos", "windows", "linux", "web"]
+tags = ["coding-agent", "cli", "ide-extension", "desktop", "web", "mcp-support"]
+added = 2026-11-02
+
+[links]
+docs = "https://code.claude.com/docs/en/overview"

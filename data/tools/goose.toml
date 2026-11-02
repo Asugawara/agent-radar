@@ -1,0 +1,10 @@
+name = "goose"
+url = "https://goose-docs.ai"
+repo = "aaif-goose/goose"
+summary.en = "Open-source, extensible AI agent that installs, runs, edits and tests code on your machine"
+summary.ja = "コードのインストール・実行・編集・テストをローカルで行う、拡張可能なオープンソース AI エージェント"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "desktop", "mcp-support", "model-agnostic"]
+added = 2026-11-02

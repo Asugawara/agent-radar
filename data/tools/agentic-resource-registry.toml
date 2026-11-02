@@ -1,0 +1,13 @@
+name = "Agentic Resource Registry"
+url = "https://agenticresourceregistry.io"
+repo = "AgenticResourceRegistry/AgenticResourceRegistry"
+summary.en = "Self-hosted registry for sharing skills, MCP configs, hooks and agent files across a team, with usage insights"
+summary.ja = "スキル・MCP 設定・フック・エージェントファイルをチームで共有し、利用状況も見られるセルフホスト型のレジストリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "web", "cli", "api", "self-hostable", "works-with-claude-code", "works-with-codex", "works-with-cursor", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50303291"

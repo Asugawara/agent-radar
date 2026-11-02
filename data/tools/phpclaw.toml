@@ -1,0 +1,13 @@
+name = "phpClaw"
+url = "https://phpclaw.ai"
+repo = "phpclaw-php/phpclaw-monorepo"
+summary.en = "Open-source AI agent framework for PHP with tools, memory and guards, plus adapters for Laravel, Symfony, WordPress and more"
+summary.ja = "ツール・メモリ・ガードを備えた PHP 向けのオープンソース AI エージェントフレームワーク。Laravel・Symfony・WordPress などのアダプタ付き"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "cli", "mcp-support", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50293361"

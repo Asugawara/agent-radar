@@ -1,0 +1,11 @@
+name = "Mastra"
+url = "https://mastra.ai"
+repo = "mastra-ai/mastra"
+favicon = "https://github.com/mastra-ai.png?size=64"
+summary.en = "TypeScript framework for building agents, workflows and RAG"
+summary.ja = "エージェント・ワークフロー・RAG を作るための TypeScript フレームワーク"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "multi-agent", "mcp-support", "model-agnostic"]
+added = 2026-11-02

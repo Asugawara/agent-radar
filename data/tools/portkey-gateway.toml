@@ -1,0 +1,10 @@
+name = "Portkey AI Gateway"
+url = "https://portkey.ai/features/ai-gateway"
+repo = "Portkey-AI/gateway"
+summary.en = "Open-source gateway that routes to 200+ LLMs with fallbacks and load balancing"
+summary.ja = "200 以上の LLM へフォールバックや負荷分散つきで振り分けるオープンソースのゲートウェイ"
+pricing = "freemium"
+open_source = true
+platforms = ["web", "linux", "macos", "windows"]
+tags = ["gateway", "api", "cli", "self-hostable", "model-agnostic"]
+added = 2026-11-02

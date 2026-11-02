@@ -1,0 +1,13 @@
+name = "Reticle"
+url = "https://www.reticle.sh"
+repo = "reticlehq/reticle"
+summary.en = "Lets coding agents drive your running web or desktop app and check whether a change really worked, with a verdict and file:line"
+summary.ja = "コーディングエージェントが動作中の Web・デスクトップアプリを操作し、変更が本当に効いたかを判定と file:line 付きで返す"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["browser-automation", "mcp-server", "library", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor", "works-with-gemini-cli", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50163896"

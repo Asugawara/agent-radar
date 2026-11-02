@@ -1,0 +1,13 @@
+name = "Spec-first"
+url = "https://spec-first.dev"
+repo = "holgerleichsenring/specification-first-agentic-development"
+summary.en = "Claude Code plugin that writes and reviews a spec first, then builds it in its own worktree behind a build-and-test gate"
+summary.ja = "先に仕様を書いてレビューし、専用 worktree で実装して、ビルドとテストを通ったものだけ届ける Claude Code プラグイン"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "git-worktree", "works-with-claude-code"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50260571"

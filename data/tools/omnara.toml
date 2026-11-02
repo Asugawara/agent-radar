@@ -1,0 +1,14 @@
+name = "Omnara"
+url = "https://www.omnara.com"
+repo = "omnara-ai/omnara"
+summary.en = "Open-source platform that runs durable agents through an API, with sandboxes, secrets and permissions built in"
+summary.ja = "サンドボックス・シークレット・権限管理を備え、API で永続的なエージェントを動かせるオープンソースのプラットフォーム"
+pricing = "freemium"
+open_source = true
+platforms = ["web"]
+tags = ["agent-framework", "sandbox", "api", "cli", "web", "self-hostable", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+docs = "https://docs.omnara.com/introduction"
+hn = "https://news.ycombinator.com/item?id=50183892"

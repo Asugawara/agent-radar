@@ -1,0 +1,10 @@
+name = "CrewAI"
+url = "https://crewai.com"
+repo = "crewAIInc/crewAI"
+summary.en = "Python framework for orchestrating role-playing autonomous AI agents"
+summary.ja = "役割を持つ自律 AI エージェントを協調させる Python フレームワーク"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "multi-agent", "mcp-support", "model-agnostic"]
+added = 2026-11-02

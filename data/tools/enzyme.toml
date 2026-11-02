@@ -1,0 +1,13 @@
+name = "Enzyme"
+url = "https://github.com/byenzyme/enzyme"
+repo = "byenzyme/enzyme"
+summary.en = "Local index that compiles your notes and agent memories so agents find the right docs with fewer tokens"
+summary.ja = "ノートやエージェントのメモリをローカルでインデックス化し、少ないトークンで目的の文書を探せるようにする"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["memory", "cli", "mcp-support", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50221066"

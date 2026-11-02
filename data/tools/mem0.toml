@@ -1,0 +1,10 @@
+name = "Mem0"
+url = "https://mem0.ai"
+repo = "mem0ai/mem0"
+summary.en = "Memory layer that lets AI agents remember user preferences across sessions"
+summary.ja = "ユーザーの好みなどをセッションをまたいで AI エージェントに覚えさせるメモリ層"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "library", "api", "self-hostable", "mcp-support", "model-agnostic"]
+added = 2026-11-02

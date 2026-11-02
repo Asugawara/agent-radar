@@ -1,0 +1,10 @@
+name = "Langfuse"
+url = "https://langfuse.com"
+repo = "langfuse/langfuse"
+summary.en = "Open-source LLM engineering platform for tracing, evals and prompt management"
+summary.ja = "トレース・評価・プロンプト管理を行うオープンソースの LLM エンジニアリングプラットフォーム"
+pricing = "freemium"
+open_source = true
+platforms = ["web", "linux", "macos", "windows"]
+tags = ["observability", "web", "api", "library", "self-hostable", "model-agnostic"]
+added = 2026-11-02

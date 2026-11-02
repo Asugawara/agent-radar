@@ -1,0 +1,174 @@
+# Tag definitions. Every tool tag must be defined here (aliases are rejected by `radar validate`).
+
+[[facet]]
+id = "category"
+label = { en = "Category", ja = "カテゴリ" }
+min = 1
+max = 3
+
+  [[facet.tag]]
+  id = "coding-agent"
+  icon = "code"
+  label = { en = "Coding agent", ja = "コーディングエージェント" }
+  description = { en = "An AI agent that reads, writes and runs code for you", ja = "コードの読み書きと実行を任せられる AI エージェント" }
+  aliases = ["agent"]
+
+  [[facet.tag]]
+  id = "orchestrator"
+  icon = "layers"
+  label = { en = "Orchestrator", ja = "オーケストレータ" }
+  description = { en = "Runs and manages multiple coding agents", ja = "複数のコーディングエージェントを並列に動かし管理する" }
+  aliases = ["agent-manager"]
+
+  [[facet.tag]]
+  id = "agent-framework"
+  icon = "boxes"
+  label = { en = "Agent framework", ja = "エージェントフレームワーク" }
+  description = { en = "A library or SDK for building your own agents", ja = "自作のエージェントを組み立てるためのライブラリ・SDK" }
+
+  [[facet.tag]]
+  id = "mcp-server"
+  icon = "plug"
+  label = { en = "MCP server", ja = "MCP サーバ" }
+  description = { en = "Exposes tools or data to agents through the Model Context Protocol", ja = "Model Context Protocol でツールやデータをエージェントに提供する" }
+
+  [[facet.tag]]
+  id = "sandbox"
+  icon = "box"
+  label = { en = "Sandbox", ja = "サンドボックス" }
+  description = { en = "Isolated environments for running agent-generated code", ja = "エージェントが生成したコードを隔離して実行する環境" }
+
+  [[facet.tag]]
+  id = "browser-automation"
+  icon = "mouse-pointer-click"
+  label = { en = "Browser automation", ja = "ブラウザ自動化" }
+  description = { en = "Lets agents drive a real web browser", ja = "エージェントが実際の Web ブラウザを操作できるようにする" }
+
+  [[facet.tag]]
+  id = "memory"
+  icon = "brain"
+  label = { en = "Memory", ja = "メモリ" }
+  description = { en = "Keeps context and knowledge across agent sessions", ja = "エージェントのセッションをまたいで文脈や知識を保持する" }
+
+  [[facet.tag]]
+  id = "observability"
+  icon = "activity"
+  label = { en = "Observability", ja = "オブザーバビリティ" }
+  description = { en = "Tracing, logging and evaluation for agent runs", ja = "エージェントの実行のトレース・ログ・評価" }
+
+  [[facet.tag]]
+  id = "gateway"
+  icon = "route"
+  label = { en = "Gateway", ja = "ゲートウェイ" }
+  description = { en = "A proxy that routes requests across models and providers", ja = "モデルやプロバイダへのリクエストを中継・振り分けるプロキシ" }
+
+  [[facet.tag]]
+  id = "skills-plugins"
+  icon = "puzzle"
+  label = { en = "Skills & plugins", ja = "スキル・プラグイン" }
+  description = { en = "Reusable skills, plugins and prompts that extend agents", ja = "エージェントを拡張する再利用可能なスキル・プラグイン・プロンプト" }
+
+[[facet]]
+id = "interface"
+label = { en = "Interface", ja = "インターフェース" }
+min = 1
+
+  [[facet.tag]]
+  id = "cli"
+  label = { en = "CLI", ja = "CLI" }
+  description = { en = "Used from the command line", ja = "コマンドラインから使う" }
+
+  [[facet.tag]]
+  id = "tui"
+  label = { en = "TUI", ja = "TUI" }
+  description = { en = "A full-screen terminal user interface", ja = "ターミナル上の全画面 UI" }
+
+  [[facet.tag]]
+  id = "desktop"
+  label = { en = "Desktop app", ja = "デスクトップアプリ" }
+  description = { en = "A native or Electron desktop application", ja = "ネイティブまたは Electron のデスクトップアプリ" }
+
+  [[facet.tag]]
+  id = "ide-extension"
+  label = { en = "IDE extension", ja = "IDE 拡張" }
+  description = { en = "An extension for an editor or IDE", ja = "エディタ・IDE の拡張機能" }
+
+  [[facet.tag]]
+  id = "web"
+  label = { en = "Web", ja = "Web" }
+  description = { en = "Used in the browser", ja = "ブラウザで使う" }
+
+  [[facet.tag]]
+  id = "api"
+  label = { en = "API", ja = "API" }
+  description = { en = "Offers an HTTP or RPC API", ja = "HTTP / RPC の API を提供する" }
+
+  [[facet.tag]]
+  id = "library"
+  label = { en = "Library", ja = "ライブラリ" }
+  description = { en = "Used as a code library or SDK", ja = "コードから呼ぶライブラリ・SDK" }
+
+[[facet]]
+id = "capability"
+label = { en = "Capability", ja = "機能" }
+min = 0
+
+  [[facet.tag]]
+  id = "multi-agent"
+  label = { en = "Multi-agent", ja = "マルチエージェント" }
+  description = { en = "Coordinates several agents on one task", ja = "複数のエージェントを協調させる" }
+
+  [[facet.tag]]
+  id = "parallel"
+  label = { en = "Parallel runs", ja = "並列実行" }
+  description = { en = "Runs several tasks at the same time", ja = "複数のタスクを同時に実行する" }
+
+  [[facet.tag]]
+  id = "git-worktree"
+  label = { en = "Git worktree", ja = "Git worktree" }
+  description = { en = "Isolates work in git worktrees", ja = "作業を git worktree に分離する" }
+
+  [[facet.tag]]
+  id = "remote"
+  label = { en = "Remote", ja = "リモート" }
+  description = { en = "Runs or is controlled from a remote machine", ja = "リモートのマシンで動く、またはリモートから操作できる" }
+
+  [[facet.tag]]
+  id = "mcp-support"
+  label = { en = "MCP support", ja = "MCP 対応" }
+  description = { en = "Can connect to MCP servers", ja = "MCP サーバに接続できる" }
+
+  [[facet.tag]]
+  id = "self-hostable"
+  label = { en = "Self-hostable", ja = "セルフホスト可" }
+  description = { en = "Can be run on your own infrastructure", ja = "自前のインフラで動かせる" }
+
+[[facet]]
+id = "works-with"
+label = { en = "Works with", ja = "対応エージェント" }
+min = 0
+
+  [[facet.tag]]
+  id = "works-with-claude-code"
+  label = { en = "Claude Code", ja = "Claude Code" }
+  description = { en = "Works with Claude Code", ja = "Claude Code と組み合わせて使える" }
+
+  [[facet.tag]]
+  id = "works-with-codex"
+  label = { en = "Codex", ja = "Codex" }
+  description = { en = "Works with OpenAI Codex", ja = "OpenAI Codex と組み合わせて使える" }
+
+  [[facet.tag]]
+  id = "works-with-gemini-cli"
+  label = { en = "Gemini CLI", ja = "Gemini CLI" }
+  description = { en = "Works with Gemini CLI", ja = "Gemini CLI と組み合わせて使える" }
+
+  [[facet.tag]]
+  id = "works-with-cursor"
+  label = { en = "Cursor", ja = "Cursor" }
+  description = { en = "Works with Cursor", ja = "Cursor と組み合わせて使える" }
+
+  [[facet.tag]]
+  id = "model-agnostic"
+  label = { en = "Model-agnostic", ja = "モデル非依存" }
+  description = { en = "Works with any model or agent", ja = "特定のモデルやエージェントに依存しない" }

@@ -1,0 +1,11 @@
+name = "LiteLLM"
+url = "https://docs.litellm.ai"
+repo = "BerriAI/litellm"
+favicon = "https://github.com/BerriAI.png?size=64"
+summary.en = "Python SDK and proxy server that calls 100+ LLM APIs in the OpenAI format"
+summary.ja = "100 以上の LLM API を OpenAI 形式で呼び出せる Python SDK 兼プロキシサーバ"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["gateway", "library", "api", "self-hostable", "model-agnostic"]
+added = 2026-11-02

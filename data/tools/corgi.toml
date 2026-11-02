@@ -1,0 +1,13 @@
+name = "Corgi"
+url = "https://corgi.computer"
+repo = "tals/corgi"
+summary.en = "Terminal multiplexer for coding agents that shows which agent is working, finished or needs you"
+summary.ja = "どのエージェントが作業中・完了・入力待ちかを一覧できる、コーディングエージェント向けのターミナルマルチプレクサ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["orchestrator", "tui", "cli", "parallel", "git-worktree", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50214373"

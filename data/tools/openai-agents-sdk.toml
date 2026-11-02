@@ -1,0 +1,11 @@
+name = "OpenAI Agents SDK"
+url = "https://openai.github.io/openai-agents-python/"
+repo = "openai/openai-agents-python"
+favicon = "https://github.com/openai.png?size=64"
+summary.en = "Lightweight Python SDK for multi-agent workflows with handoffs, guardrails and tracing"
+summary.ja = "ハンドオフ・ガードレール・トレースを備えた、マルチエージェント向けの軽量な Python SDK"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "multi-agent", "mcp-support"]
+added = 2026-11-02

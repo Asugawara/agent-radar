@@ -1,0 +1,10 @@
+name = "LangGraph"
+url = "https://docs.langchain.com/oss/python/langgraph/overview"
+repo = "langchain-ai/langgraph"
+summary.en = "Low-level framework for building long-running, stateful agents as graphs"
+summary.ja = "長時間動く状態付きエージェントをグラフとして組み立てる低レベルのフレームワーク"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["agent-framework", "library", "multi-agent", "mcp-support", "model-agnostic"]
+added = 2026-11-02

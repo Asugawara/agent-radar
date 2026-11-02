@@ -1,0 +1,14 @@
+name = "uji"
+url = "https://uji.sh"
+repo = "uji-labs/uji"
+summary.en = "Lightweight terminal coding agent where everything, even the UI, is a module you configure in Lua"
+summary.ja = "UI まで含めてすべてがモジュールで、Lua で設定できる軽量なターミナル向けコーディングエージェント"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["coding-agent", "tui", "cli"]
+added = 2026-11-02
+
+[links]
+docs = "https://docs.uji.sh"
+hn = "https://news.ycombinator.com/item?id=50284996"

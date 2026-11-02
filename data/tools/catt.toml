@@ -1,0 +1,13 @@
+name = "CATT"
+url = "https://github.com/Coverage-Cat/consumer-agent-testing-tool"
+repo = "Coverage-Cat/consumer-agent-testing-tool"
+summary.en = "CLI that tests your MCP servers, apps and APIs in CI by running a surrogate consumer agent against them"
+summary.ja = "代役のコンシューマ側エージェントを使って、MCP サーバ・アプリ・API を CI でテストする CLI"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["observability", "cli", "mcp-support"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50201860"

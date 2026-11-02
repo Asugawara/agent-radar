@@ -1,0 +1,11 @@
+name = "Aider"
+url = "https://aider.chat"
+repo = "Aider-AI/aider"
+favicon = "https://github.com/Aider-AI.png?size=64"
+summary.en = "AI pair programming in your terminal that edits files in your git repo"
+summary.ja = "git リポジトリ内のファイルを編集する、ターミナルで使う AI ペアプログラミングツール"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "model-agnostic"]
+added = 2026-11-02

@@ -1,0 +1,10 @@
+name = "Gemini CLI"
+url = "https://geminicli.com"
+repo = "google-gemini/gemini-cli"
+summary.en = "Google's open-source AI agent for the terminal, powered by Gemini"
+summary.ja = "Gemini を使う Google のオープンソースのターミナル AI エージェント"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "mcp-support"]
+added = 2026-11-02

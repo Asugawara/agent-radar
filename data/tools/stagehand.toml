@@ -1,0 +1,10 @@
+name = "Stagehand"
+url = "https://www.stagehand.dev"
+repo = "browserbase/stagehand"
+summary.en = "Browser automation framework mixing code and natural language, from Browserbase"
+summary.ja = "コードと自然言語を組み合わせてブラウザを自動化する、Browserbase 製のフレームワーク"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["browser-automation", "library", "model-agnostic"]
+added = 2026-11-02

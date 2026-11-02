@@ -1,0 +1,10 @@
+name = "Arize Phoenix"
+url = "https://arize.com/docs/phoenix"
+repo = "Arize-ai/phoenix"
+summary.en = "Source-available observability and evaluation tool for LLM apps and agents"
+summary.ja = "LLM アプリやエージェントのトレースと評価を行う、ソース公開型のオブザーバビリティツール"
+pricing = "freemium"
+open_source = false
+platforms = ["web", "linux", "macos", "windows"]
+tags = ["observability", "web", "api", "library", "self-hostable", "model-agnostic"]
+added = 2026-11-02

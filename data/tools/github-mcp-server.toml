@@ -1,0 +1,10 @@
+name = "GitHub MCP Server"
+url = "https://github.com/github/github-mcp-server"
+repo = "github/github-mcp-server"
+summary.en = "GitHub's official MCP server for repositories, issues and pull requests"
+summary.ja = "リポジトリ・Issue・プルリクエストを扱える GitHub 公式の MCP サーバ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "cli", "mcp-support", "model-agnostic"]
+added = 2026-11-02

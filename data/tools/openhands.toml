@@ -1,0 +1,10 @@
+name = "OpenHands"
+url = "https://www.openhands.dev"
+repo = "OpenHands/OpenHands"
+summary.en = "Open-source platform of AI software developer agents with CLI, GUI and cloud"
+summary.ja = "AI ソフトウェア開発エージェントのオープンソースプラットフォーム。CLI・GUI・クラウドで使える"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "web", "self-hostable", "model-agnostic"]
+added = 2026-11-02

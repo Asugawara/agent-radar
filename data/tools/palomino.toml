@@ -1,0 +1,12 @@
+name = "Palomino"
+url = "https://trypalomino.com"
+summary.en = "Rust-based workspace that runs Claude Code, Codex and Pi side by side with terminals, browsers and files in one window"
+summary.ja = "Claude Code・Codex・Pi を、ターミナル・ブラウザ・ファイルと並べて 1 つのウィンドウで動かす Rust 製のワークスペース"
+pricing = "free"
+open_source = false
+platforms = ["macos"]
+tags = ["orchestrator", "desktop", "parallel", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50310055"

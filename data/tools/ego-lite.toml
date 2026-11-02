@@ -1,0 +1,13 @@
+name = "ego lite"
+url = "https://ego-lite.apposters.com"
+repo = "citrolabs/ego-lite"
+summary.en = "Browser for AI agents that gives each agent its own space to automate the web in parallel while you keep browsing"
+summary.ja = "エージェントごとに専用スペースを用意し、あなたがブラウジングを続けたまま並列で Web を自動操作させられる、AI エージェント向けブラウザ"
+pricing = "free"
+open_source = true
+platforms = ["macos"]
+tags = ["browser-automation", "desktop", "parallel", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50192585"

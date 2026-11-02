@@ -1,0 +1,10 @@
+name = "Context7"
+url = "https://context7.com"
+repo = "upstash/context7"
+summary.en = "MCP server that feeds up-to-date library docs and code examples into prompts"
+summary.ja = "最新のライブラリドキュメントとコード例をプロンプトに取り込む MCP サーバ"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "cli", "api", "mcp-support", "model-agnostic"]
+added = 2026-11-02

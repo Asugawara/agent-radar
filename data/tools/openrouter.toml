@@ -1,0 +1,12 @@
+name = "OpenRouter"
+url = "https://openrouter.ai"
+summary.en = "Single API and billing for hundreds of models across many providers"
+summary.ja = "多数のプロバイダのモデルを 1 つの API・請求でまとめて使えるサービス"
+pricing = "freemium"
+open_source = false
+platforms = ["web"]
+tags = ["gateway", "web", "api", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+docs = "https://openrouter.ai/docs"

@@ -1,0 +1,10 @@
+name = "Codex CLI"
+url = "https://learn.chatgpt.com/docs/codex/cli"
+repo = "openai/codex"
+summary.en = "OpenAI's coding agent that runs in your terminal"
+summary.ja = "OpenAI のコーディングエージェント。ターミナルで動く"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "mcp-support"]
+added = 2026-11-02

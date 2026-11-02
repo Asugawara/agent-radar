@@ -1,0 +1,10 @@
+name = "Cline"
+url = "https://cline.bot"
+repo = "cline/cline"
+summary.en = "Coding agent that works inside your editor and asks before changing files or running commands"
+summary.ja = "エディタ内で動き、ファイル変更やコマンド実行の前に確認を取るコーディングエージェント"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "ide-extension", "mcp-support", "model-agnostic"]
+added = 2026-11-02

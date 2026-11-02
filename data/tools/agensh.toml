@@ -1,0 +1,13 @@
+name = "Agensh"
+url = "https://github.com/microsoft/Agensh"
+repo = "microsoft/Agensh"
+summary.en = "Multi-agent harness where agents claim tasks and merge work on their own, with no central orchestrator, scaling to 1,024 agents"
+summary.ja = "中央のオーケストレータなしで、エージェント同士がタスクを取り合って成果をマージする、最大 1,024 エージェントまで拡張できるマルチエージェントハーネス"
+pricing = "free"
+open_source = true
+platforms = ["linux"]
+tags = ["orchestrator", "cli", "multi-agent", "parallel", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50223759"

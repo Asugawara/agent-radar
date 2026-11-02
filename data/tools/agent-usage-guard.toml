@@ -1,0 +1,13 @@
+name = "agent-usage-guard"
+url = "https://github.com/rbartoli/agent-usage-guard"
+repo = "rbartoli/agent-usage-guard"
+summary.en = "Claude Code mod that holds subagent fan-out and heavy-context prompts before they use up your plan's usage window"
+summary.ja = "サブエージェントの大量起動や重いコンテキストが、プランの使用枠を使い切る前に止める Claude Code の mod"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-02
+
+[links]
+hn = "https://news.ycombinator.com/item?id=50198936"

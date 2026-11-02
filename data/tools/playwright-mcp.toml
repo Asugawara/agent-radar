@@ -1,0 +1,13 @@
+name = "Playwright MCP"
+url = "https://github.com/microsoft/playwright-mcp"
+repo = "microsoft/playwright-mcp"
+summary.en = "MCP server that lets agents drive a browser through Playwright accessibility snapshots"
+summary.ja = "Playwright のアクセシビリティスナップショットでエージェントにブラウザを操作させる MCP サーバ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["mcp-server", "browser-automation", "cli", "mcp-support", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+npm = "https://www.npmjs.com/package/@playwright/mcp"

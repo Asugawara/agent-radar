@@ -1,0 +1,13 @@
+name = "Letta"
+url = "https://www.letta.com"
+repo = "letta-ai/letta"
+summary.en = "Platform for stateful agents with self-editing long-term memory"
+summary.ja = "自己編集できる長期記憶を持つ、状態付きエージェントのプラットフォーム"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "agent-framework", "api", "library", "self-hostable", "model-agnostic"]
+added = 2026-11-02
+
+[links]
+docs = "https://docs.letta.com/"
