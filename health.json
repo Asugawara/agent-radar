@@ -1,0 +1,882 @@
+{
+  "https://agenticresourceregistry.io": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://aider.chat": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://arize.com/docs/phoenix": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://browser-use.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://claude.com/product/claude-code": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://cline.bot": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://code.claude.com/docs/en/agent-sdk/overview": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://code.claude.com/docs/en/overview": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://context7.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://corgi.computer": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://crewai.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.langchain.com/oss/python/langgraph/overview": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.letta.com/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.litellm.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.microsandbox.dev/getting-started/introduction": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.omnara.com/introduction": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://docs.uji.sh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://e2b.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://e2b.dev/open-source.md": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://ego-lite.apposters.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://geminicli.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/Coverage-Cat/consumer-agent-testing-tool": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/anthropics/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/byenzyme/enzyme": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/github/github-mcp-server": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/gojko/lights-on-software-factory": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/microsoft/Agensh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/microsoft/playwright-mcp": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/obra/superpowers": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://github.com/rbartoli/agent-usage-guard": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://goose-docs.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://langfuse.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://learn.chatgpt.com/docs/codex/cli": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://mastra.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://mem0.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://news.ycombinator.com/item?id=50153011": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50160198": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50163896": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50183892": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50192585": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50198936": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50201860": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50214373": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://news.ycombinator.com/item?id=50221066": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50223759": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50260571": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50284996": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50293361": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50303291": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 429"
+  },
+  "https://news.ycombinator.com/item?id=50310055": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://openai.github.io/openai-agents-python/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://openrouter.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://openrouter.ai/docs": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://phpclaw.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://portkey.ai/features/ai-gateway": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://smtg-ai.github.io/claude-squad/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://spec-first.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://spotnote-weld.vercel.app": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://trypalomino.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://uji.sh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.letta.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.npmjs.com/package/@playwright/mcp": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "undecided: 403"
+  },
+  "https://www.omnara.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.openhands.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.reticle.sh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.stagehand.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "https://www.vibekanban.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:AgenticResourceRegistry/AgenticResourceRegistry": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:Aider-AI/aider": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:Arize-ai/phoenix": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:BerriAI/litellm": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:BloopAI/vibe-kanban": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:Coverage-Cat/consumer-agent-testing-tool": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:OpenHands/OpenHands": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:Portkey-AI/gateway": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:aaif-goose/goose": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/claude-agent-sdk-python": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/claude-code": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:browser-use/browser-use": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:browserbase/stagehand": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:byenzyme/enzyme": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:citrolabs/ego-lite": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:cline/cline": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:crewAIInc/crewAI": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:e2b-dev/E2B": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:github/github-mcp-server": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:gojko/lights-on-software-factory": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:google-gemini/gemini-cli": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:harukikuri/spotnote": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:holgerleichsenring/specification-first-agentic-development": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:langchain-ai/langgraph": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:langfuse/langfuse": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:letta-ai/letta": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:mastra-ai/mastra": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:mem0ai/mem0": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:microsoft/Agensh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:microsoft/playwright-mcp": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:obra/superpowers": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:omnara-ai/omnara": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:openai/codex": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:openai/openai-agents-python": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:phpclaw-php/phpclaw-monorepo": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:rbartoli/agent-usage-guard": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:reticlehq/reticle": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:smtg-ai/claude-squad": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:superradcompany/microsandbox": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:tals/corgi": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:uji-labs/uji": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  },
+  "repo:upstash/context7": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-02T08:29:59.805426329Z",
+    "last_result": "ok"
+  }
+}
