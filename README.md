@@ -1,3 +1,5 @@
+<img src="static/brand/icon-256.png" width="96" alt="agent-radar icon">
+
 # agent-radar
 
 A self-maintaining directory of tools for AI agents, built in Rust and published on GitHub Pages.

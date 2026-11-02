@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:,">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ page.static_url("brand/favicon-32.png") }}">
+<link rel="apple-touch-icon" href="{{ page.static_url("brand/apple-touch-icon.png") }}">
 <title>{{ page.title }}</title>
 <script>
 (function () {
@@ -23,10 +24,10 @@
 <body>
 <header class="site-header">
 <div class="header-inner">
-<a class="site-name" href="{{ page.url("") }}"><span class="site-title">{{ page.site_title() }}</span></a>
+<a class="site-name" href="{{ page.url("") }}"><img class="site-logo" src="{{ page.static_url("brand/logo-48.png") }}" width="24" height="24" alt=""><span class="site-title">{{ page.site_title() }}</span></a>
 <div class="header-actions">
 <button type="button" id="theme-toggle" class="hbtn hbtn-icon" aria-pressed="false" aria-label="{{ page.t("header.theme") }}" title="{{ page.t("header.theme") }}"><span class="theme-sun">{{ page.icon("sun")|safe }}</span><span class="theme-moon">{{ page.icon("moon")|safe }}</span></button>
-<a id="lang-switch" class="hbtn" data-lang-switch data-base="{{ page.url_for(page.other_lang()) }}" href="{{ page.url_for(page.other_lang()) }}" hreflang="{{ page.other_lang() }}">{{ page.icon("languages")|safe }}<span>{{ page.other_lang_name() }}</span></a>
+<a id="lang-switch" class="hbtn" data-lang-switch data-base="{{ page.url_for(page.other_lang()) }}" href="{{ page.url_for(page.other_lang()) }}" hreflang="{{ page.other_lang() }}">{{ page.icon("languages")|safe }}<span class="lang-name">{{ page.other_lang_name() }}</span></a>
 </div>
 </div>
 </header>

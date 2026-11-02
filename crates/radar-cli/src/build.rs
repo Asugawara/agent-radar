@@ -15,6 +15,21 @@ use time::format_description::well_known::Rfc3339;
 use crate::project::{Sources, load_site_config};
 
 const CSS: &str = include_str!("../../../static/style.css");
+/// Brand images copied to `static/brand/`; `icon-512.png` is only for the README.
+const BRAND: &[(&str, &[u8])] = &[
+    (
+        "static/brand/favicon-32.png",
+        include_bytes!("../../../static/brand/favicon-32.png"),
+    ),
+    (
+        "static/brand/apple-touch-icon.png",
+        include_bytes!("../../../static/brand/apple-touch-icon.png"),
+    ),
+    (
+        "static/brand/logo-48.png",
+        include_bytes!("../../../static/brand/logo-48.png"),
+    ),
+];
 const LANGS: [&str; 2] = ["en", "ja"];
 /// Keys of `i18n/*.toml` that are handed to the table UI.
 const UI_PREFIXES: [&str; 4] = ["table.", "pricing.", "platform.", "ui."];
@@ -133,6 +148,9 @@ impl Page {
     }
     pub fn css_url(&self) -> String {
         format!("{}static/style.css", self.base_url)
+    }
+    pub fn static_url(&self, rel: &str) -> String {
+        format!("{}static/{}", self.base_url, rel)
     }
     /// GitHub's "new file" screen with a template for `data/tools/`.
     pub fn add_tool_url(&self) -> String {
@@ -271,7 +289,7 @@ fn copy_dir(from: &Path, to: &Path) -> Result<()> {
     Ok(())
 }
 
-fn write(out: &Path, rel: &str, content: &str) -> Result<()> {
+fn write(out: &Path, rel: &str, content: impl AsRef<[u8]>) -> Result<()> {
     let path = out.join(rel);
     if let Some(dir) = path.parent() {
         std::fs::create_dir_all(dir)?;
@@ -349,6 +367,9 @@ pub fn run(
     std::fs::create_dir_all(out)?;
     write(out, ".nojekyll", "")?;
     write(out, "static/style.css", CSS)?;
+    for (rel, bytes) in BRAND {
+        write(out, rel, bytes)?;
+    }
     // The table UI (built by scripts/build-site.sh); without it the static
     // table is all there is.
     let pkg = root.join("crates/radar-web/pkg");

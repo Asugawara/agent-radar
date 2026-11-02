@@ -53,6 +53,7 @@ a:hover { text-decoration: underline; }
 /* .site-name is a flex box so a 24px logo can go before .site-title. */
 .site-name { display: inline-flex; align-items: center; gap: 8px; min-width: 0; font-weight: 700; font-size: 1.2rem; color: var(--fg); }
 .site-name:hover { text-decoration: none; }
+.site-logo { width: 24px; height: 24px; flex: none; border-radius: 6px; }
 .site-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
 .hbtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; height: 40px; min-width: 40px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--fg); font: inherit; font-size: 0.95rem; font-weight: 500; line-height: 1; white-space: nowrap; cursor: pointer; }
@@ -154,4 +155,9 @@ th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(-
   button.filter-toggle, button.clear { min-height: 40px; }
   .search { padding: 9px 0; }
   .searchbox { flex-basis: 100%; }
+}
+/* Phones: the language switch shows only its icon; the name stays for screen readers. */
+@media (max-width: 480px) {
+  #lang-switch { padding: 0; width: 40px; }
+  #lang-switch .lang-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
