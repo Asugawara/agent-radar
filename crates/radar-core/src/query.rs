@@ -302,6 +302,30 @@ impl Query {
     }
 }
 
+/// Keys [`Query::parse`] reads. Other keys in the address bar (`utm_*`,
+/// `gclid`, …) belong to someone else and are kept.
+const OWN_KEYS: [&str; 6] = ["tag", "q", "pricing", "oss", "platform", "sort"];
+
+/// The search part for the address bar, without the leading `?`: `own`
+/// (from [`Query::to_query_string`]) followed by every pair of `current`
+/// (`?` optional) whose key is not one of ours, unchanged and in order.
+pub fn merge_query_string(own: &str, current: &str) -> String {
+    let mut parts: Vec<&str> = Vec::new();
+    if !own.is_empty() {
+        parts.push(own);
+    }
+    for pair in current.trim_start_matches('?').split('&') {
+        if pair.is_empty() {
+            continue;
+        }
+        let key = decode(pair.split_once('=').map_or(pair, |(k, _)| k));
+        if !OWN_KEYS.contains(&key.as_str()) {
+            parts.push(pair);
+        }
+    }
+    parts.join("&")
+}
+
 pub const ALL_PLATFORMS: [Platform; 6] = [
     Platform::Macos,
     Platform::Windows,
@@ -748,6 +772,33 @@ mod tests {
         let c = q("tag=cli&q=x&sort=-stars").cleared();
         assert!(c.is_empty());
         assert_eq!(c.sort.key, SortKey::Stars);
+    }
+
+    #[test]
+    fn merge_keeps_foreign_pairs_in_order() {
+        assert_eq!(
+            merge_query_string("q=claude", "?utm_source=x&q=old&tag=a&gclid=abc"),
+            "q=claude&utm_source=x&gclid=abc"
+        );
+    }
+
+    #[test]
+    fn merge_without_own_keys() {
+        assert_eq!(
+            merge_query_string("", "?utm_source=x&sort=-stars"),
+            "utm_source=x"
+        );
+    }
+
+    #[test]
+    fn merge_of_nothing() {
+        assert_eq!(merge_query_string("", ""), "");
+        assert_eq!(merge_query_string("oss=1", "?"), "oss=1");
+    }
+
+    #[test]
+    fn merge_treats_encoded_own_keys_as_own() {
+        assert_eq!(merge_query_string("", "%71=x&a=b"), "a=b");
     }
 
     #[test]
