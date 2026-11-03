@@ -1,0 +1,14 @@
+name = "HAPI"
+url = "https://hapi.run"
+repo = "tiann/hapi"
+summary.en = "Controls Claude Code, Codex and other agent sessions from a phone or browser while the agent keeps running on your own machine"
+summary.ja = "Claude Code や Codex などのセッションを、自分のマシン上で動かしたままスマホやブラウザから操作する"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "web", "ios", "android"]
+tags = ["orchestrator", "web", "cli", "remote", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04
+
+[links]
+docs = "https://github.com/tiann/hapi/tree/main/docs/guide"
+hn = "https://news.ycombinator.com/item?id=46571992"

@@ -1,0 +1,13 @@
+name = "Herdr"
+url = "https://herdr.dev"
+repo = "herdrdev/herdr"
+summary.en = "Terminal workspace for coding agents that keeps their terminals running in the background and shows which pane is working or blocked"
+summary.ja = "コーディングエージェントのターミナルをバックグラウンドで動かし続け、作業中か入力待ちかを pane ごとに示すターミナルワークスペース"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "tui", "cli", "parallel", "git-worktree", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04
+
+[links]
+docs = "https://herdr.dev/tui/docs/"

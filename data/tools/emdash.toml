@@ -1,0 +1,13 @@
+name = "Emdash"
+url = "https://emdash.com"
+repo = "generalaction/emdash"
+summary.en = "Desktop app that runs multiple coding agents in parallel, each in its own git worktree"
+summary.ja = "複数のコーディングエージェントを、それぞれ別の git worktree で並列に動かすデスクトップアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["orchestrator", "desktop", "parallel", "git-worktree", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04
+
+[links]
+hn = "https://news.ycombinator.com/item?id=47140322"
