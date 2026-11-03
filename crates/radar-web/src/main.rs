@@ -312,6 +312,8 @@ fn start() {
     close_on_scroll.forget();
     let total = data.with_value(|d| d.tools.len());
 
+    // Opening a tool does not re-filter the list: a row opened under the
+    // unread filter stays until the query changes, so rows do not shift.
     let results = {
         let lang = lang.clone();
         Memo::new(move |_| {
@@ -330,7 +332,7 @@ fn start() {
         let lang = lang.clone();
         Memo::new(move |_| {
             let q = query.get();
-            read.with_untracked(|r| data.with_value(|d| q.counts(d, &lang, r)))
+            read.with(|r| data.with_value(|d| q.counts(d, &lang, r)))
         })
     };
 
