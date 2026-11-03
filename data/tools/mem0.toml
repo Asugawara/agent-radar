@@ -5,6 +5,6 @@ summary.en = "Memory layer that lets AI agents remember user preferences across 
 summary.ja = "ユーザーの好みなどをセッションをまたいで AI エージェントに覚えさせるメモリ層"
 pricing = "freemium"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["web"]
 tags = ["memory", "library", "api", "self-hostable", "mcp-support", "model-agnostic"]
 added = 2026-11-02

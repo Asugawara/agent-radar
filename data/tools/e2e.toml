@@ -5,6 +5,6 @@ summary.en = "End-to-end testing framework for web and mobile apps where an agen
 summary.ja = "自然言語で書いた目的に向けてエージェントがアプリを操作する、Web・モバイルアプリ向けのエンドツーエンドテストフレームワーク"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["agent-framework", "browser-automation", "library", "cli", "model-agnostic"]
 added = 2026-11-04

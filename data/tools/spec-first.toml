@@ -5,7 +5,7 @@ summary.en = "Claude Code plugin that writes and reviews a spec first, then buil
 summary.ja = "先に仕様を書いてレビューし、専用 worktree で実装して、ビルドとテストを通ったものだけ届ける Claude Code プラグイン"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "git-worktree", "works-with-claude-code"]
 added = 2026-11-02
 

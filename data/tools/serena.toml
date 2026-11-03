@@ -5,6 +5,6 @@ summary.en = "MCP toolkit that gives coding agents semantic code search and edit
 summary.ja = "言語サーバ（LSP）を使い、コードの意味に基づく検索と編集を MCP でコーディングエージェントに提供するツールキット"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["mcp-server", "cli", "works-with-claude-code", "works-with-codex", "model-agnostic"]
 added = 2026-11-04

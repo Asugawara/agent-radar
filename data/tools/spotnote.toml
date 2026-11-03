@@ -5,7 +5,7 @@ summary.en = "Vite plugin that turns a click on a UI element into feedback point
 summary.ja = "画面上の要素をクリックするだけで、コーディングエージェントに該当のファイル・行・列を伝えるフィードバックにする Vite プラグイン"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "library", "web", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
 added = 2026-11-02
 

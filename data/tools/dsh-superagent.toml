@@ -5,6 +5,6 @@ summary.en = "Research prototype of a proactive coding agent for one GitHub repo
 summary.ja = "1 つの GitHub リポジトリを担当し、依頼を受けて作業項目を立て、プルリクエストで返す能動型コーディングエージェントの研究用プロトタイプ"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["coding-agent", "orchestrator", "web", "self-hostable"]
 added = 2026-11-04

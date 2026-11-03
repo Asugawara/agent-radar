@@ -5,6 +5,6 @@ summary.en = "Open-source plugins for Claude Cowork and Claude Code that bundle 
 summary.ja = "営業・法務などの職種向けに、スキル・コネクタ・サブエージェントをまとめた Claude Cowork / Claude Code 用のオープンソースプラグイン集"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "works-with-claude-code"]
 added = 2026-11-04

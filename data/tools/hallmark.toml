@@ -5,6 +5,6 @@ summary.en = "Design skill for coding agents that builds pages from a catalog of
 summary.ja = "50 種類のテーマから画面を組み立て、AI 生成っぽい見た目を検査で防ぐ、コーディングエージェント向けデザインスキル"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
 added = 2026-11-04

@@ -5,6 +5,6 @@ summary.en = "Design skill set that gives coding agents a shared vocabulary to p
 summary.ja = "コーディングエージェントに UI の仕上げ・批評・監査の共通語彙を与え、AI っぽい見た目を避けるデザインスキル集"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor", "works-with-gemini-cli"]
 added = 2026-11-04

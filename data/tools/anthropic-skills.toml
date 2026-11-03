@@ -5,6 +5,6 @@ summary.en = "Anthropic's example skills and spec for teaching Claude specialize
 summary.ja = "Claude に専門タスクを教えるための Anthropic 公式のスキル例と仕様"
 pricing = "free"
 open_source = false
-platforms = ["macos", "linux", "windows"]
+platforms = ["web"]
 tags = ["skills-plugins", "cli", "works-with-claude-code"]
 added = 2026-11-02

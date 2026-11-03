@@ -5,7 +5,7 @@ summary.en = "Boilerplate for running Claude Code in a container with a command 
 summary.ja = "コンテナ内の Claude Code に、コマンド制限・lint フック・決定的なマルチエージェントのオーケストレータを組み合わせたひな形"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "sandbox", "cli", "multi-agent", "works-with-claude-code"]
 added = 2026-11-02
 
