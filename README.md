@@ -51,6 +51,8 @@ tags = ["coding-agent", "cli", "model-agnostic"]
 added = 2026-11-02
 ```
 
+Use `platforms = ["unspecified"]` when the official pages name no OS; do not guess one.
+
 Allowed tags are listed in [`data/tags.toml`](data/tags.toml). After a merge, stars, last update and the favicon are filled in automatically.
 
 ## Development

@@ -402,13 +402,14 @@ pub fn merge_query_string(own: &str, current: &str) -> String {
     parts.join("&")
 }
 
-pub const ALL_PLATFORMS: [Platform; 6] = [
+pub const ALL_PLATFORMS: [Platform; 7] = [
     Platform::Macos,
     Platform::Windows,
     Platform::Linux,
     Platform::Web,
     Platform::Ios,
     Platform::Android,
+    Platform::Unspecified,
 ];
 
 fn parse_pricing(s: &str) -> Option<Pricing> {
@@ -671,6 +672,36 @@ mod tests {
         assert_eq!(
             ids(&q("pricing=free&platform=linux&oss=1").apply(&d, "en", &BTreeSet::new())),
             ["alpha"]
+        );
+    }
+
+    #[test]
+    fn platform_unspecified_filters_and_counts() {
+        let mut d = data();
+        d.tools.push(tool(
+            "omega",
+            Pricing::Free,
+            false,
+            &[Platform::Unspecified],
+            &["cli"],
+            "2026-01-05",
+            None,
+            None,
+        ));
+        assert_eq!(
+            ids(&q("platform=unspecified").apply(&d, "en", &BTreeSet::new())),
+            ["omega"]
+        );
+        assert_eq!(q("platform=unspecified").platforms.len(), 1);
+        assert_eq!(
+            q("platform=unspecified&platform=linux").to_query_string(),
+            "platform=linux&platform=unspecified"
+        );
+        assert_eq!(
+            q(&q("platform=unspecified").to_query_string())
+                .platforms
+                .len(),
+            1
         );
     }
 

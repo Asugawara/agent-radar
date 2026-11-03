@@ -51,6 +51,8 @@ tags = ["coding-agent", "cli", "model-agnostic"]
 added = 2026-11-02
 ```
 
+公式のページに対応 OS の記載が無いときは `platforms = ["unspecified"]`（言及なし）にしてください。推測で埋めないでください。
+
 使えるタグは [`data/tags.toml`](data/tags.toml) にあります。マージ後に、スター数・最終更新日・ファビコンが自動で入ります。
 
 ## 開発

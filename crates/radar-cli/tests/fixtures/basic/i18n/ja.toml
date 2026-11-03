@@ -34,6 +34,7 @@ linux = "Linux"
 web = "Web"
 ios = "iOS"
 android = "Android"
+unspecified = "言及なし"
 
 [footer]
 add_tool = "ツールを追加"
