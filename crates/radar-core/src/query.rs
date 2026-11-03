@@ -52,6 +52,36 @@ impl Default for Sort {
     }
 }
 
+/// Whether the visitor has opened a tool. The marks are kept in the browser.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum ReadState {
+    Unread,
+    Read,
+}
+
+impl ReadState {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            ReadState::Unread => "unread",
+            ReadState::Read => "read",
+        }
+    }
+}
+
+fn parse_read(s: &str) -> Option<ReadState> {
+    [ReadState::Unread, ReadState::Read]
+        .into_iter()
+        .find(|r| r.as_str() == s)
+}
+
+fn state_of(read_ids: &BTreeSet<String>, tool: &SiteTool) -> ReadState {
+    if read_ids.contains(&tool.id) {
+        ReadState::Read
+    } else {
+        ReadState::Unread
+    }
+}
+
 /// What the visitor selected. Inside one group (a tag facet, pricing,
 /// platforms) values are OR-ed; the groups are AND-ed.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
@@ -61,6 +91,7 @@ pub struct Query {
     pub pricing: BTreeSet<Pricing>,
     pub open_source: bool,
     pub platforms: BTreeSet<Platform>,
+    pub read: BTreeSet<ReadState>,
     pub sort: Sort,
 }
 
@@ -71,6 +102,7 @@ pub enum Group<'a> {
     Pricing,
     OpenSource,
     Platforms,
+    Read,
 }
 
 /// Number of tools each choice would show, counted with every condition
@@ -81,6 +113,7 @@ pub struct Counts {
     pub pricing: BTreeMap<Pricing, usize>,
     pub open_source: usize,
     pub platforms: BTreeMap<Platform, usize>,
+    pub read: BTreeMap<ReadState, usize>,
 }
 
 fn facet_of<'a>(data: &'a SiteData, tag: &str) -> Option<&'a str> {
@@ -106,11 +139,16 @@ impl Query {
             && self.pricing.is_empty()
             && !self.open_source
             && self.platforms.is_empty()
+            && self.read.is_empty()
     }
 
     /// Number of active filter conditions (the search text is not counted).
     pub fn filter_count(&self) -> usize {
-        self.tags.len() + self.pricing.len() + self.platforms.len() + usize::from(self.open_source)
+        self.tags.len()
+            + self.pricing.len()
+            + self.platforms.len()
+            + self.read.len()
+            + usize::from(self.open_source)
     }
 
     /// Drop every condition (the sort order stays).
@@ -140,11 +178,13 @@ impl Query {
     }
 
     /// Does `tool` satisfy every condition, ignoring the `skip` group?
+    /// `read_ids` are the tools the visitor has opened.
     pub fn matches(
         &self,
         data: &SiteData,
         tool: &SiteTool,
         lang: &str,
+        read_ids: &BTreeSet<String>,
         skip: Option<&Group>,
     ) -> bool {
         let skipped = |g: Group| skip == Some(&g);
@@ -166,6 +206,12 @@ impl Query {
         {
             return false;
         }
+        if !skipped(Group::Read)
+            && !self.read.is_empty()
+            && !self.read.contains(&state_of(read_ids, tool))
+        {
+            return false;
+        }
         for facet in &data.facets {
             if skipped(Group::Facet(&facet.id)) {
                 continue;
@@ -184,17 +230,22 @@ impl Query {
     }
 
     /// Matching tools in the requested order.
-    pub fn apply<'a>(&self, data: &'a SiteData, lang: &str) -> Vec<&'a SiteTool> {
+    pub fn apply<'a>(
+        &self,
+        data: &'a SiteData,
+        lang: &str,
+        read_ids: &BTreeSet<String>,
+    ) -> Vec<&'a SiteTool> {
         let mut out: Vec<&SiteTool> = data
             .tools
             .iter()
-            .filter(|t| self.matches(data, t, lang, None))
+            .filter(|t| self.matches(data, t, lang, read_ids, None))
             .collect();
         sort_tools(&mut out, self.sort);
         out
     }
 
-    pub fn counts(&self, data: &SiteData, lang: &str) -> Counts {
+    pub fn counts(&self, data: &SiteData, lang: &str, read_ids: &BTreeSet<String>) -> Counts {
         let mut c = Counts::default();
         for facet in &data.facets {
             let g = Group::Facet(&facet.id);
@@ -203,7 +254,8 @@ impl Query {
                     .tools
                     .iter()
                     .filter(|tool| {
-                        tool.tags.contains(&t.id) && self.matches(data, tool, lang, Some(&g))
+                        tool.tags.contains(&t.id)
+                            && self.matches(data, tool, lang, read_ids, Some(&g))
                     })
                     .count();
                 c.tags.insert(t.id.clone(), n);
@@ -213,24 +265,40 @@ impl Query {
             let n = data
                 .tools
                 .iter()
-                .filter(|t| t.pricing == p && self.matches(data, t, lang, Some(&Group::Pricing)))
+                .filter(|t| {
+                    t.pricing == p && self.matches(data, t, lang, read_ids, Some(&Group::Pricing))
+                })
                 .count();
             c.pricing.insert(p, n);
         }
         c.open_source = data
             .tools
             .iter()
-            .filter(|t| t.open_source && self.matches(data, t, lang, Some(&Group::OpenSource)))
+            .filter(|t| {
+                t.open_source && self.matches(data, t, lang, read_ids, Some(&Group::OpenSource))
+            })
             .count();
         for p in ALL_PLATFORMS {
             let n = data
                 .tools
                 .iter()
                 .filter(|t| {
-                    t.platforms.contains(&p) && self.matches(data, t, lang, Some(&Group::Platforms))
+                    t.platforms.contains(&p)
+                        && self.matches(data, t, lang, read_ids, Some(&Group::Platforms))
                 })
                 .count();
             c.platforms.insert(p, n);
+        }
+        for st in [ReadState::Unread, ReadState::Read] {
+            let n = data
+                .tools
+                .iter()
+                .filter(|t| {
+                    state_of(read_ids, t) == st
+                        && self.matches(data, t, lang, read_ids, Some(&Group::Read))
+                })
+                .count();
+            c.read.insert(st, n);
         }
         c
     }
@@ -258,6 +326,11 @@ impl Query {
                 "platform" => {
                     if let Some(p) = parse_platform(&v) {
                         out.platforms.insert(p);
+                    }
+                }
+                "read" => {
+                    if let Some(r) = parse_read(&v) {
+                        out.read.insert(r);
                     }
                 }
                 "sort" => {
@@ -294,6 +367,9 @@ impl Query {
         for p in &self.platforms {
             parts.push(format!("platform={}", p.as_str()));
         }
+        for r in &self.read {
+            parts.push(format!("read={}", r.as_str()));
+        }
         if self.sort != Sort::default() {
             let dash = if self.sort.desc { "-" } else { "" };
             parts.push(format!("sort={dash}{}", self.sort.key.as_str()));
@@ -304,7 +380,7 @@ impl Query {
 
 /// Keys [`Query::parse`] reads. Other keys in the address bar (`utm_*`,
 /// `gclid`, …) belong to someone else and are kept.
-const OWN_KEYS: [&str; 6] = ["tag", "q", "pricing", "oss", "platform", "sort"];
+const OWN_KEYS: [&str; 7] = ["tag", "q", "pricing", "oss", "platform", "read", "sort"];
 
 /// The search part for the address bar, without the leading `?`: `own`
 /// (from [`Query::to_query_string`]) followed by every pair of `current`
@@ -558,7 +634,7 @@ mod tests {
     fn empty_query_shows_everything_by_name() {
         let d = data();
         assert_eq!(
-            ids(&Query::default().apply(&d, "en")),
+            ids(&Query::default().apply(&d, "en", &BTreeSet::new())),
             ["alpha", "Beta", "delta", "gamma"]
         );
     }
@@ -567,7 +643,7 @@ mod tests {
     fn tags_in_a_facet_are_or() {
         let d = data();
         assert_eq!(
-            ids(&q("tag=cli&tag=mcp-server").apply(&d, "en")),
+            ids(&q("tag=cli&tag=mcp-server").apply(&d, "en", &BTreeSet::new())),
             ["alpha", "Beta", "gamma"]
         );
     }
@@ -576,7 +652,7 @@ mod tests {
     fn facets_are_and() {
         let d = data();
         assert_eq!(
-            ids(&q("tag=cli&tag=sandbox&tag=works-with-claude").apply(&d, "en")),
+            ids(&q("tag=cli&tag=sandbox&tag=works-with-claude").apply(&d, "en", &BTreeSet::new())),
             ["alpha", "delta"]
         );
     }
@@ -585,15 +661,15 @@ mod tests {
     fn pricing_and_platforms_or_inside_and_between() {
         let d = data();
         assert_eq!(
-            ids(&q("pricing=free&pricing=paid").apply(&d, "en")),
+            ids(&q("pricing=free&pricing=paid").apply(&d, "en", &BTreeSet::new())),
             ["alpha", "delta", "gamma"]
         );
         assert_eq!(
-            ids(&q("platform=web&platform=linux").apply(&d, "en")),
+            ids(&q("platform=web&platform=linux").apply(&d, "en", &BTreeSet::new())),
             ["alpha", "Beta", "delta", "gamma"]
         );
         assert_eq!(
-            ids(&q("pricing=free&platform=linux&oss=1").apply(&d, "en")),
+            ids(&q("pricing=free&platform=linux&oss=1").apply(&d, "en", &BTreeSet::new())),
             ["alpha"]
         );
     }
@@ -601,40 +677,61 @@ mod tests {
     #[test]
     fn open_source_flag() {
         let d = data();
-        assert_eq!(ids(&q("oss=1").apply(&d, "en")), ["alpha", "gamma"]);
-        assert_eq!(ids(&q("oss=0").apply(&d, "en")).len(), 4);
+        assert_eq!(
+            ids(&q("oss=1").apply(&d, "en", &BTreeSet::new())),
+            ["alpha", "gamma"]
+        );
+        assert_eq!(ids(&q("oss=0").apply(&d, "en", &BTreeSet::new())).len(), 4);
     }
 
     #[test]
     fn text_search_covers_name_summary_and_tag_labels_ignoring_case() {
         let d = data();
-        assert_eq!(ids(&q("q=BETA").apply(&d, "en")), ["Beta"]);
-        assert_eq!(ids(&q("q=gamma%20summary").apply(&d, "en")), ["gamma"]);
-        assert_eq!(ids(&q("q=mcp+server").apply(&d, "en")), ["Beta"]);
+        assert_eq!(
+            ids(&q("q=BETA").apply(&d, "en", &BTreeSet::new())),
+            ["Beta"]
+        );
+        assert_eq!(
+            ids(&q("q=gamma%20summary").apply(&d, "en", &BTreeSet::new())),
+            ["gamma"]
+        );
+        assert_eq!(
+            ids(&q("q=mcp+server").apply(&d, "en", &BTreeSet::new())),
+            ["Beta"]
+        );
         // the tag label of the displayed language is searched
         assert_eq!(
-            ids(&q("q=サンドボックス").apply(&d, "ja")),
+            ids(&q("q=サンドボックス").apply(&d, "ja", &BTreeSet::new())),
             ["delta", "gamma"]
         );
-        assert!(q("q=サンドボックス").apply(&d, "en").is_empty());
+        assert!(
+            q("q=サンドボックス")
+                .apply(&d, "en", &BTreeSet::new())
+                .is_empty()
+        );
         // summary of the other language is not searched
         assert!(
             q("q=%E3%81%AE%E6%A6%82%E8%A6%81")
-                .apply(&d, "en")
+                .apply(&d, "en", &BTreeSet::new())
                 .is_empty()
         );
-        assert_eq!(q("q=%E3%81%AE%E6%A6%82%E8%A6%81").apply(&d, "ja").len(), 4);
+        assert_eq!(
+            q("q=%E3%81%AE%E6%A6%82%E8%A6%81")
+                .apply(&d, "ja", &BTreeSet::new())
+                .len(),
+            4
+        );
     }
 
     #[test]
     fn text_search_combines_with_filters() {
         let d = data();
         assert_eq!(
-            ids(&q("q=a&tag=sandbox").apply(&d, "en")),
+            ids(&q("q=a&tag=sandbox").apply(&d, "en", &BTreeSet::new())),
             ["delta", "gamma"]
         );
         assert_eq!(
-            ids(&q("q=alpha&tag=sandbox").apply(&d, "en")),
+            ids(&q("q=alpha&tag=sandbox").apply(&d, "en", &BTreeSet::new())),
             Vec::<String>::new()
         );
     }
@@ -643,7 +740,7 @@ mod tests {
     fn counts_ignore_only_their_own_group() {
         let d = data();
         let query = q("tag=cli&pricing=free");
-        let c = query.counts(&d, "en");
+        let c = query.counts(&d, "en", &BTreeSet::new());
         // category count: pricing=free applied, category ignored
         assert_eq!(c.tags["cli"], 1); // alpha
         assert_eq!(c.tags["sandbox"], 1); // delta
@@ -661,7 +758,7 @@ mod tests {
     #[test]
     fn counts_include_the_search_text() {
         let d = data();
-        let c = q("q=delta").counts(&d, "en");
+        let c = q("q=delta").counts(&d, "en", &BTreeSet::new());
         assert_eq!(c.tags["sandbox"], 1);
         assert_eq!(c.tags["cli"], 0);
     }
@@ -671,12 +768,12 @@ mod tests {
         let d = data();
         let mut query = q("sort=stars");
         assert_eq!(
-            ids(&query.apply(&d, "en")),
+            ids(&query.apply(&d, "en", &BTreeSet::new())),
             ["alpha", "delta", "Beta", "gamma"]
         );
         query = q("sort=-stars");
         assert_eq!(
-            ids(&query.apply(&d, "en")),
+            ids(&query.apply(&d, "en", &BTreeSet::new())),
             ["Beta", "alpha", "delta", "gamma"]
         );
     }
@@ -685,19 +782,19 @@ mod tests {
     fn sort_updated_and_added() {
         let d = data();
         assert_eq!(
-            ids(&q("sort=-updated").apply(&d, "en")),
+            ids(&q("sort=-updated").apply(&d, "en", &BTreeSet::new())),
             ["delta", "alpha", "Beta", "gamma"]
         );
         assert_eq!(
-            ids(&q("sort=updated").apply(&d, "en")),
+            ids(&q("sort=updated").apply(&d, "en", &BTreeSet::new())),
             ["Beta", "alpha", "delta", "gamma"]
         );
         assert_eq!(
-            ids(&q("sort=added").apply(&d, "en")),
+            ids(&q("sort=added").apply(&d, "en", &BTreeSet::new())),
             ["Beta", "gamma", "alpha", "delta"]
         );
         assert_eq!(
-            ids(&q("sort=-added").apply(&d, "en")),
+            ids(&q("sort=-added").apply(&d, "en", &BTreeSet::new())),
             ["delta", "alpha", "gamma", "Beta"]
         );
     }
@@ -706,7 +803,7 @@ mod tests {
     fn sort_name_desc_is_case_insensitive() {
         let d = data();
         assert_eq!(
-            ids(&q("sort=-name").apply(&d, "en")),
+            ids(&q("sort=-name").apply(&d, "en", &BTreeSet::new())),
             ["gamma", "delta", "Beta", "alpha"]
         );
     }
@@ -807,5 +904,41 @@ mod tests {
         assert_eq!(decode("100%"), "100%");
         assert_eq!(decode("%zz"), "%zz");
         assert_eq!(decode("%41"), "A");
+    }
+
+    #[test]
+    fn read_state_round_trips() {
+        let query = q("read=unread&read=read&read=bogus");
+        assert_eq!(
+            query.read,
+            BTreeSet::from([ReadState::Unread, ReadState::Read])
+        );
+        assert_eq!(query.to_query_string(), "read=unread&read=read");
+        assert_eq!(q(&query.to_query_string()), query);
+    }
+
+    #[test]
+    fn read_filter_uses_the_opened_set() {
+        let d = data();
+        let read = BTreeSet::from(["alpha".to_string()]);
+        assert_eq!(
+            ids(&q("read=unread").apply(&d, "en", &read)),
+            ["Beta", "delta", "gamma"]
+        );
+        assert_eq!(ids(&q("read=read").apply(&d, "en", &read)), ["alpha"]);
+    }
+
+    #[test]
+    fn read_counts_ignore_only_their_own_group() {
+        let d = data();
+        let read = BTreeSet::from(["alpha".to_string()]);
+        // cli tools are alpha (read) and gamma (unread)
+        let c = q("read=unread&tag=cli").counts(&d, "en", &read);
+        assert_eq!(c.read[&ReadState::Read], 1);
+        assert_eq!(c.read[&ReadState::Unread], 1);
+        // with only the read filter, the other side counts the whole table
+        let c = q("read=unread").counts(&d, "en", &read);
+        assert_eq!(c.read[&ReadState::Read], 1);
+        assert_eq!(c.read[&ReadState::Unread], 3);
     }
 }

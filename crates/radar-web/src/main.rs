@@ -1,11 +1,11 @@
 //! The interactive table: reads `#site-data`, replaces the static table in
 //! `#tool-table` and fills `#filters`. State lives in the URL query.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 use leptos::mount::mount_to;
 use leptos::prelude::*;
-use radar_core::{ALL_PLATFORMS, Platform, Pricing, Query, SiteData, SiteTool, SortKey};
+use radar_core::{ALL_PLATFORMS, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey};
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{Document, HtmlElement};
 
@@ -219,6 +219,39 @@ fn toggle<T: Ord + Clone>(set: &mut std::collections::BTreeSet<T>, v: &T, on: bo
     }
 }
 
+/// localStorage key of the ids of the tools the visitor has opened.
+const READ_KEY: &str = "read";
+
+fn storage() -> Option<web_sys::Storage> {
+    web_sys::window().and_then(|w| w.local_storage().ok().flatten())
+}
+
+/// The read marks saved in the browser. Missing or broken data counts as none.
+fn load_read() -> BTreeSet<String> {
+    storage()
+        .and_then(|s| s.get_item(READ_KEY).ok().flatten())
+        .and_then(|v| serde_json::from_str(&v).ok())
+        .unwrap_or_default()
+}
+
+/// Save the read marks. Failures (private mode, full storage) are ignored.
+fn save_read(ids: &BTreeSet<String>) {
+    if let (Some(s), Ok(v)) = (storage(), serde_json::to_string(ids)) {
+        let _ = s.set_item(READ_KEY, &v);
+    }
+}
+
+/// Mark a tool as read, once, and save it.
+fn mark_read(read: RwSignal<BTreeSet<String>>, id: &str) {
+    if read.with_untracked(|r| r.contains(id)) {
+        return;
+    }
+    read.update(|r| {
+        r.insert(id.to_string());
+        save_read(r);
+    });
+}
+
 /// Runs when the WASM module is initialised in the browser.
 #[wasm_bindgen::prelude::wasm_bindgen(start)]
 fn start() {
@@ -254,6 +287,8 @@ fn start() {
 
     let query = RwSignal::new(current_query(&data));
     Effect::new(move |prev: Option<()>| sync_url(&query.get(), prev.is_none()));
+    // Opened tools. Not tracked by the list itself, so a clicked row stays until the query changes.
+    let read = RwSignal::new(load_read());
 
     let data = StoredValue::new(data);
     // The column filter popover that is open (at most one) and where it sits.
@@ -280,19 +315,23 @@ fn start() {
     let results = {
         let lang = lang.clone();
         Memo::new(move |_| {
-            data.with_value(|d| {
-                query
-                    .get()
-                    .apply(d, &lang)
-                    .into_iter()
-                    .cloned()
-                    .collect::<Vec<SiteTool>>()
+            let q = query.get();
+            read.with_untracked(|r| {
+                data.with_value(|d| {
+                    q.apply(d, &lang, r)
+                        .into_iter()
+                        .cloned()
+                        .collect::<Vec<SiteTool>>()
+                })
             })
         })
     };
     let counts = {
         let lang = lang.clone();
-        Memo::new(move |_| data.with_value(|d| query.get().counts(d, &lang)))
+        Memo::new(move |_| {
+            let q = query.get();
+            read.with_untracked(|r| data.with_value(|d| q.counts(d, &lang, r)))
+        })
     };
 
     let tag_label = {
@@ -400,6 +439,25 @@ fn start() {
             })
             .collect_view();
 
+        let read_views = [ReadState::Unread, ReadState::Read]
+            .into_iter()
+            .map(|st| {
+                let label = s.t(&format!("ui.{}", st.as_str()));
+                view! {
+                    <label class="opt">
+                        <input type="checkbox"
+                            prop:checked=move || query.get().read.contains(&st)
+                            on:change=move |ev| {
+                                let on = event_target_checked(&ev);
+                                query.update(|q| toggle(&mut q.read, &st, on));
+                            } />
+                        " " {label} " "
+                        <span class="count">{move || counts.get().read.get(&st).copied().unwrap_or(0)}</span>
+                    </label>
+                }
+            })
+            .collect_view();
+
         let count_tpl = s.t("ui.count");
         let clear_label = s.t("ui.clear");
         view! {
@@ -459,6 +517,10 @@ fn start() {
                         " " {s.t("ui.oss_only")} " "
                         <span class="count">{move || counts.get().open_source}</span>
                     </label>
+                </fieldset>
+                <fieldset class="facet">
+                    <legend>{s.t("ui.read_group")}</legend>
+                    {read_views}
                 </fieldset>
             </div>
         }
@@ -648,6 +710,7 @@ fn start() {
         let generated_at = generated_at.clone();
         let rows = move || {
             let empty = s_rows.t("table.empty");
+            let unread = s_rows.t("ui.unread");
             let list = results.get();
             if list.is_empty() {
                 let msg = if total == 0 {
@@ -721,13 +784,29 @@ fn start() {
                             </a>
                         }
                     });
+                    // Blue dot until the tool is opened (tracked, so it disappears on click).
+                    let tid = t.id.clone();
+                    let dot_label = unread.clone();
+                    let unread_dot = move || {
+                        (!read.with(|r| r.contains(&tid))).then(|| {
+                            view! { <span class="unread-dot" role="img" aria-label=dot_label.clone() title=dot_label.clone()></span> }
+                        })
+                    };
+                    let (click_id, aux_id) = (t.id.clone(), t.id.clone());
                     view! {
                         <tr data-id=t.id.clone()>
                             <td class="col-name">
                                 <div class="tool-cell">
                                     <span class="fav" inner_html=radar_core::icons::favicon_inner(t.favicon.as_deref(), &t.name, &t.id)></span>
                                     <div class="tool-main">
-                                        <a class="tool-name" href=t.url.clone() target="_blank" rel="noopener">{t.name.clone()}</a>
+                                        {unread_dot}
+                                        <a class="tool-name" href=t.url.clone() target="_blank" rel="noopener"
+                                            on:click=move |_| mark_read(read, &click_id)
+                                            on:auxclick=move |ev| {
+                                                if ev.button() == 1 {
+                                                    mark_read(read, &aux_id);
+                                                }
+                                            }>{t.name.clone()}</a>
                                         {repo_link}
                                         <div class="summary">{t.summary.get(&lang).to_string()}</div>
                                         {tool_cats}

@@ -128,7 +128,20 @@ impl Page {
             .unwrap_or_else(|_| "\"\"".into())
             .replace('<', "\\u003c");
         format!(
-            "<script>\nif (location.origin === {origin}) {{\n  window.dataLayer = window.dataLayer || [];\n  window.gtag = function(){{dataLayer.push(arguments);}};\n  gtag('js', new Date());\n  var s = document.createElement('script');\n  s.async = true;\n  s.src = 'https://www.googletagmanager.com/gtm.js?id={id}';\n  document.head.appendChild(s);\n}}\n</script>"
+            "<script>\nif (location.origin === {origin} && !window.radarLangRedirect) {{\n  window.dataLayer = window.dataLayer || [];\n  window.gtag = function(){{dataLayer.push(arguments);}};\n  gtag('js', new Date());\n  var s = document.createElement('script');\n  s.async = true;\n  s.src = 'https://www.googletagmanager.com/gtm.js?id={id}';\n  document.head.appendChild(s);\n}}\n</script>"
+        )
+    }
+    /// Script that sends a visitor who saved the other language to that language's page.
+    pub fn lang_redirect_script(&self) -> String {
+        let json = |s: &str| {
+            serde_json::to_string(s)
+                .unwrap_or_else(|_| "\"\"".into())
+                .replace('<', "\\u003c")
+        };
+        let other = json(self.other_lang());
+        let target = json(&self.url_for(self.other_lang()));
+        format!(
+            "<script>\n(function () {{\n  var l;\n  try {{ l = localStorage.getItem('lang'); }} catch (e) {{}}\n  if (l === {other}) {{\n    window.radarLangRedirect = true;\n    location.replace({target} + location.search + location.hash);\n  }}\n}})();\n</script>"
         )
     }
     /// JSON of the UI texts the table needs (safe inside `<script>`).
