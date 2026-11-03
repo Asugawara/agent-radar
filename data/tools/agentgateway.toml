@@ -1,0 +1,10 @@
+name = "agentgateway"
+url = "https://agentgateway.dev"
+repo = "agentgateway/agentgateway"
+summary.en = "Open source proxy for MCP and A2A that adds security, observability and governance between agents, LLMs and tools"
+summary.ja = "MCP と A2A に対応し、エージェント・LLM・ツール間の通信にセキュリティ・可観測性・統制を加えるオープンソースのプロキシ"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["gateway", "api", "self-hostable", "mcp-support"]
+added = 2026-11-04

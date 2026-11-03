@@ -1,0 +1,10 @@
+name = "Cursor Plugins"
+url = "https://github.com/cursor/plugins"
+repo = "cursor/plugins"
+summary.en = "Cursor plugin specification and the official plugins"
+summary.ja = "Cursor のプラグイン仕様と公式プラグイン集"
+pricing = "free"
+open_source = false
+platforms = ["unspecified"]
+tags = ["skills-plugins", "ide-extension", "works-with-cursor"]
+added = 2026-11-04

@@ -1,0 +1,10 @@
+name = "SuperPlane"
+url = "https://superplane.com"
+repo = "superplanehq/superplane"
+summary.en = "Open source factory that turns backlog issues into verified, review-ready pull requests by coordinating coding agents, CI and review"
+summary.ja = "コーディングエージェント・CI・レビューを連携させ、バックログの課題を検証済みでレビュー可能な PR に変えるオープンソースの仕組み"
+pricing = "free"
+open_source = true
+platforms = ["web"]
+tags = ["orchestrator", "web", "self-hostable", "multi-agent"]
+added = 2026-11-04

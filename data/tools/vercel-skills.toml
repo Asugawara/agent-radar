@@ -1,0 +1,10 @@
+name = "skills (Vercel)"
+url = "https://skills.sh"
+repo = "vercel-labs/skills"
+summary.en = "CLI (npx skills) for installing and managing agent skills across coding agents"
+summary.ja = "コーディングエージェント向けのエージェントスキルを導入・管理する CLI（npx skills）"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

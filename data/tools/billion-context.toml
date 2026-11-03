@@ -1,0 +1,10 @@
+name = "billion-context"
+url = "https://github.com/ranxianglei/billion-context"
+repo = "ranxianglei/billion-context"
+summary.en = "Context-compression plugin that keeps month-long single agent sessions inside small context windows"
+summary.ja = "小さなコンテキストウィンドウのまま、1 か月続く単一セッションを可能にするコンテキスト圧縮プラグイン"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "skills-plugins", "cli"]
+added = 2026-11-04

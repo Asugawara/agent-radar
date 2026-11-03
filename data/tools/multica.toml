@@ -1,0 +1,10 @@
+name = "Multica"
+url = "https://multica.ai"
+repo = "multica-ai/multica"
+summary.en = "Workspace where you assign issues to coding agents like teammates and review their progress on a board"
+summary.ja = "課題をチームメンバーのようにコーディングエージェントへ割り当て、進捗をボードで確認・レビューできるワークスペース"
+pricing = "free"
+open_source = false
+platforms = ["macos", "windows", "linux", "web", "ios"]
+tags = ["orchestrator", "desktop", "web", "self-hostable", "multi-agent"]
+added = 2026-11-04

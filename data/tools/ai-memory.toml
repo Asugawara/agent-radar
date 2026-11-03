@@ -1,0 +1,10 @@
+name = "ai-memory"
+url = "https://github.com/akitaonrails/ai-memory"
+repo = "akitaonrails/ai-memory"
+summary.en = "Long-term memory for coding agent CLIs that lets you quit Claude Code mid-task and continue in Codex without re-explaining"
+summary.ja = "コーディングエージェント CLI 向けの長期記憶。Claude Code を途中で止めても、説明し直さずに Codex で続きから再開できる"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["memory", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

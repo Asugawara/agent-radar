@@ -1,0 +1,10 @@
+name = "Beads"
+url = "https://beads.gascity.com"
+repo = "gastownhall/beads"
+summary.en = "Distributed graph issue tracker that gives coding agents a persistent, dependency-aware memory for long tasks"
+summary.ja = "長い作業のために、コーディングエージェントへ依存関係付きの永続的な記憶を与える分散型のグラフ課題トラッカー"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "cli"]
+added = 2026-11-04

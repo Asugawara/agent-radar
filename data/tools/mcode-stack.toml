@@ -1,0 +1,10 @@
+name = "MiniMax Code Stack"
+url = "https://github.com/MiniMax-AI/mcode-stack"
+repo = "MiniMax-AI/mcode-stack"
+summary.en = "Workflows and skills the MiniMax Code team uses daily, installable as SKILL.md skills"
+summary.ja = "MiniMax Code チームが日常的に使っているワークフローとスキルを、SKILL.md スキルとして導入できる集合"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-04

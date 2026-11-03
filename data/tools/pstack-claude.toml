@@ -1,0 +1,10 @@
+name = "pstack for Claude Code"
+url = "https://github.com/michael-denyer/pstack-claude"
+repo = "michael-denyer/pstack-claude"
+summary.en = "Port of Lauren Tan's pstack skill stack to Claude Code, Codex, Copilot and other agent harnesses"
+summary.ja = "Lauren Tan の pstack スキル集を Claude Code・Codex・Copilot など他のエージェントハーネスへ移植したもの"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

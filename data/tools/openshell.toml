@@ -1,0 +1,10 @@
+name = "NVIDIA OpenShell"
+url = "https://docs.nvidia.com/openshell/latest/"
+repo = "NVIDIA/OpenShell"
+summary.en = "Sandboxed runtime for autonomous agents, with a local gateway and a CLI to start and manage isolated sessions"
+summary.ja = "自律エージェントを隔離環境で動かすランタイム。ローカルゲートウェイと、隔離セッションを起動・管理する CLI を備える"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["sandbox", "cli", "self-hostable"]
+added = 2026-11-04

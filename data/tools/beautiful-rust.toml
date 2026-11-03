@@ -1,0 +1,10 @@
+name = "Beautiful Rust"
+url = "https://www.beautifulrust.dev"
+repo = "morganlinton/BeautifulRust"
+summary.en = "Agent skills and a clippy config that teach coding agents to write, review and port idiomatic Rust"
+summary.ja = "コーディングエージェントに慣用的な Rust の書き方・レビュー・移植を教えるエージェントスキルと clippy 設定"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

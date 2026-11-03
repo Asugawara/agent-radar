@@ -1,0 +1,10 @@
+name = "FreeLLMAPI"
+url = "https://freellmapi.co"
+repo = "tashfeenahmed/freellmapi"
+summary.en = "Router that aggregates the free tiers of dozens of LLM providers behind one OpenAI-compatible endpoint"
+summary.ja = "数十の LLM プロバイダの無料枠をまとめ、1 つの OpenAI 互換エンドポイントとして使えるようにするルーター"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux", "android", "ios"]
+tags = ["gateway", "api", "desktop", "self-hostable", "model-agnostic"]
+added = 2026-11-04

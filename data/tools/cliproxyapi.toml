@@ -1,0 +1,10 @@
+name = "CLIProxyAPI"
+url = "https://github.com/router-for-me/CLIProxyAPI"
+repo = "router-for-me/CLIProxyAPI"
+summary.en = "Proxy that wraps subscription coding CLIs such as Claude Code and Codex as OpenAI-, Gemini- and Claude-compatible APIs"
+summary.ja = "Claude Code や Codex など契約済みのコーディング CLI を、OpenAI・Gemini・Claude 互換 API として使えるようにするプロキシ"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["gateway", "api", "self-hostable", "model-agnostic"]
+added = 2026-11-04

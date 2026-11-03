@@ -1,0 +1,10 @@
+name = "Treg"
+url = "https://treg.to"
+repo = "superdesigndev/treg"
+summary.en = "OpenRouter for agent tools: one base URL and token gives an agent a catalog of paid-per-call endpoints and your team's own tools"
+summary.ja = "エージェント向けツールの OpenRouter。1 つの URL とトークンで、従量課金のエンドポイント群とチーム独自のツールを呼べる"
+pricing = "freemium"
+open_source = false
+platforms = ["unspecified"]
+tags = ["gateway", "api"]
+added = 2026-11-04

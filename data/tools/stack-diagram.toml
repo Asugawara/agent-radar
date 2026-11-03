@@ -1,0 +1,10 @@
+name = "stack-diagram"
+url = "https://github.com/caru-ini/stack-diagram"
+repo = "caru-ini/stack-diagram"
+summary.en = "Agent skill that turns a one-sentence description of your stack into an architecture diagram with official logos"
+summary.ja = "技術スタックを一文で説明すると、公式ロゴ付きのアーキテクチャ図にしてくれるエージェントスキル"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04

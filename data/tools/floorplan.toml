@@ -1,0 +1,10 @@
+name = "Floorplan"
+url = "https://github.com/haydenschmitty/floorplan"
+repo = "haydenschmitty/floorplan"
+summary.en = "Claude Code and Codex plugin that reads your codebase and draws an interactive map of how the app fits together"
+summary.ja = "コードベースを読み、アプリの構造を対話的な図に描く Claude Code・Codex 向けプラグイン"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

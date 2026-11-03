@@ -1,0 +1,10 @@
+name = "CodeAF"
+url = "https://agentfield.ai/codeaf"
+repo = "Agent-Field/CodeAF"
+summary.en = "Coding harness tuned for open models that runs work across projects from a single window"
+summary.ja = "オープンモデル向けに調整されたコーディングハーネス。複数プロジェクトの作業を 1 つのウィンドウから進められる"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "orchestrator", "parallel", "model-agnostic", "cli"]
+added = 2026-11-04

@@ -1,0 +1,10 @@
+name = "Ben Taylor's skills"
+url = "https://github.com/benjitaylor/skills"
+repo = "benjitaylor/skills"
+summary.en = "Agent skills for design and motion work, such as faux product UI illustrations in React"
+summary.ja = "プロダクト UI 風のイラストを React で作るなど、デザインとモーション作業向けのエージェントスキル集"
+pricing = "free"
+open_source = false
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

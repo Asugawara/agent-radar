@@ -1,0 +1,10 @@
+name = "wshobson/agents"
+url = "https://github.com/wshobson/agents"
+repo = "wshobson/agents"
+summary.en = "Multi-harness plugin marketplace of agents and skills for Claude Code, Codex, Cursor and others"
+summary.ja = "Claude Code・Codex・Cursor などで使える、エージェントとスキルのマルチハーネス対応プラグインマーケットプレイス"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04

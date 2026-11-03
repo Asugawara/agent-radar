@@ -1,0 +1,10 @@
+name = "DSH Go"
+url = "https://github.com/ccch1mneyyy/dsh-go"
+repo = "ccch1mneyyy/dsh-Go"
+summary.en = "Android client for DeepSeek Harness that runs the agent on the phone or remote-controls DSH on your computer"
+summary.ja = "DeepSeek Harness の Android クライアント。スマホ上でエージェントを動かすことも、PC の DSH を遠隔操作することもできる"
+pricing = "free"
+open_source = true
+platforms = ["android"]
+tags = ["remote-control", "web", "remote"]
+added = 2026-11-04

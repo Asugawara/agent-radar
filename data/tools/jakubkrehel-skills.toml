@@ -1,0 +1,10 @@
+name = "Jakub Krehel's skills"
+url = "https://jakub.kr/skills"
+repo = "jakubkrehel/skills"
+summary.en = "Collection of agent skills that help you build great interfaces"
+summary.ja = "優れたインターフェースを作るためのエージェントスキル集"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

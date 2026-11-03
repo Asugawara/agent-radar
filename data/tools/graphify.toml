@@ -1,0 +1,10 @@
+name = "Graphify"
+url = "https://www.graphify.com"
+repo = "Graphify-Labs/graphify"
+summary.en = "Skill that maps a codebase, docs, SQL schemas and PDFs into a queryable knowledge graph so agents stop grepping files"
+summary.ja = "コードベース・ドキュメント・SQL スキーマ・PDF を問い合わせ可能なナレッジグラフにし、エージェントがファイルを grep せずに済むようにするスキル"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli", "works-with-cursor"]
+added = 2026-11-04

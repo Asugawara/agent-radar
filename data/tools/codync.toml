@@ -1,0 +1,10 @@
+name = "Codync"
+url = "https://www.codync.dev"
+repo = "leepokai/Codync"
+summary.en = "Apps for iPhone and desktop that show and steer the coding agents running on your computer"
+summary.ja = "手元のコンピュータで動くコーディングエージェントの様子を見て操作できる、iPhone とデスクトップのアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux", "ios"]
+tags = ["remote-control", "desktop", "remote", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04

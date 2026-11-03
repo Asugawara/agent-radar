@@ -1,0 +1,10 @@
+name = "OpenBot (Nightly Labs)"
+url = "https://openbot.run"
+repo = "nightly-labs/openbot"
+summary.en = "Local-first desktop workspace where persistent Codex, Claude Code and other agents each get their own workspace, queue and browser"
+summary.ja = "Codex・Claude Code などの常駐エージェントに、それぞれ専用のワークスペース・キュー・ブラウザを与えるローカルファーストのデスクトップアプリ"
+pricing = "free"
+open_source = false
+platforms = ["macos", "windows", "linux"]
+tags = ["orchestrator", "desktop", "multi-agent", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli", "works-with-cursor"]
+added = 2026-11-04
