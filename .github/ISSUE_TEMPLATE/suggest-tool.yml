@@ -33,6 +33,7 @@ body:
         - Observability
         - Gateway
         - Skills & plugins
+        - Remote control
         - Not sure / わからない
     validations:
       required: false

@@ -6,7 +6,7 @@ summary.ja = "Claude Code や Codex などのセッションを、自分のマ�
 pricing = "freemium"
 open_source = true
 platforms = ["macos", "linux", "web", "ios", "android"]
-tags = ["orchestrator", "web", "cli", "remote", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+tags = ["remote-control", "web", "cli", "remote", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
 added = 2026-11-04
 
 [links]

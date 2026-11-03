@@ -37,6 +37,7 @@ icons!(
     "puzzle",
     "route",
     "search",
+    "smartphone",
     "sliders-horizontal",
     "star",
     "sun",

@@ -68,6 +68,12 @@ max = 3
   label = { en = "Skills & plugins", ja = "スキル・プラグイン" }
   description = { en = "Reusable skills, plugins and prompts that extend agents", ja = "エージェントを拡張する再利用可能なスキル・プラグイン・プロンプト" }
 
+  [[facet.tag]]
+  id = "remote-control"
+  icon = "smartphone"
+  label = { en = "Remote control", ja = "リモート操作" }
+  description = { en = "Lets you watch and steer coding agents from a phone or another device", ja = "スマホや別の端末からコーディングエージェントの様子を見て操作する" }
+
 [[facet]]
 id = "interface"
 label = { en = "Interface", ja = "インターフェース" }
