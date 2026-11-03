@@ -1,0 +1,10 @@
+name = "Claude Plugins Official"
+url = "https://github.com/anthropics/claude-plugins-official"
+repo = "anthropics/claude-plugins-official"
+summary.en = "Anthropic-managed directory of Claude Code plugins, with first-party and partner or community plugins"
+summary.ja = "Anthropic が管理する Claude Code プラグインのディレクトリ。自社製のものとパートナー・コミュニティ製のものを収録"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-04

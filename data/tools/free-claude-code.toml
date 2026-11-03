@@ -1,0 +1,10 @@
+name = "Free Claude Code"
+url = "https://github.com/Alishahryar1/free-claude-code"
+repo = "Alishahryar1/free-claude-code"
+summary.en = "Local proxy that routes Claude Code, Codex and 10 other agent harnesses to models from 60+ free, paid or local providers"
+summary.ja = "Claude Code・Codex など 12 種のエージェントハーネスを、60 以上の無料・有料・ローカルのプロバイダのモデルへ振り分けるローカルプロキシ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["gateway", "self-hostable", "api", "model-agnostic", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

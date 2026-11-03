@@ -1,0 +1,10 @@
+name = "dsh-superagent"
+url = "https://github.com/deepseek-ai/dsh-superagent-prototype"
+repo = "deepseek-ai/dsh-superagent-prototype"
+summary.en = "Research prototype of a proactive coding agent for one GitHub repository that opens work items and answers with pull requests"
+summary.ja = "1 つの GitHub リポジトリを担当し、依頼を受けて作業項目を立て、プルリクエストで返す能動型コーディングエージェントの研究用プロトタイプ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "orchestrator", "web", "self-hostable"]
+added = 2026-11-04

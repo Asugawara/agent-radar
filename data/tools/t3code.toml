@@ -1,0 +1,10 @@
+name = "T3 Code"
+url = "https://t3.codes"
+repo = "pingdotgg/t3code"
+summary.en = "Desktop and web app that controls the Claude Code, Codex, Cursor and other agents already set up on your computer"
+summary.ja = "手元に設定済みの Claude Code・Codex・Cursor などのエージェントを操作できるデスクトップ・Web アプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "desktop", "web", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-04

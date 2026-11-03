@@ -1,0 +1,10 @@
+name = "Knowledge Work Plugins"
+url = "https://github.com/anthropics/knowledge-work-plugins"
+repo = "anthropics/knowledge-work-plugins"
+summary.en = "Open-source plugins for Claude Cowork and Claude Code that bundle skills, connectors and sub-agents for job functions like sales or legal"
+summary.ja = "営業・法務などの職種向けに、スキル・コネクタ・サブエージェントをまとめた Claude Cowork / Claude Code 用のオープンソースプラグイン集"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-04

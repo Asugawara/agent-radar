@@ -1,0 +1,10 @@
+name = "Xerj"
+url = "https://xerj.org"
+repo = "xerj-org/xerj"
+summary.en = "Single Rust binary that indexes code, docs and logs and serves them to agents as a search engine and MCP server"
+summary.ja = "コード・ドキュメント・ログを索引化し、エージェントに検索エンジン兼 MCP サーバとして提供する単一の Rust バイナリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "cli", "mcp-support", "self-hostable"]
+added = 2026-11-04

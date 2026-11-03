@@ -1,0 +1,10 @@
+name = "Context Mode"
+url = "https://contextmode.ai"
+repo = "mksglu/context-mode"
+summary.en = "Local plugin that keeps bulky tool output out of the agent's context window by sandboxing it and indexing it in SQLite full-text search"
+summary.ja = "かさばるツール出力をサンドボックスで処理して SQLite 全文検索に格納し、エージェントのコンテキストに入れないローカルプラグイン"
+pricing = "free"
+open_source = false
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "mcp-server", "cli", "mcp-support", "works-with-claude-code", "works-with-cursor"]
+added = 2026-11-04

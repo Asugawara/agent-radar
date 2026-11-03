@@ -1,0 +1,10 @@
+name = "Cloudflare security-audit skill"
+url = "https://github.com/cloudflare/security-audit-skill"
+repo = "cloudflare/security-audit-skill"
+summary.en = "Coding-agent skill that runs a six-phase security audit with isolated hunters and independent verifiers, writing machine-readable findings"
+summary.ja = "隔離した探索役と独立した検証役を使う 6 段階のセキュリティ監査を行い、機械可読な指摘を出力するコーディングエージェント用スキル"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "multi-agent"]
+added = 2026-11-04
