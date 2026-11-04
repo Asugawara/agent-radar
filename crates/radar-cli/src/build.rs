@@ -278,7 +278,6 @@ pub struct Row {
     /// `None` when no platform is listed (shown as "Not stated").
     pub platforms: Option<Vec<Mark>>,
     pub pricing: String,
-    pub oss: bool,
     /// `154k`; empty when unknown.
     pub stars: String,
     /// Full number for the tooltip.
@@ -608,7 +607,6 @@ impl Ctx<'_> {
             works_with,
             platforms,
             pricing: page.t(&format!("pricing.{}", t.pricing.as_str())),
-            oss: t.open_source,
             stars: t
                 .stars
                 .map(radar_core::icons::short_count)

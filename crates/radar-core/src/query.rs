@@ -91,10 +91,37 @@ pub struct Query {
     pub excluded: BTreeSet<String>,
     pub q: String,
     pub pricing: BTreeSet<Pricing>,
-    pub open_source: bool,
     pub platforms: BTreeSet<Platform>,
     pub read: BTreeSet<ReadState>,
     pub sort: Sort,
+    /// 0-based page number.
+    pub page: usize,
+    pub per_page: PageSize,
+}
+
+/// Tools shown per page; the visitor picks one under the table.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord)]
+pub enum PageSize {
+    #[default]
+    S25,
+    S50,
+    S100,
+}
+
+impl PageSize {
+    pub const ALL: [PageSize; 3] = [PageSize::S25, PageSize::S50, PageSize::S100];
+
+    pub fn get(self) -> usize {
+        match self {
+            PageSize::S25 => 25,
+            PageSize::S50 => 50,
+            PageSize::S100 => 100,
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Self> {
+        Self::ALL.into_iter().find(|p| p.get().to_string() == s)
+    }
 }
 
 /// How a tag takes part in the filter.
@@ -110,7 +137,6 @@ pub enum TagMode {
 pub enum Group<'a> {
     Facet(&'a str),
     Pricing,
-    OpenSource,
     Platforms,
     Read,
 }
@@ -121,7 +147,6 @@ pub enum Group<'a> {
 pub struct Counts {
     pub tags: BTreeMap<String, usize>,
     pub pricing: BTreeMap<Pricing, usize>,
-    pub open_source: usize,
     pub platforms: BTreeMap<Platform, usize>,
     pub read: BTreeMap<ReadState, usize>,
 }
@@ -148,7 +173,6 @@ impl Query {
             && self.excluded.is_empty()
             && self.q.trim().is_empty()
             && self.pricing.is_empty()
-            && !self.open_source
             && self.platforms.is_empty()
             && self.read.is_empty()
     }
@@ -160,13 +184,13 @@ impl Query {
             + self.pricing.len()
             + self.platforms.len()
             + self.read.len()
-            + usize::from(self.open_source)
     }
 
-    /// Drop every condition (the sort order stays).
+    /// Drop every condition (the sort order and the page size stay).
     pub fn cleared(&self) -> Query {
         Query {
             sort: self.sort,
+            per_page: self.per_page,
             ..Query::default()
         }
     }
@@ -232,9 +256,6 @@ impl Query {
             && !self.pricing.is_empty()
             && !self.pricing.contains(&tool.pricing)
         {
-            return false;
-        }
-        if !skipped(Group::OpenSource) && self.open_source && !tool.open_source {
             return false;
         }
         if !skipped(Group::Platforms)
@@ -315,13 +336,6 @@ impl Query {
                 .count();
             c.pricing.insert(p, n);
         }
-        c.open_source = data
-            .tools
-            .iter()
-            .filter(|t| {
-                t.open_source && self.matches(data, t, lang, read_ids, Some(&Group::OpenSource))
-            })
-            .count();
         for p in ALL_PLATFORMS {
             let n = data
                 .tools
@@ -373,7 +387,6 @@ impl Query {
                         out.pricing.insert(p);
                     }
                 }
-                "oss" => out.open_source = v == "1",
                 "platform" => {
                     if let Some(p) = parse_platform(&v) {
                         out.platforms.insert(p);
@@ -391,6 +404,18 @@ impl Query {
                     };
                     if let Some(key) = SortKey::parse(name) {
                         out.sort = Sort { key, desc };
+                    }
+                }
+                "page" => {
+                    if let Ok(n) = v.parse::<usize>()
+                        && n >= 2
+                    {
+                        out.page = n - 1;
+                    }
+                }
+                "per_page" => {
+                    if let Some(p) = PageSize::parse(&v) {
+                        out.per_page = p;
                     }
                 }
                 _ => {}
@@ -415,9 +440,6 @@ impl Query {
         for p in &self.pricing {
             parts.push(format!("pricing={}", p.as_str()));
         }
-        if self.open_source {
-            parts.push("oss=1".into());
-        }
         for p in &self.platforms {
             parts.push(format!("platform={}", p.as_str()));
         }
@@ -428,13 +450,66 @@ impl Query {
             let dash = if self.sort.desc { "-" } else { "" };
             parts.push(format!("sort={dash}{}", self.sort.key.as_str()));
         }
+        if self.per_page != PageSize::default() {
+            parts.push(format!("per_page={}", self.per_page.get()));
+        }
+        if self.page > 0 {
+            parts.push(format!("page={}", self.page + 1));
+        }
         parts.join("&")
     }
+
+    /// Set the page, but go back to the first page if any other part of the
+    /// query changed compared with `before`.
+    pub fn reset_page_if_changed(&mut self, before: &Query) {
+        let mut now = self.clone();
+        now.page = 0;
+        let mut was = before.clone();
+        was.page = 0;
+        if now != was {
+            self.page = 0;
+        }
+    }
+}
+
+/// Page numbers for the pager, 0-based; `None` is a gap (`…`). Shows the
+/// first and last page and the neighbours of `current`.
+pub fn page_items(current: usize, count: usize) -> Vec<Option<usize>> {
+    if count <= 7 {
+        return (0..count).map(Some).collect();
+    }
+    let mut shown = vec![0, count - 1];
+    for p in [
+        current.checked_sub(1),
+        Some(current),
+        current.checked_add(1),
+    ]
+    .into_iter()
+    .flatten()
+    {
+        if p < count {
+            shown.push(p);
+        }
+    }
+    shown.sort_unstable();
+    shown.dedup();
+    let mut out = Vec::new();
+    let mut prev: Option<usize> = None;
+    for p in shown {
+        if prev.is_some_and(|q| p - q >= 2) {
+            out.push(None);
+        }
+        out.push(Some(p));
+        prev = Some(p);
+    }
+    out
 }
 
 /// Keys [`Query::parse`] reads. Other keys in the address bar (`utm_*`,
 /// `gclid`, …) belong to someone else and are kept.
-const OWN_KEYS: [&str; 7] = ["tag", "q", "pricing", "oss", "platform", "read", "sort"];
+const OWN_KEYS: [&str; 8] = [
+    "tag", "q", "pricing", "platform", "read", "sort", "per_page", "page",
+];
 
 /// The search part for the address bar, without the leading `?`: `own`
 /// (from [`Query::to_query_string`]) followed by every pair of `current`
@@ -682,8 +757,7 @@ mod tests {
         q.q = "mcp".into();
         q.tags.insert("cli".into());
         q.pricing.insert(Pricing::Free);
-        q.open_source = true;
-        assert_eq!(q.filter_count(), 3);
+        assert_eq!(q.filter_count(), 2);
     }
 
     #[test]
@@ -725,8 +799,8 @@ mod tests {
             ["alpha", "Beta", "delta", "gamma"]
         );
         assert_eq!(
-            ids(&q("pricing=free&platform=linux&oss=1").apply(&d, "en", &BTreeSet::new())),
-            ["alpha"]
+            ids(&q("pricing=free&platform=linux").apply(&d, "en", &BTreeSet::new())),
+            ["alpha", "delta"]
         );
     }
 
@@ -758,16 +832,6 @@ mod tests {
                 .len(),
             1
         );
-    }
-
-    #[test]
-    fn open_source_flag() {
-        let d = data();
-        assert_eq!(
-            ids(&q("oss=1").apply(&d, "en", &BTreeSet::new())),
-            ["alpha", "gamma"]
-        );
-        assert_eq!(ids(&q("oss=0").apply(&d, "en", &BTreeSet::new())).len(), 4);
     }
 
     #[test]
@@ -837,7 +901,6 @@ mod tests {
         assert_eq!(c.pricing[&Pricing::Free], 1);
         assert_eq!(c.pricing[&Pricing::Paid], 1);
         assert_eq!(c.pricing[&Pricing::Freemium], 0);
-        assert_eq!(c.open_source, 1);
         assert_eq!(c.platforms[&Platform::Linux], 1);
     }
 
@@ -901,18 +964,15 @@ mod tests {
         assert_eq!(query.tags, BTreeSet::from(["cli".to_string()]));
         assert!(query.pricing.is_empty() && query.platforms.is_empty());
         assert_eq!(query.sort, Sort::default());
-        assert!(!query.open_source);
         assert_eq!(query.q, "x");
     }
 
     #[test]
     fn parse_the_documented_example() {
-        let query =
-            q("?tag=cli&tag=mcp-server&q=agent&pricing=free&oss=1&platform=macos&sort=-stars");
+        let query = q("?tag=cli&tag=mcp-server&q=agent&pricing=free&platform=macos&sort=-stars");
         assert_eq!(query.tags.len(), 2);
         assert_eq!(query.q, "agent");
         assert!(query.pricing.contains(&Pricing::Free));
-        assert!(query.open_source);
         assert!(query.platforms.contains(&Platform::Macos));
         assert_eq!(
             query.sort,
@@ -925,12 +985,11 @@ mod tests {
 
     #[test]
     fn query_string_round_trips() {
-        let query =
-            q("tag=mcp-server&tag=cli&q=a%20b%26c&pricing=free&oss=1&platform=macos&sort=-stars");
+        let query = q("tag=mcp-server&tag=cli&q=a%20b%26c&pricing=free&platform=macos&sort=-stars");
         let s = query.to_query_string();
         assert_eq!(
             s,
-            "tag=cli&tag=mcp-server&q=a%20b%26c&pricing=free&oss=1&platform=macos&sort=-stars"
+            "tag=cli&tag=mcp-server&q=a%20b%26c&pricing=free&platform=macos&sort=-stars"
         );
         assert_eq!(q(&s), query);
         assert_eq!(Query::default().to_query_string(), "");
@@ -1101,5 +1160,135 @@ mod tests {
         let c = q("read=unread").counts(&d, "en", &read);
         assert_eq!(c.read[&ReadState::Read], 1);
         assert_eq!(c.read[&ReadState::Unread], 3);
+    }
+
+    #[test]
+    fn page_is_read_from_the_url() {
+        let query = q("?tag=cli&page=3");
+        assert_eq!(query.page, 2);
+        assert_eq!(query.to_query_string(), "tag=cli&page=3");
+    }
+
+    #[test]
+    fn first_page_is_not_written() {
+        for s in ["page=0", "page=1", "page=abc", "page=-2"] {
+            let query = q(s);
+            assert_eq!(query.page, 0, "{s}");
+            assert!(!query.to_query_string().contains("page"), "{s}");
+        }
+    }
+
+    #[test]
+    fn page_is_not_a_filter() {
+        let mut query = q("page=4");
+        assert!(query.is_empty());
+        assert_eq!(query.filter_count(), 0);
+        query.page = 2;
+        assert!(query.cleared().is_empty());
+    }
+
+    #[test]
+    fn changing_a_filter_goes_back_to_the_first_page() {
+        let before = Query {
+            page: 2,
+            ..Query::default()
+        };
+        let mut tag = before.clone();
+        tag.set_tag("cli", TagMode::Include);
+        tag.reset_page_if_changed(&before);
+        assert_eq!(tag.page, 0);
+
+        let mut search = before.clone();
+        search.q = "x".into();
+        search.reset_page_if_changed(&before);
+        assert_eq!(search.page, 0);
+
+        let mut sort = before.clone();
+        sort.sort = Sort {
+            key: SortKey::Stars,
+            desc: true,
+        };
+        sort.reset_page_if_changed(&before);
+        assert_eq!(sort.page, 0);
+    }
+
+    #[test]
+    fn changing_only_the_page_keeps_it() {
+        let before = Query {
+            page: 2,
+            ..Query::default()
+        };
+        let mut next = before.clone();
+        next.page = 3;
+        next.reset_page_if_changed(&before);
+        assert_eq!(next.page, 3);
+    }
+
+    #[test]
+    fn page_size_is_read_from_the_url() {
+        let query = q("?per_page=50&page=2");
+        assert_eq!(query.per_page, PageSize::S50);
+        assert_eq!(query.page, 1);
+        assert_eq!(query.to_query_string(), "per_page=50&page=2");
+    }
+
+    #[test]
+    fn default_or_unknown_page_size_is_not_written() {
+        for s in ["per_page=25", "per_page=30", "per_page=abc"] {
+            let query = q(s);
+            assert_eq!(query.per_page, PageSize::S25, "{s}");
+            assert!(!query.to_query_string().contains("per_page"), "{s}");
+        }
+    }
+
+    #[test]
+    fn clearing_the_filters_keeps_the_page_size() {
+        let mut query = q("per_page=100");
+        query.set_tag("cli", TagMode::Include);
+        let cleared = query.cleared();
+        assert_eq!(cleared.per_page, PageSize::S100);
+        assert!(cleared.is_empty());
+    }
+
+    #[test]
+    fn changing_the_page_size_goes_back_to_the_first_page() {
+        let before = Query {
+            page: 2,
+            ..Query::default()
+        };
+        let mut next = before.clone();
+        next.per_page = PageSize::S50;
+        next.reset_page_if_changed(&before);
+        assert_eq!(next.page, 0);
+    }
+
+    #[test]
+    fn page_size_list_is_25_50_100() {
+        let sizes: Vec<usize> = PageSize::ALL.into_iter().map(PageSize::get).collect();
+        assert_eq!(sizes, [25, 50, 100]);
+    }
+
+    #[test]
+    fn page_items_shows_the_neighbours_and_the_ends() {
+        assert_eq!(page_items(0, 20), [Some(0), Some(1), None, Some(19)]);
+        assert_eq!(
+            page_items(10, 20),
+            [Some(0), None, Some(9), Some(10), Some(11), None, Some(19)]
+        );
+        assert_eq!(page_items(19, 20), [Some(0), None, Some(18), Some(19)]);
+        assert_eq!(page_items(0, 1), [Some(0)]);
+        assert_eq!(
+            page_items(3, 7),
+            [
+                Some(0),
+                Some(1),
+                Some(2),
+                Some(3),
+                Some(4),
+                Some(5),
+                Some(6)
+            ]
+        );
+        assert_eq!(page_items(0, 8), [Some(0), Some(1), None, Some(7)]);
     }
 }

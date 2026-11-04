@@ -11,7 +11,8 @@ pub mod validate;
 
 pub use model::*;
 pub use query::{
-    ALL_PLATFORMS, Counts, Group, Query, ReadState, Sort, SortKey, TagMode, merge_query_string,
+    ALL_PLATFORMS, Counts, Group, PageSize, Query, ReadState, Sort, SortKey, TagMode,
+    merge_query_string, page_items,
 };
 pub use site::*;
 pub use validate::{
