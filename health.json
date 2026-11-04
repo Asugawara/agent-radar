@@ -1,10 +1,42 @@
 {
+  "https://agent-browser.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://agent-browser.dev/desktop": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://agentfield.ai/codeaf": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://agentgateway.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
   "https://agenticresourceregistry.io": {
     "state": "active",
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://aider.chat": {
@@ -12,7 +44,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://arize.com/docs/phoenix": {
@@ -20,7 +52,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://balanov.pro/uncut/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "undecided: timeout"
+  },
+  "https://beacon.sh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://beads.gascity.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://browser-use.com": {
@@ -28,7 +84,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://browser.lexmount.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://claude-mem.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://claude.com/product/claude-code": {
@@ -36,7 +108,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://clianything.cc": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://cline.bot": {
@@ -44,7 +124,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://code.claude.com/docs/en/agent-sdk/overview": {
@@ -52,7 +132,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://code.claude.com/docs/en/overview": {
@@ -60,7 +140,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://context7.com": {
@@ -68,7 +148,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://contextmode.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://corgi.computer": {
@@ -76,7 +164,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://crewai.com": {
@@ -84,7 +172,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://docker.github.io/docker-agent/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.langchain.com/oss/python/langgraph/overview": {
@@ -92,7 +188,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.letta.com/": {
@@ -100,7 +196,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.litellm.ai": {
@@ -108,7 +204,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.microsandbox.dev/getting-started/introduction": {
@@ -116,7 +212,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://docs.nvidia.com/openshell/latest/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://docs.nvidia.com/skills/scanning-agent-skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.omnara.com/introduction": {
@@ -124,7 +236,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://docs.uji.sh": {
@@ -132,7 +244,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://e2b.dev": {
@@ -140,7 +252,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://e2b.dev/open-source.md": {
@@ -148,7 +260,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://e2e.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://ecc.tools": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://ego-lite.apposters.com": {
@@ -156,7 +284,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://emdash.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://freellmapi.co": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://geminicli.com": {
@@ -164,7 +308,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/Alishahryar1/free-claude-code": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/Coverage-Cat/consumer-agent-testing-tool": {
@@ -172,7 +324,63 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/MiniMax-AI/mcode-stack": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/Panniantong/Agent-Reach": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/ZiChuanLan/agent-purge": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/akitaonrails/ai-memory": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/anthropics/claude-plugins-official": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/anthropics/knowledge-work-plugins": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/anthropics/sandbox-runtime": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/anthropics/skills": {
@@ -180,7 +388,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/benjitaylor/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/byenzyme/enzyme": {
@@ -188,7 +404,63 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/caru-ini/stack-diagram": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/ccch1mneyyy/dsh-go": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/cloudflare/security-audit-skill": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/cursor/plugins": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/daveebbelaar/bama": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/deepseek-ai/dsh-superagent-prototype": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/emanuele-em/kanzo": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/github/github-mcp-server": {
@@ -196,7 +468,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/gojko/lights-on-software-factory": {
@@ -204,7 +476,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/haydenschmitty/floorplan": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/heydamir/unslop": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/lharries/whatsapp-mcp": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/michael-denyer/pstack-claude": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/microsoft/Agensh": {
@@ -212,7 +516,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/microsoft/playwright-mcp": {
@@ -220,7 +524,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/obra/superpowers": {
@@ -228,7 +532,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/ranxianglei/billion-context": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://github.com/rbartoli/agent-usage-guard": {
@@ -236,7 +548,63 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/router-for-me/CLIProxyAPI": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/ruvnet/ruflo": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/songjianyang/xss-audit": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/t3dotgg/tstack": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/tiann/hapi/tree/main/docs/guide": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.com/wshobson/agents": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://github.github.com/spec-kit/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://goose-docs.ai": {
@@ -244,7 +612,55 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://hapi.run": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://herdr.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://herdr.dev/download/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://herdr.dev/tui/docs/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://impeccable.style": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://jakub.kr/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://langfuse.com": {
@@ -252,7 +668,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://learn.chatgpt.com/docs/codex/cli": {
@@ -260,7 +676,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://mastra.ai": {
@@ -268,7 +684,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://mem0.ai": {
@@ -276,31 +692,63 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
+  },
+  "https://mempalaceofficial.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://multica.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://news.ycombinator.com/item?id=46571992": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "undecided: 503"
+  },
+  "https://news.ycombinator.com/item?id=47140322": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "undecided: 503"
   },
   "https://news.ycombinator.com/item?id=50153011": {
     "state": "active",
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
-    "last_result": "ok"
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "undecided: 503"
   },
   "https://news.ycombinator.com/item?id=50160198": {
     "state": "active",
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
-    "last_result": "ok"
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "undecided: 503"
   },
   "https://news.ycombinator.com/item?id=50163896": {
     "state": "active",
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50183892": {
@@ -308,7 +756,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50192585": {
@@ -316,7 +764,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50198936": {
@@ -324,7 +772,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50201860": {
@@ -332,7 +780,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50214373": {
@@ -340,7 +788,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50221066": {
@@ -348,7 +796,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50223759": {
@@ -356,7 +804,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50260571": {
@@ -364,7 +812,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50284996": {
@@ -372,7 +820,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50293361": {
@@ -380,7 +828,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50303291": {
@@ -388,7 +836,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://news.ycombinator.com/item?id=50310055": {
@@ -396,15 +844,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
-    "last_result": "undecided: 429"
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
   },
   "https://openai.github.io/openai-agents-python/": {
     "state": "active",
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://openbot.run": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://openrig.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://openrouter.ai": {
@@ -412,7 +876,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://openrouter.ai/docs": {
@@ -420,7 +884,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://oraios.github.io/serena/": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://phpclaw.ai": {
@@ -428,7 +900,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://portkey.ai/features/ai-gateway": {
@@ -436,7 +908,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://rea.tools": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://skills.sh": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://skillsmanager.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://smtg-ai.github.io/claude-squad/": {
@@ -444,7 +940,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://spec-first.dev": {
@@ -452,7 +948,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://spotnote-weld.vercel.app": {
@@ -460,7 +956,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://superplane.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://t3.codes": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://thinkrail.ai": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://treg.to": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://trypalomino.com": {
@@ -468,7 +996,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://tuios.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://uji.sh": {
@@ -476,7 +1012,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://worktrunk.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.beautifulrust.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.codync.dev": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.graphify.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.letta.com": {
@@ -484,7 +1052,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.memvid.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.nasiko.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.npmjs.com/package/@playwright/mcp": {
@@ -492,7 +1076,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "undecided: 403"
   },
   "https://www.omnara.com": {
@@ -500,7 +1084,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.openhands.dev": {
@@ -508,7 +1092,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.reticle.sh": {
@@ -516,7 +1100,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.stagehand.dev": {
@@ -524,7 +1108,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://www.usehallmark.com": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "https://www.vibekanban.com": {
@@ -532,7 +1124,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "https://xerj.org": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Agent-Field/CodeAF": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:AgenticResourceRegistry/AgenticResourceRegistry": {
@@ -540,7 +1148,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:Aider-AI/aider": {
@@ -548,7 +1156,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Alishahryar1/free-claude-code": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:Arize-ai/phoenix": {
@@ -556,7 +1172,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Asymptote-Labs/agent-beacon": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Balanov/uncut": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:BerriAI/litellm": {
@@ -564,7 +1196,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:BloopAI/vibe-kanban": {
@@ -572,7 +1204,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:Coverage-Cat/consumer-agent-testing-tool": {
@@ -580,7 +1212,87 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Gaurav-Gosain/tuios": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Graphify-Labs/graphify": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:HKUDS/CLI-Anything": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:JetBrains/thinkrail": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:MemPalace/mempalace": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:MiniMax-AI/mcode-stack": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:NVIDIA/OpenShell": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:NVIDIA/SkillSpector": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Nasiko-Labs/nasiko": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Nutlope/hallmark": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:OpenHands/OpenHands": {
@@ -588,7 +1300,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:Panniantong/Agent-Reach": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:Portkey-AI/gateway": {
@@ -596,7 +1316,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:ZiChuanLan/agent-purge": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:aaif-goose/goose": {
@@ -604,7 +1332,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:affaan-m/ECC": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:agentgateway/agentgateway": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:akitaonrails/ai-memory": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:anthropics/claude-agent-sdk-python": {
@@ -612,7 +1364,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:anthropics/claude-code": {
@@ -620,7 +1372,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/claude-plugins-official": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/knowledge-work-plugins": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:anthropics/sandbox-runtime": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:anthropics/skills": {
@@ -628,7 +1404,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:benjitaylor/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:browser-use/browser-use": {
@@ -636,7 +1420,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:browserbase/stagehand": {
@@ -644,7 +1428,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:byenzyme/enzyme": {
@@ -652,7 +1436,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:caru-ini/stack-diagram": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:ccch1mneyyy/dsh-Go": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:citrolabs/ego-lite": {
@@ -660,7 +1460,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:cline/cline": {
@@ -668,7 +1468,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:cloudflare/security-audit-skill": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:crewAIInc/crewAI": {
@@ -676,7 +1484,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:cursor/plugins": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:daveebbelaar/bama": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:deepseek-ai/dsh-superagent-prototype": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:docker/docker-agent": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:e2b-dev/E2B": {
@@ -684,7 +1524,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:emanuele-em/kanzo": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:gastownhall/beads": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:generalaction/emdash": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:github/github-mcp-server": {
@@ -692,7 +1556,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:github/spec-kit": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:gojko/lights-on-software-factory": {
@@ -700,7 +1572,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:google-gemini/gemini-cli": {
@@ -708,7 +1580,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:harukikuri/spotnote": {
@@ -716,7 +1588,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:haydenschmitty/floorplan": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:herdrdev/herdr": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:herdrdev/herdr-app": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:heydamir/unslop": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:holgerleichsenring/specification-first-agentic-development": {
@@ -724,7 +1628,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:jakubkrehel/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:langchain-ai/langgraph": {
@@ -732,7 +1644,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:langfuse/langfuse": {
@@ -740,7 +1652,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:leepokai/Codync": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:letta-ai/letta": {
@@ -748,7 +1668,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:lexmount/moli": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:lharries/whatsapp-mcp": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:mastra-ai/mastra": {
@@ -756,7 +1692,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:max-sixty/worktrunk": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:mem0ai/mem0": {
@@ -764,7 +1708,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:memvid/memvid": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:michael-denyer/pstack-claude": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:microsoft/Agensh": {
@@ -772,7 +1732,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:microsoft/playwright-mcp": {
@@ -780,7 +1740,55 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:mksglu/context-mode": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:morganlinton/BeautifulRust": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:morluto/rea": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:multica-ai/multica": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:mvschwarz/openrig": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:nightly-labs/openbot": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:obra/superpowers": {
@@ -788,7 +1796,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:omnara-ai/omnara": {
@@ -796,7 +1804,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:openai/codex": {
@@ -804,7 +1812,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:openai/openai-agents-python": {
@@ -812,7 +1820,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:oraios/serena": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:pbakaus/impeccable": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:phpclaw-php/phpclaw-monorepo": {
@@ -820,7 +1844,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:pingdotgg/t3code": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:ranxianglei/billion-context": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:rbartoli/agent-usage-guard": {
@@ -828,7 +1868,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:reticlehq/reticle": {
@@ -836,7 +1876,23 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:router-for-me/CLIProxyAPI": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:ruvnet/ruflo": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:smtg-ai/claude-squad": {
@@ -844,7 +1900,31 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:songjianyang/xss-audit": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:superdesigndev/treg": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:superplanehq/superplane": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:superradcompany/microsandbox": {
@@ -852,7 +1932,15 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:t3dotgg/tstack": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:tals/corgi": {
@@ -860,7 +1948,39 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:tashfeenahmed/freellmapi": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:tester-army/e2e": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:thedotmack/claude-mem": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:tiann/hapi": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:uji-labs/uji": {
@@ -868,7 +1988,7 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   },
   "repo:upstash/context7": {
@@ -876,7 +1996,55 @@
     "consecutive_dead": 0,
     "consecutive_ok": 0,
     "first_dead_at": null,
-    "last_checked_at": "2026-11-03T23:28:50.759777671Z",
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:vercel-labs/agent-browser": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:vercel-labs/agent-desktop": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:vercel-labs/skills": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:wshobson/agents": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:xerj-org/xerj": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
+    "last_result": "ok"
+  },
+  "repo:xingkongliang/skills-manager": {
+    "state": "active",
+    "consecutive_dead": 0,
+    "consecutive_ok": 0,
+    "first_dead_at": null,
+    "last_checked_at": "2026-11-04T06:34:51.896609486Z",
     "last_result": "ok"
   }
 }
