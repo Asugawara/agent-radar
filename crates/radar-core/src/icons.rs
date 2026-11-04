@@ -25,6 +25,7 @@ icons!(
     "boxes",
     "brain",
     "chevron-down",
+    "circle-minus",
     "code",
     "external-link",
     "git-branch",

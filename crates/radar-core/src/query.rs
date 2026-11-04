@@ -87,12 +87,22 @@ fn state_of(read_ids: &BTreeSet<String>, tool: &SiteTool) -> ReadState {
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Query {
     pub tags: BTreeSet<String>,
+    /// Tags whose tools are hidden (`tag=-id`). Never overlaps `tags`.
+    pub excluded: BTreeSet<String>,
     pub q: String,
     pub pricing: BTreeSet<Pricing>,
     pub open_source: bool,
     pub platforms: BTreeSet<Platform>,
     pub read: BTreeSet<ReadState>,
     pub sort: Sort,
+}
+
+/// How a tag takes part in the filter.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TagMode {
+    Off,
+    Include,
+    Exclude,
 }
 
 /// A group of conditions; used to leave one group out when counting.
@@ -135,6 +145,7 @@ fn tag_label<'a>(data: &'a SiteData, tag: &str, lang: &str) -> &'a str {
 impl Query {
     pub fn is_empty(&self) -> bool {
         self.tags.is_empty()
+            && self.excluded.is_empty()
             && self.q.trim().is_empty()
             && self.pricing.is_empty()
             && !self.open_source
@@ -145,6 +156,7 @@ impl Query {
     /// Number of active filter conditions (the search text is not counted).
     pub fn filter_count(&self) -> usize {
         self.tags.len()
+            + self.excluded.len()
             + self.pricing.len()
             + self.platforms.len()
             + self.read.len()
@@ -156,6 +168,31 @@ impl Query {
         Query {
             sort: self.sort,
             ..Query::default()
+        }
+    }
+
+    pub fn tag_mode(&self, id: &str) -> TagMode {
+        if self.tags.contains(id) {
+            TagMode::Include
+        } else if self.excluded.contains(id) {
+            TagMode::Exclude
+        } else {
+            TagMode::Off
+        }
+    }
+
+    /// Put `id` into `mode`; include and exclude are mutually exclusive.
+    pub fn set_tag(&mut self, id: &str, mode: TagMode) {
+        self.tags.remove(id);
+        self.excluded.remove(id);
+        match mode {
+            TagMode::Off => {}
+            TagMode::Include => {
+                self.tags.insert(id.to_string());
+            }
+            TagMode::Exclude => {
+                self.excluded.insert(id.to_string());
+            }
         }
     }
 
@@ -223,6 +260,13 @@ impl Query {
                 .filter(|id| self.tags.contains(*id))
                 .collect();
             if !selected.is_empty() && !selected.iter().any(|id| tool.tags.contains(*id)) {
+                return false;
+            }
+            if facet
+                .tags
+                .iter()
+                .any(|t| self.excluded.contains(&t.id) && tool.tags.contains(&t.id))
+            {
                 return false;
             }
         }
@@ -311,11 +355,18 @@ impl Query {
             let (k, v) = pair.split_once('=').unwrap_or((pair, ""));
             let (k, v) = (decode(k), decode(v));
             match k.as_str() {
-                "tag" => {
-                    if facet_of(data, &v).is_some() {
-                        out.tags.insert(v);
+                "tag" => match v.strip_prefix('-') {
+                    Some(id) => {
+                        if facet_of(data, id).is_some() {
+                            out.set_tag(id, TagMode::Exclude);
+                        }
                     }
-                }
+                    None => {
+                        if facet_of(data, &v).is_some() {
+                            out.set_tag(&v, TagMode::Include);
+                        }
+                    }
+                },
                 "q" => out.q = v,
                 "pricing" => {
                     if let Some(p) = parse_pricing(&v) {
@@ -354,6 +405,9 @@ impl Query {
         let mut parts: Vec<String> = Vec::new();
         for t in &self.tags {
             parts.push(format!("tag={}", encode(t)));
+        }
+        for t in &self.excluded {
+            parts.push(format!("tag=-{}", encode(t)));
         }
         if !self.q.trim().is_empty() {
             parts.push(format!("q={}", encode(self.q.trim())));
@@ -893,6 +947,81 @@ mod tests {
         let s = query.to_query_string();
         assert!(s.is_ascii());
         assert_eq!(q(&s).q, "サンド ボックス");
+    }
+
+    #[test]
+    fn exclude_hides_tools_with_the_tag() {
+        let d = data();
+        assert_eq!(
+            ids(&q("tag=-sandbox").apply(&d, "en", &BTreeSet::new())),
+            ["alpha", "Beta"]
+        );
+    }
+
+    #[test]
+    fn include_and_exclude_combine_inside_a_facet() {
+        let d = data();
+        // cli tools (alpha, gamma) minus sandbox tools (gamma, delta)
+        assert_eq!(
+            ids(&q("tag=cli&tag=-sandbox").apply(&d, "en", &BTreeSet::new())),
+            ["alpha"]
+        );
+    }
+
+    #[test]
+    fn exclude_is_and_ed_with_other_facets() {
+        let d = data();
+        assert_eq!(
+            ids(&q("tag=works-with-claude&tag=-sandbox").apply(&d, "en", &BTreeSet::new())),
+            ["alpha"]
+        );
+    }
+
+    #[test]
+    fn counts_ignore_the_own_groups_exclusion() {
+        let d = data();
+        let c = q("tag=-sandbox").counts(&d, "en", &BTreeSet::new());
+        // exclusion of the category facet is ignored for its own counts
+        assert_eq!(c.tags["sandbox"], 2);
+        assert_eq!(c.tags["cli"], 2);
+        // other facets still see the exclusion: delta is hidden
+        assert_eq!(c.tags["works-with-claude"], 1);
+    }
+
+    #[test]
+    fn exclude_round_trips() {
+        let query = q("tag=cli&tag=-sandbox&tag=-works-with-claude");
+        assert_eq!(
+            query.to_query_string(),
+            "tag=cli&tag=-sandbox&tag=-works-with-claude"
+        );
+        assert_eq!(q(&query.to_query_string()), query);
+        assert_eq!(query.filter_count(), 3);
+        assert!(!query.is_empty());
+        assert!(query.cleared().is_empty());
+    }
+
+    #[test]
+    fn unknown_excluded_tag_is_ignored() {
+        let query = q("tag=-nope&tag=-");
+        assert!(query.excluded.is_empty());
+        assert!(query.is_empty());
+    }
+
+    #[test]
+    fn include_and_exclude_of_one_tag_are_exclusive() {
+        let mut query = q("tag=cli");
+        query.set_tag("cli", TagMode::Exclude);
+        assert_eq!(query.tag_mode("cli"), TagMode::Exclude);
+        assert!(query.tags.is_empty());
+        query.set_tag("cli", TagMode::Include);
+        assert_eq!(query.tag_mode("cli"), TagMode::Include);
+        assert!(query.excluded.is_empty());
+        query.set_tag("cli", TagMode::Off);
+        assert_eq!(query.tag_mode("cli"), TagMode::Off);
+        // a hand-written URL cannot hold both either: the later one wins
+        let both = q("tag=cli&tag=-cli");
+        assert!(both.tags.is_empty() && both.excluded.len() == 1);
     }
 
     #[test]
