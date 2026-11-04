@@ -6,8 +6,8 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use askama::Template;
 use radar_core::{
-    CATEGORY_FACET, Lang, Project, RepoMeta, SiteConfig, SiteData, SiteTool, build_site_data,
-    date_string, i18n_keys,
+    ALL_PLATFORMS, CATEGORY_FACET, Lang, Platform, Project, RepoMeta, SiteConfig, SiteData,
+    SiteTool, WORKS_WITH_FACET, build_site_data, date_string, i18n_keys,
 };
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
@@ -259,6 +259,10 @@ pub struct Row {
     pub repo: Option<String>,
     pub summary: String,
     pub categories: Vec<Badge>,
+    /// Tags of the `works-with` facet, in the facet's order.
+    pub works_with: Vec<Badge>,
+    /// Platforms in `ALL_PLATFORMS` order, without `unspecified`.
+    pub platforms: Vec<Badge>,
     pub pricing: String,
     pub oss: bool,
     /// `154k`; empty when unknown.
@@ -538,6 +542,22 @@ impl Ctx<'_> {
             .tags
             .iter()
             .filter(|id| category_ids.contains(&id.as_str()));
+        let works_with = self
+            .data
+            .facets
+            .iter()
+            .filter(|f| f.id == WORKS_WITH_FACET)
+            .flat_map(|f| f.tags.iter())
+            .filter(|tag| t.tags.contains(&tag.id))
+            .map(|tag| badge(&tag.id));
+        let platforms = ALL_PLATFORMS
+            .into_iter()
+            .filter(|p| *p != Platform::Unspecified && t.platforms.contains(p))
+            .map(|p| Badge {
+                label: page.t(&format!("platform.{}", p.as_str())),
+                path: format!("?platform={}", p.as_str()),
+                icon: String::new(),
+            });
         Row {
             id: t.id.clone(),
             favicon: t.favicon.clone(),
@@ -546,6 +566,8 @@ impl Ctx<'_> {
             repo: t.repo.clone(),
             summary: t.summary.get(self.lang).to_string(),
             categories: categories.map(badge).collect(),
+            works_with: works_with.collect(),
+            platforms: platforms.collect(),
             pricing: page.t(&format!("pricing.{}", t.pricing.as_str())),
             oss: t.open_source,
             stars: t

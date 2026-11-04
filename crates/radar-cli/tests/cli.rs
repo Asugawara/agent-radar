@@ -444,13 +444,67 @@ fn build_with_favicons_shows_image_or_initial() {
     assert!(!out.join("favicons/beta.png").exists());
     let en = fs::read_to_string(out.join("index.html")).unwrap();
     assert!(en.contains(
-        "<img src=\"/x/favicons/alpha.png\" width=\"20\" height=\"20\" loading=\"lazy\" alt=\"\""
+        "<img src=\"/x/favicons/alpha.png\" width=\"32\" height=\"32\" loading=\"lazy\" alt=\"\""
     ));
     // beta has no icon: its initial in a circle, and no favicon <img>.
     // (The header logo is an <img> too, so only count favicon images.)
     assert_eq!(en.matches("<img src=\"/x/favicons/").count(), 1);
     assert!(en.contains("class=\"fav-i\"") && en.contains(">B</span>"));
     assert!(en.contains("\"favicon\":\"/x/favicons/alpha.png\""));
+}
+
+#[test]
+fn build_shows_works_with_and_platform_columns() {
+    let root = fixture("works_with");
+    edit(&root.join("data/tags.toml"), |s| {
+        s.to_owned()
+            + "\n[[facet]]\n\
+             id = \"works-with\"\n\
+             label = { en = \"Works with\", ja = \"対応エージェント\" }\n\
+             min = 0\n\n\
+             [[facet.tag]]\n\
+             id = \"works-with-claude-code\"\n\
+             label = { en = \"Claude Code\", ja = \"Claude Code\" }\n\
+             description = { en = \"Claude Code d\", ja = \"Claude Code 説明\" }\n"
+    });
+    edit(&root.join("data/tools/alpha.toml"), |s| {
+        s.replace(
+            "tags = [\"coding-agent\", \"sandbox\", \"cli\", \"parallel\"]",
+            "tags = [\"coding-agent\", \"sandbox\", \"cli\", \"parallel\", \"works-with-claude-code\"]",
+        )
+        .replace("platforms = [\"linux\"]", "platforms = [\"linux\", \"macos\"]")
+    });
+    edit(&root.join("data/tools/beta.toml"), |s| {
+        s.replace("platforms = [\"linux\"]", "platforms = [\"unspecified\"]")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+
+    // The table row of one tool, from its `<tr>` to its `</tr>`.
+    let row = |html: &str, id: &str| {
+        let start = html.find(&format!("<tr data-id=\"{id}\">")).unwrap();
+        let end = start + html[start..].find("</tr>").unwrap();
+        html[start..end].to_string()
+    };
+    let en = fs::read_to_string(out.join("index.html")).unwrap();
+    assert!(en.contains("<th class=\"col-works\">"));
+    assert!(en.contains("<th class=\"col-platforms\">"));
+    let alpha = row(&en, "alpha");
+    assert!(alpha.contains("href=\"/x/?tag=works-with-claude-code\""));
+    let mac = alpha.find("href=\"/x/?platform=macos\"").unwrap();
+    let linux = alpha.find("href=\"/x/?platform=linux\"").unwrap();
+    assert!(mac < linux, "macOS should come before Linux: {alpha}");
+    let beta = row(&en, "beta");
+    assert!(beta.contains("<td class=\"col-platforms muted\">Not stated</td>"));
+    assert!(beta.contains("<td class=\"col-works muted\">"));
+
+    let ja = fs::read_to_string(out.join("ja/index.html")).unwrap();
+    assert!(ja.contains("対応エージェント"));
+    assert!(ja.contains("言及なし"));
 }
 
 #[test]

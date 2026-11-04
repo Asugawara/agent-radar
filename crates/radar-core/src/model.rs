@@ -5,6 +5,9 @@ use serde::{Deserialize, Serialize};
 /// Facet that is shown as badges in the "Category" column.
 pub const CATEGORY_FACET: &str = "category";
 
+/// Facet that is shown as badges in the "Works with" column.
+pub const WORKS_WITH_FACET: &str = "works-with";
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Pricing {

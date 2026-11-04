@@ -163,7 +163,7 @@ pub fn favicon_inner(src: Option<&str>, name: &str, id: &str) -> String {
     };
     match src {
         Some(src) => format!(
-            "<img src=\"{}\" width=\"20\" height=\"20\" loading=\"lazy\" alt=\"\" \
+            "<img src=\"{}\" width=\"32\" height=\"32\" loading=\"lazy\" alt=\"\" \
              onerror=\"this.hidden=true;this.nextElementSibling.hidden=false\">{}",
             escape(src),
             circle(" hidden")
@@ -178,7 +178,7 @@ mod tests {
     fn favicon_markup() {
         let with = super::favicon_inner(Some("/favicons/a.png"), "alpha", "alpha");
         assert!(with.starts_with(
-            "<img src=\"/favicons/a.png\" width=\"20\" height=\"20\" loading=\"lazy\" alt=\"\""
+            "<img src=\"/favicons/a.png\" width=\"32\" height=\"32\" loading=\"lazy\" alt=\"\""
         ));
         assert!(with.contains("fav-i") && with.ends_with("hidden>A</span>"));
         let without = super::favicon_inner(None, "<b>", "x");

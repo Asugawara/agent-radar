@@ -346,6 +346,14 @@ fn start() {
             .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
             .collect()
     });
+    // In facet order, so a tool's badges follow the order of tags.toml.
+    let works_with_ids: Vec<String> = data.with_value(|d| {
+        d.facets
+            .iter()
+            .filter(|f| f.id == radar_core::WORKS_WITH_FACET)
+            .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
+            .collect()
+    });
     // A scroll of the table would leave the popover behind its button.
     let close_on_scroll = wasm_bindgen::closure::Closure::<dyn FnMut()>::new(move || {
         if open_col.get_untracked().is_some() {
@@ -734,10 +742,14 @@ fn start() {
             oss_body,
         );
 
+        let works_th_label = s.t("table.works_with");
+        let platforms_th_label = s.t("table.platforms");
         let head = view! {
             <tr>
                 {sort_th(SortKey::Name, "table.name", "col-name")}
                 {category_th}
+                <th class="col-works">{works_th_label}</th>
+                <th class="col-platforms">{platforms_th_label}</th>
                 {pricing_th}
                 {oss_th}
                 {sort_th(SortKey::Stars, "table.stars", "col-stars num")}
@@ -747,6 +759,7 @@ fn start() {
 
         let s_rows = s.clone();
         let category_ids = category_ids.clone();
+        let works_with_ids = works_with_ids.clone();
         let lang = lang_t.clone();
         let base = base.clone();
         let generated_at = generated_at.clone();
@@ -760,7 +773,7 @@ fn start() {
                 } else {
                     s_rows.t("ui.no_match")
                 };
-                return view! { <tr><td colspan="6" class="muted">{msg}</td></tr> }.into_any();
+                return view! { <tr><td colspan="8" class="muted">{msg}</td></tr> }.into_any();
             }
             list.into_iter()
                 .map(|t| {
@@ -791,6 +804,71 @@ fn start() {
                     };
                     let tool_cats = (!cats_empty(&t, &category_ids))
                         .then(|| view! { <div class="tool-cats">{cats()}</div> });
+                    // Works-with badges (no icons), then platforms; both link to a filter like the category badges.
+                    let works_with: Vec<String> = works_with_ids
+                        .iter()
+                        .filter(|i| t.tags.contains(i))
+                        .cloned()
+                        .collect();
+                    let works_cell = if works_with.is_empty() {
+                        view! { <td class="col-works muted">"—"</td> }.into_any()
+                    } else {
+                        let links = works_with
+                            .iter()
+                            .map(|id| {
+                                let href = format!("{base}?tag={id}");
+                                let tag_id = id.clone();
+                                view! {
+                                    <a class="badge" href=href
+                                        on:click=move |ev| {
+                                            if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                return;
+                                            }
+                                            ev.prevent_default();
+                                            query.update(|q| {
+                                                q.tags.insert(tag_id.clone());
+                                            });
+                                        }>
+                                        {tag_label(id)}
+                                    </a>
+                                    " "
+                                }
+                            })
+                            .collect_view();
+                        view! { <td class="col-works">{links}</td> }.into_any()
+                    };
+                    let platform_list: Vec<Platform> = ALL_PLATFORMS
+                        .into_iter()
+                        .filter(|p| *p != Platform::Unspecified && t.platforms.contains(p))
+                        .collect();
+                    let platforms_cell = if platform_list.is_empty() {
+                        let msg = s_rows.t("platform.unspecified");
+                        view! { <td class="col-platforms muted">{msg}</td> }.into_any()
+                    } else {
+                        let links = platform_list
+                            .into_iter()
+                            .map(|p| {
+                                let href = format!("{base}?platform={}", p.as_str());
+                                let label = s_rows.t(&format!("platform.{}", p.as_str()));
+                                view! {
+                                    <a class="badge" href=href
+                                        on:click=move |ev| {
+                                            if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                return;
+                                            }
+                                            ev.prevent_default();
+                                            query.update(|q| {
+                                                q.platforms.insert(p);
+                                            });
+                                        }>
+                                        {label}
+                                    </a>
+                                    " "
+                                }
+                            })
+                            .collect_view();
+                        view! { <td class="col-platforms">{links}</td> }.into_any()
+                    };
                     let oss = if t.open_source {
                         view! { <td class="col-oss" title=s_rows.t("table.oss_yes")>{ic("git-branch")}</td> }.into_any()
                     } else {
@@ -854,6 +932,8 @@ fn start() {
                                 </div>
                             </td>
                             <td class="col-category">{cats()}</td>
+                            {works_cell}
+                            {platforms_cell}
                             <td class="col-pricing">{s_rows.t(&format!("pricing.{}", t.pricing.as_str()))}</td>
                             {oss}
                             {stars}
