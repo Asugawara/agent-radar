@@ -6,8 +6,8 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use askama::Template;
 use radar_core::{
-    CATEGORY_FACET, Lang, Project, RepoMeta, SiteConfig, SiteData, SiteTool, build_site_data,
-    date_string, i18n_keys,
+    ALL_PLATFORMS, CATEGORY_FACET, Lang, Platform, Project, RepoMeta, SiteConfig, SiteData,
+    SiteTool, WORKS_WITH_FACET, build_site_data, date_string, i18n_keys,
 };
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
@@ -248,6 +248,18 @@ pub struct Badge {
     pub icon: String,
 }
 
+/// One tile of a row's "Works with" or "Platforms" cell.
+pub struct Mark {
+    /// Text on the tile, e.g. "Claude" or "macOS".
+    pub text: String,
+    /// `?tag=works-with-codex` or `?platform=macos`.
+    pub path: String,
+    /// Label when the tool is listed for it, else "… (not listed)".
+    pub title: String,
+    /// Whether the tool is listed for it (filled tile) or not (outlined tile).
+    pub on: bool,
+}
+
 pub struct Row {
     pub id: String,
     /// Path of the favicon (with base URL), if one was fetched.
@@ -259,6 +271,12 @@ pub struct Row {
     pub repo: Option<String>,
     pub summary: String,
     pub categories: Vec<Badge>,
+    /// Every tag of the `works-with` facet in the facet's order, with whether the tool has it;
+    /// `None` when the tool has none of them (shown as "—").
+    pub works_with: Option<Vec<Mark>>,
+    /// The six platforms in `ALL_PLATFORMS` order, without `unspecified`;
+    /// `None` when no platform is listed (shown as "Not stated").
+    pub platforms: Option<Vec<Mark>>,
     pub pricing: String,
     pub oss: bool,
     /// `154k`; empty when unknown.
@@ -538,6 +556,47 @@ impl Ctx<'_> {
             .tags
             .iter()
             .filter(|id| category_ids.contains(&id.as_str()));
+        let works: Vec<Mark> = self
+            .data
+            .facets
+            .iter()
+            .filter(|f| f.id == WORKS_WITH_FACET)
+            .flat_map(|f| f.tags.iter())
+            .map(|tag| {
+                let on = t.tags.contains(&tag.id);
+                let label = tag.label.get(self.lang).to_string();
+                Mark {
+                    text: tag.short.get(self.lang).to_string(),
+                    path: format!("?tag={}", tag.id),
+                    title: if on {
+                        label
+                    } else {
+                        page.t("ui.not_listed").replace("{name}", &label)
+                    },
+                    on,
+                }
+            })
+            .collect();
+        let works_with = works.iter().any(|m| m.on).then_some(works);
+        let cells: Vec<Mark> = ALL_PLATFORMS
+            .into_iter()
+            .filter(|p| *p != Platform::Unspecified)
+            .map(|p| {
+                let on = t.platforms.contains(&p);
+                let label = page.t(&format!("platform.{}", p.as_str()));
+                Mark {
+                    text: label.clone(),
+                    path: format!("?platform={}", p.as_str()),
+                    title: if on {
+                        label
+                    } else {
+                        page.t("ui.not_listed").replace("{name}", &label)
+                    },
+                    on,
+                }
+            })
+            .collect();
+        let platforms = cells.iter().any(|c| c.on).then_some(cells);
         Row {
             id: t.id.clone(),
             favicon: t.favicon.clone(),
@@ -546,6 +605,8 @@ impl Ctx<'_> {
             repo: t.repo.clone(),
             summary: t.summary.get(self.lang).to_string(),
             categories: categories.map(badge).collect(),
+            works_with,
+            platforms,
             pricing: page.t(&format!("pricing.{}", t.pricing.as_str())),
             oss: t.open_source,
             stars: t

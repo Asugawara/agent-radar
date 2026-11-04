@@ -346,6 +346,21 @@ fn start() {
             .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
             .collect()
     });
+    // In facet order, so the tiles follow the order of tags.toml: (id, short text, label).
+    let works_with_tags: Vec<(String, String, String)> = data.with_value(|d| {
+        d.facets
+            .iter()
+            .filter(|f| f.id == radar_core::WORKS_WITH_FACET)
+            .flat_map(|f| f.tags.iter())
+            .map(|t| {
+                (
+                    t.id.clone(),
+                    t.short.get(&lang).to_string(),
+                    t.label.get(&lang).to_string(),
+                )
+            })
+            .collect()
+    });
     // A scroll of the table would leave the popover behind its button.
     let close_on_scroll = wasm_bindgen::closure::Closure::<dyn FnMut()>::new(move || {
         if open_col.get_untracked().is_some() {
@@ -734,10 +749,14 @@ fn start() {
             oss_body,
         );
 
+        let works_th_label = s.t("table.works_with");
+        let platforms_th_label = s.t("table.platforms");
         let head = view! {
             <tr>
                 {sort_th(SortKey::Name, "table.name", "col-name")}
                 {category_th}
+                <th class="col-works">{works_th_label}</th>
+                <th class="col-platforms">{platforms_th_label}</th>
                 {pricing_th}
                 {oss_th}
                 {sort_th(SortKey::Stars, "table.stars", "col-stars num")}
@@ -747,6 +766,7 @@ fn start() {
 
         let s_rows = s.clone();
         let category_ids = category_ids.clone();
+        let works_with_tags = works_with_tags.clone();
         let lang = lang_t.clone();
         let base = base.clone();
         let generated_at = generated_at.clone();
@@ -760,7 +780,7 @@ fn start() {
                 } else {
                     s_rows.t("ui.no_match")
                 };
-                return view! { <tr><td colspan="6" class="muted">{msg}</td></tr> }.into_any();
+                return view! { <tr><td colspan="8" class="muted">{msg}</td></tr> }.into_any();
             }
             list.into_iter()
                 .map(|t| {
@@ -791,6 +811,93 @@ fn start() {
                     };
                     let tool_cats = (!cats_empty(&t, &category_ids))
                         .then(|| view! { <div class="tool-cats">{cats()}</div> });
+                    // Works-with tiles: every works-with tag in a fixed order; listed ones link to a filter (as the category badges do), unlisted ones are dimmed.
+                    let works_cell = if !works_with_tags.iter().any(|(id, _, _)| t.tags.contains(id)) {
+                        view! { <td class="col-works muted">"—"</td> }.into_any()
+                    } else {
+                        let cells = works_with_tags
+                            .iter()
+                            .map(|(id, short, label)| {
+                                let on = t.tags.contains(id);
+                                let title = if on {
+                                    label.clone()
+                                } else {
+                                    s_rows.t("ui.not_listed").replace("{name}", label)
+                                };
+                                let text = short.clone();
+                                if on {
+                                    let href = format!("{base}?tag={id}");
+                                    let tag_id = id.clone();
+                                    view! {
+                                        <a class="mark" href=href title=title.clone() aria-label=title
+                                            on:click=move |ev| {
+                                                if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                    return;
+                                                }
+                                                ev.prevent_default();
+                                                query.update(|q| q.set_tag(&tag_id, TagMode::Include));
+                                            }>
+                                            {text}
+                                        </a>
+                                    }
+                                    .into_any()
+                                } else {
+                                    view! {
+                                        <span class="mark mark-off" title=title.clone() aria-label=title>{text}</span>
+                                    }
+                                    .into_any()
+                                }
+                            })
+                            .collect_view();
+                        view! { <td class="col-works"><div class="marks marks-works">{cells}</div></td> }.into_any()
+                    };
+                    // Six platform icons in a fixed order; listed ones link to a filter, unlisted ones are dimmed.
+                    let platform_cells: Vec<(Platform, bool)> = ALL_PLATFORMS
+                        .into_iter()
+                        .filter(|p| *p != Platform::Unspecified)
+                        .map(|p| (p, t.platforms.contains(&p)))
+                        .collect();
+                    let platforms_cell = if !platform_cells.iter().any(|(_, on)| *on) {
+                        let msg = s_rows.t("platform.unspecified");
+                        view! { <td class="col-platforms muted">{msg}</td> }.into_any()
+                    } else {
+                        let cells = platform_cells
+                            .into_iter()
+                            .map(|(p, on)| {
+                                let label = s_rows.t(&format!("platform.{}", p.as_str()));
+                                let text = label.clone();
+                                let title = if on {
+                                    label
+                                } else {
+                                    s_rows.t("ui.not_listed").replace("{name}", &label)
+                                };
+                                if on {
+                                    let href = format!("{base}?platform={}", p.as_str());
+                                    view! {
+                                        <a class="mark" href=href title=title.clone() aria-label=title
+                                            on:click=move |ev| {
+                                                if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                    return;
+                                                }
+                                                ev.prevent_default();
+                                                query.update(|q| {
+                                                    q.platforms.insert(p);
+                                                });
+                                            }>
+                                            {text}
+                                        </a>
+                                    }
+                                    .into_any()
+                                } else {
+                                    view! {
+                                        <span class="mark mark-off" title=title.clone() aria-label=title>{text}</span>
+                                    }
+                                    .into_any()
+                                }
+                            })
+                            .collect_view();
+                        view! { <td class="col-platforms"><div class="marks marks-plats">{cells}</div></td> }.into_any()
+                    };
                     let oss = if t.open_source {
                         view! { <td class="col-oss" title=s_rows.t("table.oss_yes")>{ic("git-branch")}</td> }.into_any()
                     } else {
@@ -854,6 +961,8 @@ fn start() {
                                 </div>
                             </td>
                             <td class="col-category">{cats()}</td>
+                            {works_cell}
+                            {platforms_cell}
                             <td class="col-pricing">{s_rows.t(&format!("pricing.{}", t.pricing.as_str()))}</td>
                             {oss}
                             {stars}

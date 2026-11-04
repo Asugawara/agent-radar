@@ -444,13 +444,91 @@ fn build_with_favicons_shows_image_or_initial() {
     assert!(!out.join("favicons/beta.png").exists());
     let en = fs::read_to_string(out.join("index.html")).unwrap();
     assert!(en.contains(
-        "<img src=\"/x/favicons/alpha.png\" width=\"20\" height=\"20\" loading=\"lazy\" alt=\"\""
+        "<img src=\"/x/favicons/alpha.png\" width=\"32\" height=\"32\" loading=\"lazy\" alt=\"\""
     ));
     // beta has no icon: its initial in a circle, and no favicon <img>.
     // (The header logo is an <img> too, so only count favicon images.)
     assert_eq!(en.matches("<img src=\"/x/favicons/").count(), 1);
     assert!(en.contains("class=\"fav-i\"") && en.contains(">B</span>"));
     assert!(en.contains("\"favicon\":\"/x/favicons/alpha.png\""));
+}
+
+#[test]
+fn build_shows_works_with_and_platform_columns() {
+    let root = fixture("works_with");
+    edit(&root.join("data/tags.toml"), |s| {
+        s.to_owned()
+            + "\n[[facet]]\n\
+             id = \"works-with\"\n\
+             label = { en = \"Works with\", ja = \"対応エージェント\" }\n\
+             min = 0\n\n\
+             [[facet.tag]]\n\
+             id = \"works-with-claude-code\"\n\
+             label = { en = \"Claude Code\", ja = \"Claude Code\" }\n\
+             description = { en = \"Claude Code d\", ja = \"Claude Code 説明\" }\n"
+    });
+    edit(&root.join("data/tools/alpha.toml"), |s| {
+        s.replace(
+            "tags = [\"coding-agent\", \"sandbox\", \"cli\", \"parallel\"]",
+            "tags = [\"coding-agent\", \"sandbox\", \"cli\", \"parallel\", \"works-with-claude-code\"]",
+        )
+        .replace("platforms = [\"linux\"]", "platforms = [\"linux\", \"macos\"]")
+    });
+    edit(&root.join("data/tools/beta.toml"), |s| {
+        s.replace("platforms = [\"linux\"]", "platforms = [\"unspecified\"]")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+
+    // The table row of one tool, from its `<tr>` to its `</tr>`.
+    let row = |html: &str, id: &str| {
+        let start = html.find(&format!("<tr data-id=\"{id}\">")).unwrap();
+        let end = start + html[start..].find("</tr>").unwrap();
+        html[start..end].to_string()
+    };
+    let en = fs::read_to_string(out.join("index.html")).unwrap();
+    assert!(en.contains("<th class=\"col-works\">"));
+    assert!(en.contains("<th class=\"col-platforms\">"));
+    let alpha = row(&en, "alpha");
+    // Works-with: the fixture's tag has no `short`, so the tile shows its label.
+    let claude = "<a class=\"mark\" href=\"/x/?tag=works-with-claude-code\" title=\"Claude Code\" aria-label=\"Claude Code\">Claude Code</a>";
+    assert!(alpha.contains(claude), "{alpha}");
+    // Platforms: six tiles in a fixed order. Listed ones are links, unlisted ones dimmed spans.
+    let mac = "<a class=\"mark\" href=\"/x/?platform=macos\" title=\"macOS\" aria-label=\"macOS\">macOS</a>";
+    let linux = "<a class=\"mark\" href=\"/x/?platform=linux\" title=\"Linux\" aria-label=\"Linux\">Linux</a>";
+    let windows = "<span class=\"mark mark-off\" title=\"Windows (not listed)\" aria-label=\"Windows (not listed)\">Windows</span>";
+    let web = "<span class=\"mark mark-off\" title=\"Web (not listed)\" aria-label=\"Web (not listed)\">Web</span>";
+    let ios = "<span class=\"mark mark-off\" title=\"iOS (not listed)\" aria-label=\"iOS (not listed)\">iOS</span>";
+    let android = "<span class=\"mark mark-off\" title=\"Android (not listed)\" aria-label=\"Android (not listed)\">Android</span>";
+    let at: Vec<usize> = [mac, windows, linux, web, ios, android]
+        .iter()
+        .map(|m| {
+            alpha
+                .find(m)
+                .unwrap_or_else(|| panic!("missing {m}: {alpha}"))
+        })
+        .collect();
+    assert!(at.windows(2).all(|w| w[0] < w[1]), "wrong order: {alpha}");
+    // 1 works-with tile + 2 listed platforms are links; 4 unlisted platforms are dimmed.
+    assert_eq!(alpha.matches("class=\"mark\"").count(), 3, "{alpha}");
+    assert_eq!(
+        alpha.matches("class=\"mark mark-off\"").count(),
+        4,
+        "{alpha}"
+    );
+    let beta = row(&en, "beta");
+    assert!(beta.contains("<td class=\"col-platforms muted\">Not stated</td>"));
+    assert!(!beta.contains("class=\"mark"));
+    assert!(beta.contains("<td class=\"col-works muted\">—</td>"));
+
+    let ja = fs::read_to_string(out.join("ja/index.html")).unwrap();
+    assert!(ja.contains("対応エージェント"));
+    assert!(ja.contains("言及なし"));
+    assert!(ja.contains("Windows（記載なし）"));
 }
 
 #[test]

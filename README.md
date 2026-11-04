@@ -14,17 +14,17 @@ It is for developers choosing tools for Claude Code, Codex and other agents. Any
 
 ## What you see
 
-![The agent-radar table of tools, with columns for name, category, pricing, open source, stars and last updated](docs/images/table.png)
+![The agent-radar table of tools, with columns for name, category, works with, platforms, pricing, open source, stars and last updated](docs/images/table.png)
 
 *The English site: one row per tool, with search and filters above the table.*
 
 ## What you can do
 
 - **Search.** Type a name, a summary or a tag to find a tool quickly.
-- **Filter.** Use the filter buttons on the Category, Pricing and OSS headers, or open Filters to narrow by the agent a tool works with (Claude Code, Codex, Gemini CLI, Cursor), interface (CLI, IDE extension, desktop app and more), capability and platform.
+- **Filter.** Use the filter buttons on the Category, Pricing and OSS headers, or open Filters to narrow by the agent a tool works with (Claude Code, Codex, Gemini CLI, Cursor), interface (CLI, IDE extension, desktop app and more), capability and platform. The works-with and platforms columns show tiles of text in the same places on every row: a tile is filled when the tool's official pages name that agent or platform, and outlined and faded when they do not.
 - **Sort.** Click Name, Stars or Updated to sort the table.
 - **Two languages.** The site is in English at `/` and in Japanese at `/ja/`.
-- **Light, dark and phones.** Switch the theme from the header. On a phone, the pricing and OSS columns are hidden and categories appear under each summary.
+- **Light, dark and phones.** Switch the theme from the header. On a phone, the works-with, platforms, pricing, OSS and category columns are hidden and categories appear under each summary.
 - **Read marks and saved settings.** Tools you open are marked as read; unread ones show a blue dot. Filter by unread or read under Filters. Read marks, language and theme are saved in your browser.
 - **No dead links.** A tool whose site stops responding is hidden and listed on the [Removed tools](https://asugawara.github.io/agent-radar/removed/) page, and it comes back when the site recovers.
 

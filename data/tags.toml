@@ -157,24 +157,29 @@ min = 0
   [[facet.tag]]
   id = "works-with-claude-code"
   label = { en = "Claude Code", ja = "Claude Code" }
+  short = { en = "Claude", ja = "Claude" }
   description = { en = "Works with Claude Code", ja = "Claude Code と組み合わせて使える" }
 
   [[facet.tag]]
   id = "works-with-codex"
   label = { en = "Codex", ja = "Codex" }
+  short = { en = "Codex", ja = "Codex" }
   description = { en = "Works with OpenAI Codex", ja = "OpenAI Codex と組み合わせて使える" }
 
   [[facet.tag]]
   id = "works-with-gemini-cli"
   label = { en = "Gemini CLI", ja = "Gemini CLI" }
+  short = { en = "Gemini", ja = "Gemini" }
   description = { en = "Works with Gemini CLI", ja = "Gemini CLI と組み合わせて使える" }
 
   [[facet.tag]]
   id = "works-with-cursor"
   label = { en = "Cursor", ja = "Cursor" }
+  short = { en = "Cursor", ja = "Cursor" }
   description = { en = "Works with Cursor", ja = "Cursor と組み合わせて使える" }
 
   [[facet.tag]]
   id = "model-agnostic"
   label = { en = "Model-agnostic", ja = "モデル非依存" }
+  short = { en = "Any", ja = "非依存" }
   description = { en = "Works with any model or agent", ja = "特定のモデルやエージェントに依存しない" }
