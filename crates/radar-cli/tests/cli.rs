@@ -227,7 +227,7 @@ fn build_renders_both_languages() {
     for (html, base) in [(&en, "/x/ja/"), (&ja, "/x/")] {
         assert!(html.contains(&format!("data-base=\"{base}\"")));
         assert!(html.contains("a.href = a.dataset.base + location.search + location.hash;"));
-        assert!(!html.contains("addEventListener"));
+        assert!(html.contains("localStorage.setItem('lang', a.hreflang)"));
     }
     // Only the list pages are built: no per-tool or per-tag pages, no third-party scripts.
     assert!(!en.contains("googletagmanager"));
@@ -275,6 +275,38 @@ fn build_embeds_gtm_when_configured() {
             html.contains("location.origin === \"https://asugawara.github.io\""),
             "{p}"
         );
+        assert!(html.contains("!window.radarLangRedirect"), "{p}");
+    }
+}
+
+#[test]
+fn build_redirects_saved_language_before_gtm() {
+    let root = fixture("lang-redirect");
+    edit(&root.join("site.toml"), |s| {
+        format!("{s}gtm_id = \"GTM-TEST123\"\n")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+    let cases = [
+        ("index.html", "\"/x/ja/\"", "ja"),
+        ("ja/index.html", "\"/x/\"", "en"),
+    ];
+    for (p, target, lang) in cases {
+        let html = fs::read_to_string(out.join(p)).unwrap();
+        let check = html
+            .find(&format!("l === \"{lang}\""))
+            .unwrap_or_else(|| panic!("{p}: no saved-language check"));
+        assert!(html.contains("localStorage.getItem('lang')"), "{p}");
+        assert!(
+            html.contains(target),
+            "{p}: missing redirect target {target}"
+        );
+        let gtm = html.find("gtm.js?id=").expect("gtm script");
+        assert!(check < gtm, "{p}: redirect must come before GTM");
     }
 }
 

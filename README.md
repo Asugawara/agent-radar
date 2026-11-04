@@ -25,6 +25,7 @@ It is for developers choosing tools for Claude Code, Codex and other agents. Any
 - **Sort.** Click Name, Stars or Updated to sort the table.
 - **Two languages.** The site is in English at `/` and in Japanese at `/ja/`.
 - **Light, dark and phones.** Switch the theme from the header. On a phone, the pricing and OSS columns are hidden and categories appear under each summary.
+- **Read marks and saved settings.** Tools you open are marked as read; unread ones show a blue dot. Filter by unread or read under Filters. Read marks, language and theme are saved in your browser.
 - **No dead links.** A tool whose site stops responding is hidden and listed on the [Removed tools](https://asugawara.github.io/agent-radar/removed/) page, and it comes back when the site recovers.
 
 ## Add a tool

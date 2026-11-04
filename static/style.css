@@ -91,6 +91,7 @@ tbody tr:hover { background: var(--hover); }
 .tool-cell { display: flex; align-items: flex-start; gap: 10px; }
 .tool-main { min-width: 0; }
 .tool-name { font-weight: 600; font-size: 1rem; line-height: 22px; }
+.unread-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: 2px; }
 .fav { flex: none; display: inline-flex; width: 20px; height: 20px; margin-top: 1px; }
 /* White plate so dark favicons stay visible in dark mode (invisible in light mode). */
 .fav img { width: 20px; height: 20px; box-sizing: border-box; padding: 2px; border-radius: 4px; background: #fff; object-fit: contain; }

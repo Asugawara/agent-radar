@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+{{ page.lang_redirect_script()|safe }}
 {{ page.gtm_script()|safe }}
 <link rel="icon" type="image/png" sizes="32x32" href="{{ page.static_url("brand/favicon-32.png") }}">
 <link rel="apple-touch-icon" href="{{ page.static_url("brand/apple-touch-icon.png") }}">
@@ -46,6 +47,7 @@
 <script>
 document.querySelectorAll('a[data-lang-switch]').forEach(function (a) {
   a.href = a.dataset.base + location.search + location.hash;
+  a.addEventListener('click', function () { try { localStorage.setItem('lang', a.hreflang); } catch (e) {} });
 });
 </script>
 <script>
