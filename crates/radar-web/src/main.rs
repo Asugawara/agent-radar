@@ -5,7 +5,9 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use leptos::mount::mount_to;
 use leptos::prelude::*;
-use radar_core::{ALL_PLATFORMS, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey};
+use radar_core::{
+    ALL_PLATFORMS, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey, TagMode,
+};
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{Document, HtmlElement};
 
@@ -57,6 +59,49 @@ where
             " " {label} " "
             <span class="count">{count}</span>
         </label>
+    }
+    .into_any()
+}
+
+/// One tag row: the checkbox includes the tag, the ⊖ button next to it (outside
+/// the `<label>`, so pressing it never moves the checkbox) excludes it.
+fn tag_opt<N>(
+    id: String,
+    label: String,
+    exclude_label: String,
+    query: RwSignal<Query>,
+    count: N,
+) -> AnyView
+where
+    N: Fn() -> usize + Send + Sync + 'static,
+{
+    let (id_checked, id_pressed, id_class, id_change, id_press) =
+        (id.clone(), id.clone(), id.clone(), id.clone(), id);
+    view! {
+        <span class="opt-row" class:excluded=move || query.get().tag_mode(&id_class) == TagMode::Exclude>
+            <label class="opt">
+                <input type="checkbox"
+                    prop:checked=move || query.get().tag_mode(&id_checked) == TagMode::Include
+                    on:change=move |ev| {
+                        let mode = if event_target_checked(&ev) { TagMode::Include } else { TagMode::Off };
+                        query.update(|q| q.set_tag(&id_change, mode));
+                    } />
+                " " <span class="opt-name">{label}</span> " "
+                <span class="count">{count}</span>
+            </label>
+            <button type="button" class="opt-x"
+                aria-pressed=move || (query.get().tag_mode(&id_pressed) == TagMode::Exclude).to_string()
+                aria-label=exclude_label.clone()
+                title=exclude_label
+                on:click=move |_| {
+                    query.update(|q| {
+                        let mode = if q.tag_mode(&id_press) == TagMode::Exclude { TagMode::Off } else { TagMode::Exclude };
+                        q.set_tag(&id_press, mode);
+                    });
+                }>
+                {ic("circle-minus")}
+            </button>
+        </span>
     }
     .into_any()
 }
@@ -377,21 +422,12 @@ fn start() {
                     .iter()
                     .map(|t| {
                         let id = t.id.clone();
-                        let id2 = id.clone();
-                        let id3 = id.clone();
+                        let id_n = id.clone();
                         let label = t.label.get(&lang_f).to_string();
-                        view! {
-                            <label class="opt">
-                                <input type="checkbox"
-                                    prop:checked=move || query.get().tags.contains(&id)
-                                    on:change=move |ev| {
-                                        let on = event_target_checked(&ev);
-                                        query.update(|q| toggle(&mut q.tags, &id2, on));
-                                    } />
-                                " " {label} " "
-                                <span class="count">{move || counts.get().tags.get(&id3).copied().unwrap_or(0)}</span>
-                            </label>
-                        }
+                        let exclude_label = s.t("ui.exclude").replace("{label}", &label);
+                        tag_opt(id, label, exclude_label, query, move || {
+                            counts.get().tags.get(&id_n).copied().unwrap_or(0)
+                        })
                     })
                     .collect_view();
                 view! {
@@ -611,13 +647,12 @@ fn start() {
                 .filter(|f| f.id == radar_core::CATEGORY_FACET)
                 .flat_map(|f| f.tags)
                 .map(|t| {
-                    let (a, b, c) = (t.id.clone(), t.id.clone(), t.id.clone());
-                    opt(
-                        t.label.get(&lang_t).to_string(),
-                        move || query.get().tags.contains(&a),
-                        move || counts.get().tags.get(&b).copied().unwrap_or(0),
-                        move |on| query.update(|q| toggle(&mut q.tags, &c, on)),
-                    )
+                    let id_n = t.id.clone();
+                    let label = t.label.get(&lang_t).to_string();
+                    let exclude_label = s.t("ui.exclude").replace("{label}", &label);
+                    tag_opt(t.id, label, exclude_label, query, move || {
+                        counts.get().tags.get(&id_n).copied().unwrap_or(0)
+                    })
                 })
                 .collect_view()
                 .into_any()
@@ -644,10 +679,10 @@ fn start() {
         let cat_ids_n = category_ids.clone();
         let cat_ids_clear = category_ids.clone();
         let cat_n = Signal::derive(move || {
-            query
-                .get()
-                .tags
+            let q = query.get();
+            q.tags
                 .iter()
+                .chain(q.excluded.iter())
                 .filter(|t| cat_ids_n.contains(*t))
                 .count()
         });
@@ -664,7 +699,12 @@ fn start() {
             open_col,
             pop_pos,
             cat_n,
-            move || query.update(|q| q.tags.retain(|t| !cat_ids_clear.contains(t))),
+            move || {
+                query.update(|q| {
+                    q.tags.retain(|t| !cat_ids_clear.contains(t));
+                    q.excluded.retain(|t| !cat_ids_clear.contains(t));
+                })
+            },
             category_body,
         );
         let (id, class, label, aria) = filter_th_of("pricing", "col-pricing", "table.pricing");
@@ -740,9 +780,7 @@ fn start() {
                                                 return;
                                             }
                                             ev.prevent_default();
-                                            query.update(|q| {
-                                                q.tags.insert(tag_id.clone());
-                                            });
+                                            query.update(|q| q.set_tag(&tag_id, TagMode::Include));
                                         }>
                                         {ic(&tag_icon(id))}{tag_label(id)}
                                     </a>
