@@ -6,7 +6,6 @@
 <th class="col-works">{{ page.t("table.works_with") }}</th>
 <th class="col-platforms">{{ page.t("table.platforms") }}</th>
 <th class="col-pricing">{% if interactive %}<span class="colfilter"><span class="thlabel">{{ page.t("table.pricing") }}</span><button type="button" class="colfilter-btn" disabled aria-label="{{ page.filter_by("table.pricing") }}">{{ page.icon("list-filter")|safe }}</button></span>{% else %}{{ page.t("table.pricing") }}{% endif %}</th>
-<th class="col-oss">{% if interactive %}<span class="colfilter"><span class="thlabel">{{ page.t("table.oss") }}</span><button type="button" class="colfilter-btn" disabled aria-label="{{ page.filter_by("table.oss") }}">{{ page.icon("list-filter")|safe }}</button></span>{% else %}{{ page.t("table.oss") }}{% endif %}</th>
 <th class="col-stars num"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.stars") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.stars") }}{% endif %}</th>
 <th class="col-updated"{% if interactive %} aria-sort="none"{% endif %}>{% if interactive %}<span class="sort">{{ page.t("table.updated") }}<span class="dim">{{ page.icon("arrow-up-down")|safe }}</span></span>{% else %}{{ page.t("table.updated") }}{% endif %}</th>
 </tr>
@@ -19,7 +18,6 @@
 {% if let Some(cells) = r.works_with %}<td class="col-works"><div class="marks marks-works">{% for c in cells %}{% if c.on %}<a class="mark" href="{{ page.url(c.path) }}" title="{{ c.title }}" aria-label="{{ c.title }}">{{ c.text }}</a>{% else %}<span class="mark mark-off" title="{{ c.title }}" aria-label="{{ c.title }}">{{ c.text }}</span>{% endif %}{% endfor %}</div></td>{% else %}<td class="col-works muted">—</td>{% endif %}
 {% if let Some(cells) = r.platforms %}<td class="col-platforms"><div class="marks marks-plats">{% for c in cells %}{% if c.on %}<a class="mark" href="{{ page.url(c.path) }}" title="{{ c.title }}" aria-label="{{ c.title }}">{{ c.text }}</a>{% else %}<span class="mark mark-off" title="{{ c.title }}" aria-label="{{ c.title }}">{{ c.text }}</span>{% endif %}{% endfor %}</div></td>{% else %}<td class="col-platforms muted">{{ page.t("platform.unspecified") }}</td>{% endif %}
 <td class="col-pricing">{{ r.pricing }}</td>
-{% if r.oss %}<td class="col-oss" title="{{ page.t("table.oss_yes") }}">{{ page.icon("git-branch")|safe }}</td>{% else %}<td class="col-oss muted" title="{{ page.t("table.oss_no") }}">—</td>{% endif %}
 {% if r.stars.is_empty() %}<td class="col-stars num muted">—</td>{% else %}<td class="col-stars num" title="{{ r.stars_full }}">{{ page.icon("star")|safe }}{{ r.stars }}</td>{% endif %}
 {% if r.updated.is_empty() %}<td class="col-updated muted">—</td>{% else %}<td class="col-updated" title="{{ r.updated_title }}">{{ r.updated }}</td>{% endif %}
 </tr>

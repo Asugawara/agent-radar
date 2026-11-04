@@ -6,7 +6,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use leptos::mount::mount_to;
 use leptos::prelude::*;
 use radar_core::{
-    ALL_PLATFORMS, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey, TagMode,
+    ALL_PLATFORMS, PAGE_SIZE, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey,
+    TagMode, page_items,
 };
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{Document, HtmlElement};
@@ -84,7 +85,7 @@ where
                     prop:checked=move || query.get().tag_mode(&id_checked) == TagMode::Include
                     on:change=move |ev| {
                         let mode = if event_target_checked(&ev) { TagMode::Include } else { TagMode::Off };
-                        query.update(|q| q.set_tag(&id_change, mode));
+                        edit(query, |q| q.set_tag(&id_change, mode));
                     } />
                 " " <span class="opt-name">{label}</span> " "
                 <span class="count">{count}</span>
@@ -94,7 +95,7 @@ where
                 aria-label=exclude_label.clone()
                 title=exclude_label
                 on:click=move |_| {
-                    query.update(|q| {
+                    edit(query, |q| {
                         let mode = if q.tag_mode(&id_press) == TagMode::Exclude { TagMode::Off } else { TagMode::Exclude };
                         q.set_tag(&id_press, mode);
                     });
@@ -206,6 +207,15 @@ fn current_query(data: &SiteData) -> Query {
         .and_then(|w| w.location().search().ok())
         .unwrap_or_default();
     Query::parse(&search, data)
+}
+
+/// Apply `f` to the query; any change other than the page goes back to the first page.
+fn edit(query: RwSignal<Query>, f: impl FnOnce(&mut Query)) {
+    query.update(|q| {
+        let before = q.clone();
+        f(q);
+        q.reset_page_if_changed(&before);
+    });
 }
 
 /// Mirror the state into the address bar without adding history entries.
@@ -464,7 +474,7 @@ fn start() {
                             prop:checked=move || query.get().pricing.contains(&p)
                             on:change=move |ev| {
                                 let on = event_target_checked(&ev);
-                                query.update(|q| toggle(&mut q.pricing, &p, on));
+                                edit(query, |q| toggle(&mut q.pricing, &p, on));
                             } />
                         " " {label} " "
                         <span class="count">{move || counts.get().pricing.get(&p).copied().unwrap_or(0)}</span>
@@ -483,7 +493,7 @@ fn start() {
                             prop:checked=move || query.get().platforms.contains(&p)
                             on:change=move |ev| {
                                 let on = event_target_checked(&ev);
-                                query.update(|q| toggle(&mut q.platforms, &p, on));
+                                edit(query, |q| toggle(&mut q.platforms, &p, on));
                             } />
                         " " {label} " "
                         <span class="count">{move || counts.get().platforms.get(&p).copied().unwrap_or(0)}</span>
@@ -502,7 +512,7 @@ fn start() {
                             prop:checked=move || query.get().read.contains(&st)
                             on:change=move |ev| {
                                 let on = event_target_checked(&ev);
-                                query.update(|q| toggle(&mut q.read, &st, on));
+                                edit(query, |q| toggle(&mut q.read, &st, on));
                             } />
                         " " {label} " "
                         <span class="count">{move || counts.get().read.get(&st).copied().unwrap_or(0)}</span>
@@ -523,7 +533,7 @@ fn start() {
                         prop:value=move || query.get().q
                         on:input=move |ev| {
                             let v = event_target_value(&ev);
-                            query.update(|q| q.q = v);
+                            edit(query, |q| q.q = v);
                         } />
                 </label>
                 <button type="button" class="filter-toggle"
@@ -541,7 +551,7 @@ fn start() {
                     let label = clear_label.clone();
                     view! {
                         <button type="button" class="clear"
-                            on:click=move |_| query.update(|q| *q = q.cleared())>
+                            on:click=move |_| edit(query, |q| *q = q.cleared())>
                             {ic("x")}
                             <span>{label}</span>
                         </button>
@@ -560,16 +570,6 @@ fn start() {
                 <fieldset class="facet">
                     <legend>{s.t("table.platforms")}</legend>
                     {platform_views}
-                    <label class="opt">
-                        <input type="checkbox"
-                            prop:checked=move || query.get().open_source
-                            on:change=move |ev| {
-                                let on = event_target_checked(&ev);
-                                query.update(|q| q.open_source = on);
-                            } />
-                        " " {s.t("ui.oss_only")} " "
-                        <span class="count">{move || counts.get().open_source}</span>
-                    </label>
                 </fieldset>
                 <fieldset class="facet">
                     <legend>{s.t("ui.read_group")}</legend>
@@ -594,7 +594,7 @@ fn start() {
                             if so.key != key { "none" } else if so.desc { "descending" } else { "ascending" }
                         }>
                         <button type="button" class="sort"
-                            on:click=move |_| query.update(|q| {
+                            on:click=move |_| edit(query, |q| {
                                 if q.sort.key == key {
                                     q.sort.desc = !q.sort.desc;
                                 } else {
@@ -679,17 +679,11 @@ fn start() {
                     s.t(&format!("pricing.{}", p.as_str())),
                     move || query.get().pricing.contains(&p),
                     move || counts.get().pricing.get(&p).copied().unwrap_or(0),
-                    move |on| query.update(|q| toggle(&mut q.pricing, &p, on)),
+                    move |on| edit(query, |q| toggle(&mut q.pricing, &p, on)),
                 )
             })
             .collect_view()
             .into_any();
-        let oss_body = opt(
-            s.t("table.oss_yes"),
-            move || query.get().open_source,
-            move || counts.get().open_source,
-            move |on| query.update(|q| q.open_source = on),
-        );
 
         let cat_ids_n = category_ids.clone();
         let cat_ids_clear = category_ids.clone();
@@ -702,7 +696,6 @@ fn start() {
                 .count()
         });
         let pricing_n = Signal::derive(move || query.get().pricing.len());
-        let oss_n = Signal::derive(move || usize::from(query.get().open_source));
 
         let (id, class, label, aria) = filter_th_of("category", "col-category", "table.category");
         let category_th = filter_th(
@@ -715,7 +708,7 @@ fn start() {
             pop_pos,
             cat_n,
             move || {
-                query.update(|q| {
+                edit(query, |q| {
                     q.tags.retain(|t| !cat_ids_clear.contains(t));
                     q.excluded.retain(|t| !cat_ids_clear.contains(t));
                 })
@@ -732,23 +725,9 @@ fn start() {
             open_col,
             pop_pos,
             pricing_n,
-            move || query.update(|q| q.pricing.clear()),
+            move || edit(query, |q| q.pricing.clear()),
             pricing_body,
         );
-        let (id, class, label, aria) = filter_th_of("oss", "col-oss", "table.oss");
-        let oss_th = filter_th(
-            id,
-            class,
-            label,
-            aria,
-            clear_label,
-            open_col,
-            pop_pos,
-            oss_n,
-            move || query.update(|q| q.open_source = false),
-            oss_body,
-        );
-
         let works_th_label = s.t("table.works_with");
         let platforms_th_label = s.t("table.platforms");
         let head = view! {
@@ -758,10 +737,68 @@ fn start() {
                 <th class="col-works">{works_th_label}</th>
                 <th class="col-platforms">{platforms_th_label}</th>
                 {pricing_th}
-                {oss_th}
                 {sort_th(SortKey::Stars, "table.stars", "col-stars num")}
                 {sort_th(SortKey::Updated, "table.updated", "col-updated")}
             </tr>
+        };
+
+        // Current page (0-based, kept in range), page count and number of matching tools.
+        let pages = move || {
+            let len = results.with(|l| l.len());
+            let page_count = len.div_ceil(PAGE_SIZE).max(1);
+            (query.get().page.min(page_count - 1), page_count, len)
+        };
+        // Show another page, and bring the filters back into view.
+        let go = move |page: usize| {
+            edit(query, |q| q.page = page);
+            if let Some(el) = web_sys::window()
+                .and_then(|w| w.document())
+                .and_then(|d| d.get_element_by_id("filters"))
+            {
+                el.scroll_into_view_with_bool(true);
+            }
+        };
+        let s_pager = s.clone();
+        let pager = move || {
+            let (cur, page_count, len) = pages();
+            if page_count <= 1 {
+                return ().into_any();
+            }
+            let from = (cur * PAGE_SIZE + 1).to_string();
+            let to = ((cur + 1) * PAGE_SIZE).min(len).to_string();
+            let range = s_pager
+                .t("ui.page_range")
+                .replace("{from}", &from)
+                .replace("{to}", &to);
+            let items = page_items(cur, page_count)
+                .into_iter()
+                .map(|item| match item {
+                    Some(i) => {
+                        let text = (i + 1).to_string();
+                        let aria = s_pager.t("ui.page").replace("{n}", &text);
+                        let current = (i == cur).then_some("page");
+                        view! {
+                            <button type="button" aria-label=aria aria-current=current
+                                on:click=move |_| go(i)>{text}</button>
+                        }
+                        .into_any()
+                    }
+                    None => view! { <span class="gap" aria-hidden="true">"…"</span> }.into_any(),
+                })
+                .collect_view();
+            let prev_off = cur == 0;
+            let next_off = cur + 1 >= page_count;
+            view! {
+                <nav class="pager" aria-label=s_pager.t("ui.pages")>
+                    <span class="range">{range}</span>
+                    <button type="button" class="pager-prev" disabled=prev_off
+                        on:click=move |_| go(cur.saturating_sub(1))>{s_pager.t("ui.prev")}</button>
+                    {items}
+                    <button type="button" class="pager-next" disabled=next_off
+                        on:click=move |_| go(cur + 1)>{s_pager.t("ui.next")}</button>
+                </nav>
+            }
+            .into_any()
         };
 
         let s_rows = s.clone();
@@ -773,15 +810,21 @@ fn start() {
         let rows = move || {
             let empty = s_rows.t("table.empty");
             let unread = s_rows.t("ui.unread");
-            let list = results.get();
-            if list.is_empty() {
+            let all = results.get();
+            if all.is_empty() {
                 let msg = if total == 0 {
                     empty
                 } else {
                     s_rows.t("ui.no_match")
                 };
-                return view! { <tr><td colspan="8" class="muted">{msg}</td></tr> }.into_any();
+                return view! { <tr><td colspan="7" class="muted">{msg}</td></tr> }.into_any();
             }
+            let (cur, _, _) = pages();
+            let list: Vec<SiteTool> = all
+                .into_iter()
+                .skip(cur * PAGE_SIZE)
+                .take(PAGE_SIZE)
+                .collect();
             list.into_iter()
                 .map(|t| {
                     // Shown in the category column, and (phones) under the summary.
@@ -800,7 +843,7 @@ fn start() {
                                                 return;
                                             }
                                             ev.prevent_default();
-                                            query.update(|q| q.set_tag(&tag_id, TagMode::Include));
+                                            edit(query, |q| q.set_tag(&tag_id, TagMode::Include));
                                         }>
                                         {ic(&tag_icon(id))}{tag_label(id)}
                                     </a>
@@ -835,7 +878,7 @@ fn start() {
                                                     return;
                                                 }
                                                 ev.prevent_default();
-                                                query.update(|q| q.set_tag(&tag_id, TagMode::Include));
+                                                edit(query, |q| q.set_tag(&tag_id, TagMode::Include));
                                             }>
                                             {text}
                                         </a>
@@ -880,7 +923,7 @@ fn start() {
                                                     return;
                                                 }
                                                 ev.prevent_default();
-                                                query.update(|q| {
+                                                edit(query, |q| {
                                                     q.platforms.insert(p);
                                                 });
                                             }>
@@ -897,11 +940,6 @@ fn start() {
                             })
                             .collect_view();
                         view! { <td class="col-platforms"><div class="marks marks-plats">{cells}</div></td> }.into_any()
-                    };
-                    let oss = if t.open_source {
-                        view! { <td class="col-oss" title=s_rows.t("table.oss_yes")>{ic("git-branch")}</td> }.into_any()
-                    } else {
-                        view! { <td class="col-oss muted" title=s_rows.t("table.oss_no")>"—"</td> }.into_any()
                     };
                     let stars = match t.stars {
                         Some(n) => view! {
@@ -964,7 +1002,6 @@ fn start() {
                             {works_cell}
                             {platforms_cell}
                             <td class="col-pricing">{s_rows.t(&format!("pricing.{}", t.pricing.as_str()))}</td>
-                            {oss}
                             {stars}
                             {updated}
                         </tr>
@@ -978,6 +1015,7 @@ fn start() {
                 <thead>{head}</thead>
                 <tbody>{rows}</tbody>
             </table>
+            {pager}
         }
     };
 

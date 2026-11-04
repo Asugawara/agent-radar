@@ -28,7 +28,6 @@ icons!(
     "circle-minus",
     "code",
     "external-link",
-    "git-branch",
     "languages",
     "layers",
     "list-filter",

@@ -111,8 +111,8 @@ a.mark:hover { border-color: var(--accent); }
 .repo-link { display: inline-flex; vertical-align: middle; margin-left: 6px; color: var(--muted); }
 .repo-link:hover { color: var(--accent); }
 .repo-link .icon { width: 14px; height: 14px; }
-.summary { color: var(--muted); font-size: 0.85rem; line-height: 1.4; margin-top: 1px; max-width: 46rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.col-oss, .col-pricing, .col-updated, .col-stars { white-space: nowrap; }
+.summary { color: var(--muted); font-size: 0.85rem; line-height: 1.4; margin-top: 1px; max-width: 46rem; }
+.col-pricing, .col-updated, .col-stars { white-space: nowrap; }
 .num { text-align: right; font-variant-numeric: tabular-nums; }
 .badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; margin: 1px 2px 1px 0; border-radius: 999px; background: var(--badge); color: var(--fg); font-size: 0.8rem; white-space: nowrap; }
 .badge-category { background: var(--badge-cat); }
@@ -125,7 +125,6 @@ a.mark:hover { border-color: var(--accent); }
 .links a, .dim { opacity: 0.4; display: inline-flex; }
 .col-stars .ic { margin-right: 4px; }
 .col-stars .icon { width: 14px; height: 14px; }
-.col-oss .icon { color: var(--accent); }
 /* search + filters */
 #filters { margin-bottom: 12px; min-height: 38px; }
 .toolbar { display: flex; align-items: center; gap: 8px; }
@@ -173,7 +172,7 @@ th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(-
 /* category badges under the summary: phones only (the column is hidden there) */
 .tool-cats { display: none; }
 @media (max-width: 639px) {
-  .col-pricing, .col-oss, .col-category, .col-works, .col-platforms { display: none; }
+  .col-pricing, .col-category, .col-works, .col-platforms { display: none; }
   .fav, .fav img, .fav-i { width: 24px; height: 24px; }
   .fav-i { font-size: 0.8rem; }
   .tool-cats { display: block; margin-top: 4px; }
@@ -182,7 +181,6 @@ th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(-
   th, td { padding-left: 4px; padding-right: 4px; }
   td { font-size: 0.85rem; }
   .col-name { min-width: 0; }
-  .summary { -webkit-line-clamp: 3; line-clamp: 3; }
   .tool-name { overflow-wrap: anywhere; }
   main { padding-left: 12px; padding-right: 12px; }
   th { font-size: 0.78rem; }
@@ -211,3 +209,12 @@ th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(-
   .opt-x { opacity: 0; }
   .opt-row:hover .opt-x, .opt-row:focus-within .opt-x, .opt-x[aria-pressed="true"] { opacity: 1; }
 }
+/* pagination */
+.pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; padding: 16px 0 4px; font-size: 0.9rem; }
+.pager .range { margin-right: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pager button { min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: transparent; color: var(--fg); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; }
+.pager button:hover:not(:disabled) { background: var(--hover); }
+.pager button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pager button[aria-current="page"] { border-color: var(--accent); background: var(--accent); color: #fff; font-weight: 600; }
+.pager button:disabled { opacity: 0.4; cursor: default; }
+.pager .gap { padding: 0 4px; color: var(--muted); }
