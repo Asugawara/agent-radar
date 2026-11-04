@@ -5,7 +5,7 @@ summary.en = "Claude Code mod that holds subagent fan-out and heavy-context prom
 summary.ja = "サブエージェントの大量起動や重いコンテキストが、プランの使用枠を使い切る前に止める Claude Code の mod"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "works-with-claude-code"]
 added = 2026-11-02
 

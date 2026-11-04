@@ -5,6 +5,6 @@ summary.en = "Skills library and workflow that gives coding agents a structured 
 summary.ja = "コーディングエージェントに構造化された開発手順を与えるスキル集とワークフロー"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
 added = 2026-11-02

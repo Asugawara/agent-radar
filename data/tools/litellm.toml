@@ -6,6 +6,6 @@ summary.en = "Python SDK and proxy server that calls 100+ LLM APIs in the OpenAI
 summary.ja = "100 以上の LLM API を OpenAI 形式で呼び出せる Python SDK 兼プロキシサーバ"
 pricing = "freemium"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["gateway", "library", "api", "self-hostable", "model-agnostic"]
 added = 2026-11-02

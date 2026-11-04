@@ -1,0 +1,10 @@
+name = "REA"
+url = "https://rea.tools"
+repo = "morluto/rea"
+summary.en = "MCP server that lets agents reverse engineer apps and native binaries, from runtime behavior down to disassembly"
+summary.ja = "アプリの挙動からネイティブバイナリまで、エージェントにリバースエンジニアリングさせる MCP サーバ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "cli", "mcp-support", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

@@ -1,0 +1,10 @@
+name = "Kanzo"
+url = "https://github.com/emanuele-em/kanzo"
+repo = "emanuele-em/kanzo"
+summary.en = "Single small binary that is both a browser kanban board and an MCP server, so you and your coding agents share one task list"
+summary.ja = "ブラウザのカンバンボードと MCP サーバを兼ねる小さな単一バイナリ。人とコーディングエージェントが同じタスクを共有できる"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "orchestrator", "web", "cli", "self-hostable"]
+added = 2026-11-04

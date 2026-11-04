@@ -5,7 +5,7 @@ summary.en = "Open-source platform that runs durable agents through an API, with
 summary.ja = "サンドボックス・シークレット・権限管理を備え、API で永続的なエージェントを動かせるオープンソースのプラットフォーム"
 pricing = "freemium"
 open_source = true
-platforms = ["web"]
+platforms = ["web", "macos", "linux"]
 tags = ["agent-framework", "sandbox", "api", "cli", "web", "self-hostable", "model-agnostic"]
 added = 2026-11-02
 

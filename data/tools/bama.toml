@@ -1,0 +1,10 @@
+name = "BAMA"
+url = "https://github.com/daveebbelaar/bama"
+repo = "daveebbelaar/bama"
+summary.en = "Agent skills that take a native macOS Swift app from idea to your Dock"
+summary.ja = "ネイティブ macOS（Swift）アプリを、構想から Dock に並ぶ状態まで進めるエージェントスキル集"
+pricing = "free"
+open_source = true
+platforms = ["macos"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

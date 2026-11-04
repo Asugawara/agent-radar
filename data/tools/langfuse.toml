@@ -5,6 +5,6 @@ summary.en = "Open-source LLM engineering platform for tracing, evals and prompt
 summary.ja = "トレース・評価・プロンプト管理を行うオープンソースの LLM エンジニアリングプラットフォーム"
 pricing = "freemium"
 open_source = true
-platforms = ["web", "linux", "macos", "windows"]
+platforms = ["web"]
 tags = ["observability", "web", "api", "library", "self-hostable", "model-agnostic"]
 added = 2026-11-02

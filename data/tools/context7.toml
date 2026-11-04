@@ -5,6 +5,6 @@ summary.en = "MCP server that feeds up-to-date library docs and code examples in
 summary.ja = "最新のライブラリドキュメントとコード例をプロンプトに取り込む MCP サーバ"
 pricing = "freemium"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["mcp-server", "cli", "api", "mcp-support", "model-agnostic"]
 added = 2026-11-02

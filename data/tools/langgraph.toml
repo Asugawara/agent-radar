@@ -5,6 +5,6 @@ summary.en = "Low-level framework for building long-running, stateful agents as 
 summary.ja = "長時間動く状態付きエージェントをグラフとして組み立てる低レベルのフレームワーク"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["agent-framework", "library", "multi-agent", "mcp-support", "model-agnostic"]
 added = 2026-11-02

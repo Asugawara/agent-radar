@@ -1,0 +1,10 @@
+name = "Agent Browser"
+url = "https://agent-browser.dev"
+repo = "vercel-labs/agent-browser"
+summary.en = "Native browser automation CLI for AI agents"
+summary.ja = "AI エージェント向けのネイティブなブラウザ自動操作 CLI"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["browser-automation", "cli"]
+added = 2026-11-04

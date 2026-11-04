@@ -5,7 +5,7 @@ summary.en = "Cloud sandboxes that give each agent session an isolated Linux mac
 summary.ja = "エージェントのセッションごとに隔離された Linux マシンを用意するクラウドサンドボックス"
 pricing = "freemium"
 open_source = true
-platforms = ["web", "linux", "macos", "windows"]
+platforms = ["web"]
 tags = ["sandbox", "api", "library", "remote", "self-hostable", "model-agnostic"]
 added = 2026-11-02
 

@@ -1,0 +1,10 @@
+name = "Moli"
+url = "https://browser.lexmount.com"
+repo = "lexmount/moli"
+summary.en = "Open-source headless browser for AI agents, written in Rust, that returns page structure first and pixels on demand"
+summary.ja = "Rust 製の AI エージェント向けオープンソースのヘッドレスブラウザ。ページ構造を優先して返し、画像は必要なときだけ返す"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["browser-automation", "cli", "mcp-support"]
+added = 2026-11-04

@@ -5,6 +5,6 @@ summary.en = "Kanban board that runs coding agents in parallel, each in its own 
 summary.ja = "カンバンボード上で複数のコーディングエージェントを、それぞれ別の git worktree で並列に動かす"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["orchestrator", "web", "parallel", "git-worktree", "self-hostable", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli"]
 added = 2026-11-02

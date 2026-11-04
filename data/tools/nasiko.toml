@@ -1,0 +1,10 @@
+name = "Nasiko"
+url = "https://www.nasiko.com"
+repo = "Nasiko-Labs/nasiko"
+summary.en = "Open runtime that finds the coding agents in use, tracks their cost by harness and model, and routes them to chosen models"
+summary.ja = "使われているコーディングエージェントを見つけ、ハーネス・モデル別のコストを追い、指定したモデルへ振り分けるオープンなランタイム"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["gateway", "observability", "self-hostable", "model-agnostic", "cli"]
+added = 2026-11-04

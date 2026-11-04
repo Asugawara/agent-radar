@@ -1,0 +1,10 @@
+name = "ECC"
+url = "https://ecc.tools"
+repo = "affaan-m/ECC"
+summary.en = "Agent harness performance system that bundles skills, instincts, memory and security rules for coding agents"
+summary.ja = "スキル・習慣・メモリ・セキュリティルールをまとめて入れる、コーディングエージェント向けのハーネス性能改善システム"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-04

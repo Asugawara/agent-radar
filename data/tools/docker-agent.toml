@@ -1,0 +1,10 @@
+name = "Docker Agent"
+url = "https://docker.github.io/docker-agent/"
+repo = "docker/docker-agent"
+summary.en = "Docker CLI plugin that builds, runs and shares multi-agent setups from a declarative YAML config"
+summary.ja = "宣言的な YAML 設定でマルチエージェントを構築・実行・共有できる Docker CLI プラグイン"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["agent-framework", "cli", "multi-agent"]
+added = 2026-11-04

@@ -6,6 +6,6 @@ summary.en = "TypeScript framework for building agents, workflows and RAG"
 summary.ja = "エージェント・ワークフロー・RAG を作るための TypeScript フレームワーク"
 pricing = "freemium"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["agent-framework", "library", "multi-agent", "mcp-support", "model-agnostic"]
 added = 2026-11-02

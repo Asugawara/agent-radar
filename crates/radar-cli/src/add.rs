@@ -384,7 +384,7 @@ fn render(f: &Fields, tax: &Taxonomy, today: &str) -> Result<String> {
     t.push_str("# free = no cost, freemium = free tier plus paid plans, paid = payment required\n");
     t.push_str("pricing = \"free\"\n");
     t.push_str(&format!("open_source = {}\n", f.open_source));
-    t.push_str("# macos, windows, linux, web, ios, android\nplatforms = []\n");
+    t.push_str("# macos, windows, linux, web, ios, android; [\"unspecified\"] when the official pages name no OS\nplatforms = []\n");
     t.push_str(&tag_guide(tax));
     t.push_str("tags = []\n");
     t.push_str(&format!("added = {today}\n"));

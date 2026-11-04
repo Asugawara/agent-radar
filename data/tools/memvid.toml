@@ -1,0 +1,10 @@
+name = "Memvid"
+url = "https://www.memvid.com"
+repo = "memvid/memvid"
+summary.en = "Single-file, portable memory layer for AI agents that replaces RAG pipelines and databases"
+summary.ja = "データベースや RAG パイプラインの代わりになる、1 ファイルで持ち運べる AI エージェント向けメモリレイヤー"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["memory", "library"]
+added = 2026-11-04

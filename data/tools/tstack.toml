@@ -1,0 +1,10 @@
+name = "tstack"
+url = "https://github.com/t3dotgg/tstack"
+repo = "t3dotgg/tstack"
+summary.en = "Agent skills Theo uses every day for Claude Code and Codex, such as taking a change to a merged PR unattended"
+summary.ja = "変更をマージ済みの PR まで無人で進めるなど、Theo が日常的に使っている Claude Code・Codex 向けエージェントスキル集"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

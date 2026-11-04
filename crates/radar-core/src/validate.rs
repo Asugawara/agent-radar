@@ -1,7 +1,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 
-use crate::model::{Facet, RawLang, Taxonomy, Tool, i18n_keys};
+use crate::model::{Facet, Platform, RawLang, Taxonomy, Tool, i18n_keys};
 use crate::site::date_string;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -239,7 +239,15 @@ fn validate_tool(path: &str, tool: &Tool, tax: &Taxonomy, diags: &mut Vec<Diagno
     }
     check_lang(diags, path, "summary", &f.summary);
     if f.platforms.is_empty() {
-        diags.push(Diagnostic::error(path, "platforms must not be empty"));
+        diags.push(Diagnostic::error(
+            path,
+            "platforms must not be empty (use [\"unspecified\"] when the official pages name no OS)",
+        ));
+    } else if f.platforms.contains(&Platform::Unspecified) && f.platforms.len() > 1 {
+        diags.push(Diagnostic::error(
+            path,
+            "platforms: \"unspecified\" cannot be combined with other platforms",
+        ));
     }
     if f.added.date.is_none() || f.added.time.is_some() {
         diags.push(Diagnostic::error(path, "added must be a date (YYYY-MM-DD)"));
@@ -721,6 +729,30 @@ added = 2026-11-02
         let tags = TAGS.replace("min = 1\nmax = 3", "min = 4\nmax = 3");
         let out = run(&[], &tags);
         assert!(has(&out, "max (3) is smaller than min (4)"), "{out:?}");
+    }
+
+    #[test]
+    fn unspecified_platform_alone_passes() {
+        let t = tool("\"coding-agent\", \"cli\"", SUMMARY)
+            .replace("platforms = [\"linux\"]", "platforms = [\"unspecified\"]");
+        let out = run(&[("x", t)], TAGS);
+        assert!(!out.iter().any(|l| !l.contains("warning")), "{out:?}");
+    }
+
+    #[test]
+    fn unspecified_cannot_be_combined() {
+        let t = tool("\"coding-agent\", \"cli\"", SUMMARY).replace(
+            "platforms = [\"linux\"]",
+            "platforms = [\"unspecified\", \"linux\"]",
+        );
+        let out = run(&[("x", t)], TAGS);
+        assert!(
+            has(
+                &out,
+                "\"unspecified\" cannot be combined with other platforms"
+            ),
+            "{out:?}"
+        );
     }
 
     #[test]

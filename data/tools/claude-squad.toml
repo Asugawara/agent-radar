@@ -5,6 +5,6 @@ summary.en = "Terminal app that manages multiple agent sessions in separate tmux
 summary.ja = "複数のエージェントセッションを tmux と git worktree で分離して管理するターミナルアプリ"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux"]
+platforms = ["macos", "linux", "windows"]
 tags = ["orchestrator", "tui", "parallel", "git-worktree", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli"]
 added = 2026-11-02

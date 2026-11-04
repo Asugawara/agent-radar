@@ -1,0 +1,10 @@
+name = "agent-purge"
+url = "https://github.com/ZiChuanLan/agent-purge"
+repo = "ZiChuanLan/agent-purge"
+summary.en = "Local tool that manages one persona across several coding agents by replacing or injecting their system prompts"
+summary.ja = "複数のコーディングエージェントのシステムプロンプトを差し替え・追加し、1 つの人格をまとめて管理するローカルツール"
+pricing = "free"
+open_source = true
+platforms = ["windows", "macos", "linux"]
+tags = ["skills-plugins", "cli", "web"]
+added = 2026-11-04

@@ -1,0 +1,10 @@
+name = "ThinkRail"
+url = "https://thinkrail.ai"
+repo = "JetBrains/thinkrail"
+summary.en = "Lightweight IDE built around the pi coding agent that customises itself to the way you work"
+summary.ja = "pi コーディングエージェントを中心にした軽量 IDE。作業の仕方に合わせて自分自身を調整する"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["coding-agent", "desktop"]
+added = 2026-11-04

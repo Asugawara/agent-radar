@@ -1,0 +1,10 @@
+name = "TUIOS"
+url = "https://tuios.dev"
+repo = "Gaurav-Gosain/tuios"
+summary.en = "Terminal multiplexer and window manager whose daemon lets the coding agents in each pane report state and message each other"
+summary.ja = "各ペインのコーディングエージェントが状態を報告し合い、メッセージを送り合えるデーモンを備えたターミナルマルチプレクサ兼ウィンドウマネージャ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "tui", "multi-agent"]
+added = 2026-11-04

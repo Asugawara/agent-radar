@@ -1,0 +1,10 @@
+name = "Skills Manager"
+url = "https://skillsmanager.dev"
+repo = "xingkongliang/skills-manager"
+summary.en = "Desktop app that manages and syncs agent skills across 50+ coding tools"
+summary.ja = "50 以上のコーディングツールにまたがるエージェントスキルを管理・同期するデスクトップアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["skills-plugins", "desktop"]
+added = 2026-11-04

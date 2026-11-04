@@ -1,0 +1,10 @@
+name = "uncut"
+url = "https://balanov.pro/uncut/"
+repo = "Balanov/uncut"
+summary.en = "Headless coding agent harness in one static binary with four tools and plain stdin/stdout"
+summary.ja = "4 つのツールと素の標準入出力だけを備えた、単一の静的バイナリのヘッドレス・コーディングエージェントハーネス"
+pricing = "free"
+open_source = true
+platforms = ["linux", "macos", "windows"]
+tags = ["coding-agent", "cli"]
+added = 2026-11-04

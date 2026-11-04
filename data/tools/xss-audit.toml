@@ -1,0 +1,10 @@
+name = "xss-audit"
+url = "https://github.com/songjianyang/xss-audit"
+repo = "songjianyang/xss-audit"
+summary.en = "Static XSS audit skill with 14 layers of checks for React, TypeScript and JavaScript codebases"
+summary.ja = "React・TypeScript・JavaScript のコードベースに 14 層のチェックをかける、静的な XSS 監査スキル"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

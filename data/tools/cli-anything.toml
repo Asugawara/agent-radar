@@ -1,0 +1,10 @@
+name = "CLI-Anything"
+url = "https://clianything.cc"
+repo = "HKUDS/CLI-Anything"
+summary.en = "Generates agent-friendly CLIs for existing software so agents can drive it"
+summary.ja = "既存のソフトウェアをエージェントが操作できるよう、エージェント向けの CLI を生成する"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

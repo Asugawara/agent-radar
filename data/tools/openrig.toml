@@ -1,0 +1,10 @@
+name = "OpenRig"
+url = "https://openrig.dev"
+repo = "mvschwarz/openrig"
+summary.en = "Defines a team of Claude Code and Codex agents in YAML and boots it as one persistent, managed system"
+summary.ja = "Claude Code と Codex のエージェントチームを YAML で定義し、永続的な 1 つの仕組みとして一括起動する"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["orchestrator", "cli", "multi-agent", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

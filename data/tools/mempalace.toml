@@ -1,0 +1,10 @@
+name = "MemPalace"
+url = "https://mempalaceofficial.com"
+repo = "MemPalace/mempalace"
+summary.en = "Local-first AI memory that stores conversations verbatim, with a pluggable backend and no API calls"
+summary.ja = "会話をそのまま保存する、ローカルファーストの AI メモリ。バックエンドは差し替え可能で API 呼び出しは不要"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["memory", "cli", "self-hostable"]
+added = 2026-11-04

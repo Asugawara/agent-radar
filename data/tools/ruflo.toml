@@ -1,0 +1,10 @@
+name = "Ruflo"
+url = "https://github.com/ruvnet/ruflo"
+repo = "ruvnet/ruflo"
+summary.en = "Meta-harness for Claude Code and Codex that coordinates multi-agent swarms and autonomous workflows"
+summary.ja = "Claude Code と Codex の上で、マルチエージェントのスウォームや自律ワークフローを調整するメタハーネス"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "cli", "multi-agent", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-04

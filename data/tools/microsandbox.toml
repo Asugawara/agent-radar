@@ -5,6 +5,6 @@ summary.en = "Local-first microVM runtime and library for running untrusted code
 summary.ja = "信頼できないコードを実行するための、ローカルで動く microVM ランタイム兼ライブラリ"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux"]
+platforms = ["macos", "linux", "windows"]
 tags = ["sandbox", "library", "cli", "self-hostable", "model-agnostic"]
 added = 2026-11-02

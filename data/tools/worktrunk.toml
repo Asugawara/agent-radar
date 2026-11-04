@@ -1,0 +1,10 @@
+name = "Worktrunk"
+url = "https://worktrunk.dev"
+repo = "max-sixty/worktrunk"
+summary.en = "CLI for managing git worktrees, designed for running parallel AI coding agents"
+summary.ja = "並列に動かす AI コーディングエージェント向けに設計された、git worktree 管理 CLI"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "cli", "git-worktree", "parallel"]
+added = 2026-11-04

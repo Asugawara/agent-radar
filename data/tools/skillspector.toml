@@ -1,0 +1,10 @@
+name = "SkillSpector"
+url = "https://docs.nvidia.com/skills/scanning-agent-skills"
+repo = "NVIDIA/SkillSpector"
+summary.en = "Security scanner that checks agent skills for vulnerabilities and malicious patterns before you install them"
+summary.ja = "エージェントスキルを導入する前に、脆弱性や悪意のあるパターンを検査するセキュリティスキャナ"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

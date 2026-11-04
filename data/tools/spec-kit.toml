@@ -1,0 +1,10 @@
+name = "Spec Kit"
+url = "https://github.github.com/spec-kit/"
+repo = "github/spec-kit"
+summary.en = "Toolkit that gives AI coding agents structured processes such as spec-driven development, with templates and documented outcomes"
+summary.ja = "仕様駆動開発などの構造化された進め方・テンプレート・成果物を AI コーディングエージェントに与えるツールキット"
+pricing = "free"
+open_source = true
+platforms = ["linux", "macos", "windows"]
+tags = ["skills-plugins", "cli"]
+added = 2026-11-04

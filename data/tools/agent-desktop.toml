@@ -1,0 +1,10 @@
+name = "Agent Desktop"
+url = "https://agent-browser.dev/desktop"
+repo = "vercel-labs/agent-desktop"
+summary.en = "Computer-use CLI that lets agents see and operate desktop apps through the OS accessibility tree"
+summary.ja = "OS のアクセシビリティツリーを通じて、エージェントがデスクトップアプリを見て操作できるコンピュータ操作 CLI"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["browser-automation", "cli"]
+added = 2026-11-04

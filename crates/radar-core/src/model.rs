@@ -32,6 +32,7 @@ pub enum Platform {
     Web,
     Ios,
     Android,
+    Unspecified,
 }
 
 impl Platform {
@@ -43,6 +44,7 @@ impl Platform {
             Platform::Web => "web",
             Platform::Ios => "ios",
             Platform::Android => "android",
+            Platform::Unspecified => "unspecified",
         }
     }
 }

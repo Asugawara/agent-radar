@@ -1,0 +1,10 @@
+name = "Claude-Mem"
+url = "https://claude-mem.ai"
+repo = "thedotmack/claude-mem"
+summary.en = "Plugin that captures what your coding agent does in each session, compresses it and feeds relevant context back into later sessions"
+summary.ja = "コーディングエージェントが各セッションで行った作業を記録・圧縮し、次回以降のセッションに必要な文脈として戻すプラグイン"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["memory", "skills-plugins", "cli", "works-with-claude-code"]
+added = 2026-11-04

@@ -5,7 +5,7 @@ summary.en = "Open-source AI agent framework for PHP with tools, memory and guar
 summary.ja = "ツール・メモリ・ガードを備えた PHP 向けのオープンソース AI エージェントフレームワーク。Laravel・Symfony・WordPress などのアダプタ付き"
 pricing = "free"
 open_source = true
-platforms = ["macos", "linux", "windows"]
+platforms = ["unspecified"]
 tags = ["agent-framework", "library", "cli", "mcp-support", "model-agnostic"]
 added = 2026-11-02
 

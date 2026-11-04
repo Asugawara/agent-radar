@@ -1,0 +1,10 @@
+name = "Sandbox Runtime"
+url = "https://github.com/anthropics/sandbox-runtime"
+repo = "anthropics/sandbox-runtime"
+summary.en = "Lightweight tool that enforces filesystem and network restrictions on arbitrary processes without a container"
+summary.ja = "コンテナなしで、任意のプロセスにファイルシステムとネットワークの制限をかける軽量ツール"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["sandbox", "cli", "library"]
+added = 2026-11-04

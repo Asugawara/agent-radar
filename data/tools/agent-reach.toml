@@ -1,0 +1,10 @@
+name = "Agent Reach"
+url = "https://github.com/Panniantong/Agent-Reach"
+repo = "Panniantong/Agent-Reach"
+summary.en = "One-command setup that lets an agent read and search login-walled sites, video content and Chinese platforms"
+summary.ja = "ログイン必須サイト・動画の中身・中国系プラットフォームをエージェントが読み取り・検索できるようにする、コマンド一つのセットアップツール"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "mcp-support"]
+added = 2026-11-04
