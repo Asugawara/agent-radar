@@ -96,10 +96,33 @@ pub struct Query {
     pub sort: Sort,
     /// 0-based page number.
     pub page: usize,
+    pub per_page: PageSize,
 }
 
-/// Tools shown per page.
-pub const PAGE_SIZE: usize = 25;
+/// Tools shown per page; the visitor picks one under the table.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord)]
+pub enum PageSize {
+    #[default]
+    S25,
+    S50,
+    S100,
+}
+
+impl PageSize {
+    pub const ALL: [PageSize; 3] = [PageSize::S25, PageSize::S50, PageSize::S100];
+
+    pub fn get(self) -> usize {
+        match self {
+            PageSize::S25 => 25,
+            PageSize::S50 => 50,
+            PageSize::S100 => 100,
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Self> {
+        Self::ALL.into_iter().find(|p| p.get().to_string() == s)
+    }
+}
 
 /// How a tag takes part in the filter.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -163,10 +186,11 @@ impl Query {
             + self.read.len()
     }
 
-    /// Drop every condition (the sort order stays).
+    /// Drop every condition (the sort order and the page size stay).
     pub fn cleared(&self) -> Query {
         Query {
             sort: self.sort,
+            per_page: self.per_page,
             ..Query::default()
         }
     }
@@ -389,6 +413,11 @@ impl Query {
                         out.page = n - 1;
                     }
                 }
+                "per_page" => {
+                    if let Some(p) = PageSize::parse(&v) {
+                        out.per_page = p;
+                    }
+                }
                 _ => {}
             }
         }
@@ -420,6 +449,9 @@ impl Query {
         if self.sort != Sort::default() {
             let dash = if self.sort.desc { "-" } else { "" };
             parts.push(format!("sort={dash}{}", self.sort.key.as_str()));
+        }
+        if self.per_page != PageSize::default() {
+            parts.push(format!("per_page={}", self.per_page.get()));
         }
         if self.page > 0 {
             parts.push(format!("page={}", self.page + 1));
@@ -475,7 +507,9 @@ pub fn page_items(current: usize, count: usize) -> Vec<Option<usize>> {
 
 /// Keys [`Query::parse`] reads. Other keys in the address bar (`utm_*`,
 /// `gclid`, …) belong to someone else and are kept.
-const OWN_KEYS: [&str; 7] = ["tag", "q", "pricing", "platform", "read", "sort", "page"];
+const OWN_KEYS: [&str; 8] = [
+    "tag", "q", "pricing", "platform", "read", "sort", "per_page", "page",
+];
 
 /// The search part for the address bar, without the leading `?`: `own`
 /// (from [`Query::to_query_string`]) followed by every pair of `current`
@@ -1188,6 +1222,50 @@ mod tests {
         next.page = 3;
         next.reset_page_if_changed(&before);
         assert_eq!(next.page, 3);
+    }
+
+    #[test]
+    fn page_size_is_read_from_the_url() {
+        let query = q("?per_page=50&page=2");
+        assert_eq!(query.per_page, PageSize::S50);
+        assert_eq!(query.page, 1);
+        assert_eq!(query.to_query_string(), "per_page=50&page=2");
+    }
+
+    #[test]
+    fn default_or_unknown_page_size_is_not_written() {
+        for s in ["per_page=25", "per_page=30", "per_page=abc"] {
+            let query = q(s);
+            assert_eq!(query.per_page, PageSize::S25, "{s}");
+            assert!(!query.to_query_string().contains("per_page"), "{s}");
+        }
+    }
+
+    #[test]
+    fn clearing_the_filters_keeps_the_page_size() {
+        let mut query = q("per_page=100");
+        query.set_tag("cli", TagMode::Include);
+        let cleared = query.cleared();
+        assert_eq!(cleared.per_page, PageSize::S100);
+        assert!(cleared.is_empty());
+    }
+
+    #[test]
+    fn changing_the_page_size_goes_back_to_the_first_page() {
+        let before = Query {
+            page: 2,
+            ..Query::default()
+        };
+        let mut next = before.clone();
+        next.per_page = PageSize::S50;
+        next.reset_page_if_changed(&before);
+        assert_eq!(next.page, 0);
+    }
+
+    #[test]
+    fn page_size_list_is_25_50_100() {
+        let sizes: Vec<usize> = PageSize::ALL.into_iter().map(PageSize::get).collect();
+        assert_eq!(sizes, [25, 50, 100]);
     }
 
     #[test]

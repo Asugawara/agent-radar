@@ -6,7 +6,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use leptos::mount::mount_to;
 use leptos::prelude::*;
 use radar_core::{
-    ALL_PLATFORMS, PAGE_SIZE, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey,
+    ALL_PLATFORMS, PageSize, Platform, Pricing, Query, ReadState, SiteData, SiteTool, SortKey,
     TagMode, page_items,
 };
 use wasm_bindgen::{JsCast, JsValue};
@@ -216,6 +216,16 @@ fn edit(query: RwSignal<Query>, f: impl FnOnce(&mut Query)) {
         f(q);
         q.reset_page_if_changed(&before);
     });
+}
+
+/// Bring the filters (the top of the table) back into view.
+fn scroll_to_filters() {
+    if let Some(el) = web_sys::window()
+        .and_then(|w| w.document())
+        .and_then(|d| d.get_element_by_id("filters"))
+    {
+        el.scroll_into_view_with_bool(true);
+    }
 }
 
 /// Mirror the state into the address bar without adding history entries.
@@ -742,60 +752,81 @@ fn start() {
             </tr>
         };
 
-        // Current page (0-based, kept in range), page count and number of matching tools.
+        // Current page (0-based, kept in range), page count, number of matching
+        // tools and tools per page.
         let pages = move || {
             let len = results.with(|l| l.len());
-            let page_count = len.div_ceil(PAGE_SIZE).max(1);
-            (query.get().page.min(page_count - 1), page_count, len)
+            let size = query.get().per_page.get();
+            let page_count = len.div_ceil(size).max(1);
+            (query.get().page.min(page_count - 1), page_count, len, size)
         };
         // Show another page, and bring the filters back into view.
         let go = move |page: usize| {
             edit(query, |q| q.page = page);
-            if let Some(el) = web_sys::window()
-                .and_then(|w| w.document())
-                .and_then(|d| d.get_element_by_id("filters"))
-            {
-                el.scroll_into_view_with_bool(true);
-            }
+            scroll_to_filters();
         };
         let s_pager = s.clone();
         let pager = move || {
-            let (cur, page_count, len) = pages();
-            if page_count <= 1 {
+            let (cur, page_count, len, size) = pages();
+            if len <= PageSize::S25.get() {
                 return ().into_any();
             }
-            let from = (cur * PAGE_SIZE + 1).to_string();
-            let to = ((cur + 1) * PAGE_SIZE).min(len).to_string();
+            let from = (cur * size + 1).to_string();
+            let to = ((cur + 1) * size).min(len).to_string();
             let range = s_pager
                 .t("ui.page_range")
                 .replace("{from}", &from)
                 .replace("{to}", &to);
-            let items = page_items(cur, page_count)
-                .into_iter()
-                .map(|item| match item {
-                    Some(i) => {
-                        let text = (i + 1).to_string();
-                        let aria = s_pager.t("ui.page").replace("{n}", &text);
-                        let current = (i == cur).then_some("page");
-                        view! {
-                            <button type="button" aria-label=aria aria-current=current
-                                on:click=move |_| go(i)>{text}</button>
+            let steps = (page_count > 1).then(|| {
+                let items = page_items(cur, page_count)
+                    .into_iter()
+                    .map(|item| match item {
+                        Some(i) => {
+                            let text = (i + 1).to_string();
+                            let aria = s_pager.t("ui.page").replace("{n}", &text);
+                            let current = (i == cur).then_some("page");
+                            view! {
+                                <button type="button" aria-label=aria aria-current=current
+                                    on:click=move |_| go(i)>{text}</button>
+                            }
+                            .into_any()
                         }
-                        .into_any()
-                    }
-                    None => view! { <span class="gap" aria-hidden="true">"…"</span> }.into_any(),
-                })
-                .collect_view();
-            let prev_off = cur == 0;
-            let next_off = cur + 1 >= page_count;
-            view! {
-                <nav class="pager" aria-label=s_pager.t("ui.pages")>
-                    <span class="range">{range}</span>
+                        None => {
+                            view! { <span class="gap" aria-hidden="true">"…"</span> }.into_any()
+                        }
+                    })
+                    .collect_view();
+                let prev_off = cur == 0;
+                let next_off = cur + 1 >= page_count;
+                view! {
                     <button type="button" class="pager-prev" disabled=prev_off
                         on:click=move |_| go(cur.saturating_sub(1))>{s_pager.t("ui.prev")}</button>
                     {items}
                     <button type="button" class="pager-next" disabled=next_off
                         on:click=move |_| go(cur + 1)>{s_pager.t("ui.next")}</button>
+                }
+            });
+            view! {
+                <nav class="pager" aria-label=s_pager.t("ui.pages")>
+                    <span class="range">{range}</span>
+                    {steps}
+                    <label class="per-page">
+                        {s_pager.t("ui.per_page")}
+                        <select on:change=move |ev| {
+                            if let Some(size) = PageSize::parse(&event_target_value(&ev)) {
+                                edit(query, |q| q.per_page = size);
+                                scroll_to_filters();
+                            }
+                        }>
+                            {PageSize::ALL.into_iter().map(|p| {
+                                view! {
+                                    <option value=p.get().to_string() selected=move || query.get().per_page == p>
+                                        {p.get().to_string()}
+                                    </option>
+                                }
+                            }).collect_view()}
+                        </select>
+                    </label>
                 </nav>
             }
             .into_any()
@@ -819,12 +850,8 @@ fn start() {
                 };
                 return view! { <tr><td colspan="7" class="muted">{msg}</td></tr> }.into_any();
             }
-            let (cur, _, _) = pages();
-            let list: Vec<SiteTool> = all
-                .into_iter()
-                .skip(cur * PAGE_SIZE)
-                .take(PAGE_SIZE)
-                .collect();
+            let (cur, _, _, size) = pages();
+            let list: Vec<SiteTool> = all.into_iter().skip(cur * size).take(size).collect();
             list.into_iter()
                 .map(|t| {
                     // Shown in the category column, and (phones) under the summary.
