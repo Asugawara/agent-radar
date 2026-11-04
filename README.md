@@ -21,7 +21,7 @@ It is for developers choosing tools for Claude Code, Codex and other agents. Any
 ## What you can do
 
 - **Search.** Type a name, a summary or a tag to find a tool quickly.
-- **Filter.** Use the filter buttons on the Category, Pricing and OSS headers, or open Filters to narrow by the agent a tool works with (Claude Code, Codex, Gemini CLI, Cursor), interface (CLI, IDE extension, desktop app and more), capability and platform.
+- **Filter.** Use the filter buttons on the Category, Pricing and OSS headers, or open Filters to narrow by the agent a tool works with (Claude Code, Codex, Gemini CLI, Cursor), interface (CLI, IDE extension, desktop app and more), capability and platform. The works-with and platforms columns show tiles of text in the same places on every row: a tile is filled when the tool's official pages name that agent or platform, and outlined and faded when they do not.
 - **Sort.** Click Name, Stars or Updated to sort the table.
 - **Two languages.** The site is in English at `/` and in Japanese at `/ja/`.
 - **Light, dark and phones.** Switch the theme from the header. On a phone, the works-with, platforms, pricing, OSS and category columns are hidden and categories appear under each summary.

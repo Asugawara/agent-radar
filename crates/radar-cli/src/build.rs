@@ -248,6 +248,18 @@ pub struct Badge {
     pub icon: String,
 }
 
+/// One tile of a row's "Works with" or "Platforms" cell.
+pub struct Mark {
+    /// Text on the tile, e.g. "Claude" or "macOS".
+    pub text: String,
+    /// `?tag=works-with-codex` or `?platform=macos`.
+    pub path: String,
+    /// Label when the tool is listed for it, else "… (not listed)".
+    pub title: String,
+    /// Whether the tool is listed for it (filled tile) or not (outlined tile).
+    pub on: bool,
+}
+
 pub struct Row {
     pub id: String,
     /// Path of the favicon (with base URL), if one was fetched.
@@ -259,10 +271,12 @@ pub struct Row {
     pub repo: Option<String>,
     pub summary: String,
     pub categories: Vec<Badge>,
-    /// Tags of the `works-with` facet, in the facet's order.
-    pub works_with: Vec<Badge>,
-    /// Platforms in `ALL_PLATFORMS` order, without `unspecified`.
-    pub platforms: Vec<Badge>,
+    /// Every tag of the `works-with` facet in the facet's order, with whether the tool has it;
+    /// `None` when the tool has none of them (shown as "—").
+    pub works_with: Option<Vec<Mark>>,
+    /// The six platforms in `ALL_PLATFORMS` order, without `unspecified`;
+    /// `None` when no platform is listed (shown as "Not stated").
+    pub platforms: Option<Vec<Mark>>,
     pub pricing: String,
     pub oss: bool,
     /// `154k`; empty when unknown.
@@ -542,22 +556,47 @@ impl Ctx<'_> {
             .tags
             .iter()
             .filter(|id| category_ids.contains(&id.as_str()));
-        let works_with = self
+        let works: Vec<Mark> = self
             .data
             .facets
             .iter()
             .filter(|f| f.id == WORKS_WITH_FACET)
             .flat_map(|f| f.tags.iter())
-            .filter(|tag| t.tags.contains(&tag.id))
-            .map(|tag| badge(&tag.id));
-        let platforms = ALL_PLATFORMS
+            .map(|tag| {
+                let on = t.tags.contains(&tag.id);
+                let label = tag.label.get(self.lang).to_string();
+                Mark {
+                    text: tag.short.get(self.lang).to_string(),
+                    path: format!("?tag={}", tag.id),
+                    title: if on {
+                        label
+                    } else {
+                        page.t("ui.not_listed").replace("{name}", &label)
+                    },
+                    on,
+                }
+            })
+            .collect();
+        let works_with = works.iter().any(|m| m.on).then_some(works);
+        let cells: Vec<Mark> = ALL_PLATFORMS
             .into_iter()
-            .filter(|p| *p != Platform::Unspecified && t.platforms.contains(p))
-            .map(|p| Badge {
-                label: page.t(&format!("platform.{}", p.as_str())),
-                path: format!("?platform={}", p.as_str()),
-                icon: String::new(),
-            });
+            .filter(|p| *p != Platform::Unspecified)
+            .map(|p| {
+                let on = t.platforms.contains(&p);
+                let label = page.t(&format!("platform.{}", p.as_str()));
+                Mark {
+                    text: label.clone(),
+                    path: format!("?platform={}", p.as_str()),
+                    title: if on {
+                        label
+                    } else {
+                        page.t("ui.not_listed").replace("{name}", &label)
+                    },
+                    on,
+                }
+            })
+            .collect();
+        let platforms = cells.iter().any(|c| c.on).then_some(cells);
         Row {
             id: t.id.clone(),
             favicon: t.favicon.clone(),
@@ -566,8 +605,8 @@ impl Ctx<'_> {
             repo: t.repo.clone(),
             summary: t.summary.get(self.lang).to_string(),
             categories: categories.map(badge).collect(),
-            works_with: works_with.collect(),
-            platforms: platforms.collect(),
+            works_with,
+            platforms,
             pricing: page.t(&format!("pricing.{}", t.pricing.as_str())),
             oss: t.open_source,
             stars: t

@@ -494,17 +494,41 @@ fn build_shows_works_with_and_platform_columns() {
     assert!(en.contains("<th class=\"col-works\">"));
     assert!(en.contains("<th class=\"col-platforms\">"));
     let alpha = row(&en, "alpha");
-    assert!(alpha.contains("href=\"/x/?tag=works-with-claude-code\""));
-    let mac = alpha.find("href=\"/x/?platform=macos\"").unwrap();
-    let linux = alpha.find("href=\"/x/?platform=linux\"").unwrap();
-    assert!(mac < linux, "macOS should come before Linux: {alpha}");
+    // Works-with: the fixture's tag has no `short`, so the tile shows its label.
+    let claude = "<a class=\"mark\" href=\"/x/?tag=works-with-claude-code\" title=\"Claude Code\" aria-label=\"Claude Code\">Claude Code</a>";
+    assert!(alpha.contains(claude), "{alpha}");
+    // Platforms: six tiles in a fixed order. Listed ones are links, unlisted ones dimmed spans.
+    let mac = "<a class=\"mark\" href=\"/x/?platform=macos\" title=\"macOS\" aria-label=\"macOS\">macOS</a>";
+    let linux = "<a class=\"mark\" href=\"/x/?platform=linux\" title=\"Linux\" aria-label=\"Linux\">Linux</a>";
+    let windows = "<span class=\"mark mark-off\" title=\"Windows (not listed)\" aria-label=\"Windows (not listed)\">Windows</span>";
+    let web = "<span class=\"mark mark-off\" title=\"Web (not listed)\" aria-label=\"Web (not listed)\">Web</span>";
+    let ios = "<span class=\"mark mark-off\" title=\"iOS (not listed)\" aria-label=\"iOS (not listed)\">iOS</span>";
+    let android = "<span class=\"mark mark-off\" title=\"Android (not listed)\" aria-label=\"Android (not listed)\">Android</span>";
+    let at: Vec<usize> = [mac, windows, linux, web, ios, android]
+        .iter()
+        .map(|m| {
+            alpha
+                .find(m)
+                .unwrap_or_else(|| panic!("missing {m}: {alpha}"))
+        })
+        .collect();
+    assert!(at.windows(2).all(|w| w[0] < w[1]), "wrong order: {alpha}");
+    // 1 works-with tile + 2 listed platforms are links; 4 unlisted platforms are dimmed.
+    assert_eq!(alpha.matches("class=\"mark\"").count(), 3, "{alpha}");
+    assert_eq!(
+        alpha.matches("class=\"mark mark-off\"").count(),
+        4,
+        "{alpha}"
+    );
     let beta = row(&en, "beta");
     assert!(beta.contains("<td class=\"col-platforms muted\">Not stated</td>"));
-    assert!(beta.contains("<td class=\"col-works muted\">"));
+    assert!(!beta.contains("class=\"mark"));
+    assert!(beta.contains("<td class=\"col-works muted\">—</td>"));
 
     let ja = fs::read_to_string(out.join("ja/index.html")).unwrap();
     assert!(ja.contains("対応エージェント"));
     assert!(ja.contains("言及なし"));
+    assert!(ja.contains("Windows（記載なし）"));
 }
 
 #[test]

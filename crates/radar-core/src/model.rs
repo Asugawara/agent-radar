@@ -141,6 +141,9 @@ pub struct TagDef {
     pub description: RawLang,
     #[serde(default)]
     pub aliases: Vec<String>,
+    /// Short text for the table's tiles (e.g. "Claude" for "Claude Code"); falls back to `label`.
+    #[serde(default)]
+    pub short: RawLang,
     /// Lucide icon name (must be bundled, see `icons`); category tags only in practice.
     #[serde(default)]
     pub icon: Option<String>,

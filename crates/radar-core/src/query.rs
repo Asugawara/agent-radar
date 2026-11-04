@@ -562,6 +562,7 @@ mod tests {
         SiteTag {
             id: id.into(),
             label: l(en, ja),
+            short: l(en, ja),
             icon: None,
         }
     }

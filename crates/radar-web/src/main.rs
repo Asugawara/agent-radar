@@ -346,12 +346,19 @@ fn start() {
             .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
             .collect()
     });
-    // In facet order, so a tool's badges follow the order of tags.toml.
-    let works_with_ids: Vec<String> = data.with_value(|d| {
+    // In facet order, so the tiles follow the order of tags.toml: (id, short text, label).
+    let works_with_tags: Vec<(String, String, String)> = data.with_value(|d| {
         d.facets
             .iter()
             .filter(|f| f.id == radar_core::WORKS_WITH_FACET)
-            .flat_map(|f| f.tags.iter().map(|t| t.id.clone()))
+            .flat_map(|f| f.tags.iter())
+            .map(|t| {
+                (
+                    t.id.clone(),
+                    t.short.get(&lang).to_string(),
+                    t.label.get(&lang).to_string(),
+                )
+            })
             .collect()
     });
     // A scroll of the table would leave the popover behind its button.
@@ -759,7 +766,7 @@ fn start() {
 
         let s_rows = s.clone();
         let category_ids = category_ids.clone();
-        let works_with_ids = works_with_ids.clone();
+        let works_with_tags = works_with_tags.clone();
         let lang = lang_t.clone();
         let base = base.clone();
         let generated_at = generated_at.clone();
@@ -804,70 +811,92 @@ fn start() {
                     };
                     let tool_cats = (!cats_empty(&t, &category_ids))
                         .then(|| view! { <div class="tool-cats">{cats()}</div> });
-                    // Works-with badges (no icons), then platforms; both link to a filter like the category badges.
-                    let works_with: Vec<String> = works_with_ids
-                        .iter()
-                        .filter(|i| t.tags.contains(i))
-                        .cloned()
-                        .collect();
-                    let works_cell = if works_with.is_empty() {
+                    // Works-with tiles: every works-with tag in a fixed order; listed ones link to a filter (as the category badges do), unlisted ones are dimmed.
+                    let works_cell = if !works_with_tags.iter().any(|(id, _, _)| t.tags.contains(id)) {
                         view! { <td class="col-works muted">"—"</td> }.into_any()
                     } else {
-                        let links = works_with
+                        let cells = works_with_tags
                             .iter()
-                            .map(|id| {
-                                let href = format!("{base}?tag={id}");
-                                let tag_id = id.clone();
-                                view! {
-                                    <a class="badge" href=href
-                                        on:click=move |ev| {
-                                            if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
-                                                return;
-                                            }
-                                            ev.prevent_default();
-                                            query.update(|q| {
-                                                q.tags.insert(tag_id.clone());
-                                            });
-                                        }>
-                                        {tag_label(id)}
-                                    </a>
-                                    " "
+                            .map(|(id, short, label)| {
+                                let on = t.tags.contains(id);
+                                let title = if on {
+                                    label.clone()
+                                } else {
+                                    s_rows.t("ui.not_listed").replace("{name}", label)
+                                };
+                                let text = short.clone();
+                                if on {
+                                    let href = format!("{base}?tag={id}");
+                                    let tag_id = id.clone();
+                                    view! {
+                                        <a class="mark" href=href title=title.clone() aria-label=title
+                                            on:click=move |ev| {
+                                                if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                    return;
+                                                }
+                                                ev.prevent_default();
+                                                query.update(|q| q.set_tag(&tag_id, TagMode::Include));
+                                            }>
+                                            {text}
+                                        </a>
+                                    }
+                                    .into_any()
+                                } else {
+                                    view! {
+                                        <span class="mark mark-off" title=title.clone() aria-label=title>{text}</span>
+                                    }
+                                    .into_any()
                                 }
                             })
                             .collect_view();
-                        view! { <td class="col-works">{links}</td> }.into_any()
+                        view! { <td class="col-works"><div class="marks marks-works">{cells}</div></td> }.into_any()
                     };
-                    let platform_list: Vec<Platform> = ALL_PLATFORMS
+                    // Six platform icons in a fixed order; listed ones link to a filter, unlisted ones are dimmed.
+                    let platform_cells: Vec<(Platform, bool)> = ALL_PLATFORMS
                         .into_iter()
-                        .filter(|p| *p != Platform::Unspecified && t.platforms.contains(p))
+                        .filter(|p| *p != Platform::Unspecified)
+                        .map(|p| (p, t.platforms.contains(&p)))
                         .collect();
-                    let platforms_cell = if platform_list.is_empty() {
+                    let platforms_cell = if !platform_cells.iter().any(|(_, on)| *on) {
                         let msg = s_rows.t("platform.unspecified");
                         view! { <td class="col-platforms muted">{msg}</td> }.into_any()
                     } else {
-                        let links = platform_list
+                        let cells = platform_cells
                             .into_iter()
-                            .map(|p| {
-                                let href = format!("{base}?platform={}", p.as_str());
+                            .map(|(p, on)| {
                                 let label = s_rows.t(&format!("platform.{}", p.as_str()));
-                                view! {
-                                    <a class="badge" href=href
-                                        on:click=move |ev| {
-                                            if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
-                                                return;
-                                            }
-                                            ev.prevent_default();
-                                            query.update(|q| {
-                                                q.platforms.insert(p);
-                                            });
-                                        }>
-                                        {label}
-                                    </a>
-                                    " "
+                                let text = label.clone();
+                                let title = if on {
+                                    label
+                                } else {
+                                    s_rows.t("ui.not_listed").replace("{name}", &label)
+                                };
+                                if on {
+                                    let href = format!("{base}?platform={}", p.as_str());
+                                    view! {
+                                        <a class="mark" href=href title=title.clone() aria-label=title
+                                            on:click=move |ev| {
+                                                if ev.button() != 0 || ev.ctrl_key() || ev.meta_key() || ev.shift_key() || ev.alt_key() {
+                                                    return;
+                                                }
+                                                ev.prevent_default();
+                                                query.update(|q| {
+                                                    q.platforms.insert(p);
+                                                });
+                                            }>
+                                            {text}
+                                        </a>
+                                    }
+                                    .into_any()
+                                } else {
+                                    view! {
+                                        <span class="mark mark-off" title=title.clone() aria-label=title>{text}</span>
+                                    }
+                                    .into_any()
                                 }
                             })
                             .collect_view();
-                        view! { <td class="col-platforms">{links}</td> }.into_any()
+                        view! { <td class="col-platforms"><div class="marks marks-plats">{cells}</div></td> }.into_any()
                     };
                     let oss = if t.open_source {
                         view! { <td class="col-oss" title=s_rows.t("table.oss_yes")>{ic("git-branch")}</td> }.into_any()
