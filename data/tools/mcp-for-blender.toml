@@ -1,0 +1,10 @@
+name = "MCP for Blender"
+url = "https://www.mcp-for-blender.com/"
+repo = "ahujasid/mcp-for-blender"
+summary.en = "MCP server and Blender addon that let AI apps drive 3D modeling and scene creation in Blender with prompts"
+summary.ja = "プロンプトで Blender の 3D モデリングやシーン作成を AI アプリから操作できる MCP サーバと Blender アドオン"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "cli", "mcp-support"]
+added = 2026-11-08

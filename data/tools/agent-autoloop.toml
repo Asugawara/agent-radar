@@ -1,0 +1,10 @@
+name = "Agent Autoloop"
+url = "https://github.com/KKKKhazix/agent-autoloop"
+repo = "KKKKhazix/agent-autoloop"
+summary.en = "Lightweight automation hub that lets command-line agents pick up tasks in the background and ask you only when a decision is needed"
+summary.ja = "コマンドラインのエージェントがバックグラウンドでタスクを受けて進め、判断が必要なときだけ通知で確認してくる軽量な自動化基盤"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "cli", "remote", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-08

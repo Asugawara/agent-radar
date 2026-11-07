@@ -1,0 +1,10 @@
+name = "Orca"
+url = "https://www.onorca.dev"
+repo = "stablyai/orca"
+summary.en = "Desktop app that runs Claude Code, Codex and other coding agents in parallel, each in its own git worktree"
+summary.ja = "Claude Code や Codex などのコーディングエージェントを、それぞれ専用の git worktree で並列に動かすデスクトップアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["orchestrator", "desktop", "cli", "multi-agent", "parallel", "git-worktree", "remote", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-08

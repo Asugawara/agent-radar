@@ -1,0 +1,10 @@
+name = "Claude Code Game Studios"
+url = "https://github.com/Donchitos/Claude-Code-Game-Studios"
+repo = "Donchitos/Claude-Code-Game-Studios"
+summary.en = "Turns a Claude Code session into a game studio with 49 specialized agents and 74 skills"
+summary.ja = "1 つの Claude Code セッションを、49 の専門エージェントと 74 のスキルを持つゲーム開発スタジオに変える"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "multi-agent", "works-with-claude-code"]
+added = 2026-11-08

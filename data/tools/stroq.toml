@@ -1,0 +1,12 @@
+name = "Stroq"
+url = "https://stroq.dev"
+repo = "AGGIB/Stroq"
+summary.en = "Local audit and policy hooks for coding agents that show which commands came from untrusted text and which keys left your machine"
+summary.ja = "コーディングエージェントのコマンドのうち、読み込んだ文章に由来するものや、外部に出た鍵を示すローカルの監査・ポリシーフック"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["observability", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-08
+[links]
+hn = "https://news.ycombinator.com/item?id=50380704"

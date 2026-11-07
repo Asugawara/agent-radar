@@ -1,0 +1,10 @@
+name = "OpenCode"
+url = "https://opencode.ai"
+repo = "anomalyco/opencode"
+summary.en = "Open source AI coding agent that runs in the terminal and as a desktop app"
+summary.ja = "ターミナルとデスクトップアプリで使えるオープンソースの AI コーディングエージェント"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "tui", "desktop"]
+added = 2026-11-08

@@ -1,0 +1,10 @@
+name = "Matt Pocock's Skills"
+url = "https://www.aihero.dev/skills"
+repo = "mattpocock/skills"
+summary.en = "Small, composable agent skills for everyday engineering work, installable into Claude Code, Codex and other agents"
+summary.ja = "日々のエンジニアリング作業向けの小さく組み合わせやすいエージェントスキル集。Claude Code や Codex などに導入できる"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli", "works-with-cursor"]
+added = 2026-11-08
