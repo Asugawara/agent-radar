@@ -1,0 +1,12 @@
+name = "tmux-restore"
+url = "https://github.com/andrewboldi/tmux-restore"
+repo = "andrewboldi/tmux-restore"
+summary.en = "Saves tmux windows every minute and restores them after a reboot, reopening Claude Code, Codex and other agent conversations"
+summary.ja = "tmux のウィンドウを毎分保存して再起動後に復元し、Claude Code や Codex などのエージェントの会話も開き直す"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["memory", "cli", "tui", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli"]
+added = 2026-11-08
+[links]
+hn = "https://news.ycombinator.com/item?id=50355009"

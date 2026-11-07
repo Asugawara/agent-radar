@@ -1,0 +1,10 @@
+name = "gstack"
+url = "https://github.com/garrytan/gstack"
+repo = "garrytan/gstack"
+summary.en = "Claude Code skill set that acts as a virtual engineering team with roles for product, architecture, review, QA and release"
+summary.ja = "プロダクト・設計・レビュー・QA・リリースの役割を持つ、仮想エンジニアリングチームとして動く Claude Code のスキル集"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-08

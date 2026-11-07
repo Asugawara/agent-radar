@@ -1,0 +1,10 @@
+name = "AI Design Skills"
+url = "https://github.com/elayadesign/ai-design-skills"
+repo = "elayadesign/ai-design-skills"
+summary.en = "Collection of design skills such as landing page design and Figma design for Claude Code, Cursor, Codex and other coding tools"
+summary.ja = "ランディングページ設計や Figma 上のデザインなどを担う、Claude Code・Cursor・Codex などのコーディングツール向けデザインスキル集"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-cursor", "works-with-codex"]
+added = 2026-11-08

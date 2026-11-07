@@ -1,0 +1,10 @@
+name = "DS Harness Remote"
+url = "https://dsh.r2049.cn/"
+repo = "liguobao/ds-harness-remote"
+summary.en = "Remote access to DeepSeek Harness and other local agent workspaces from the web, Android and other devices over an encrypted P2P network"
+summary.ja = "暗号化された P2P ネットワーク経由で、手元の DeepSeek Harness などのエージェント環境を Web や Android から操作する"
+pricing = "free"
+open_source = false
+platforms = ["web", "android", "linux"]
+tags = ["remote-control", "web", "remote", "works-with-codex", "works-with-cursor"]
+added = 2026-11-08

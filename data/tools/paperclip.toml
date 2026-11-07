@@ -1,0 +1,10 @@
+name = "Paperclip"
+url = "https://paperclip.ing"
+repo = "paperclipai/paperclip"
+summary.en = "Open source server and web UI that orchestrates a team of AI agents toward goals, with tasks, costs and permissions in one dashboard"
+summary.ja = "AI エージェントのチームに目標を割り当て、タスク・コスト・権限を 1 つのダッシュボードで管理するオープンソースのサーバと Web UI"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["orchestrator", "web", "multi-agent", "self-hostable", "works-with-claude-code", "works-with-codex", "works-with-cursor", "works-with-gemini-cli"]
+added = 2026-11-08
