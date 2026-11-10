@@ -2,6 +2,7 @@
 //! `SiteData` contract shared with the table UI. No file or network I/O, so
 //! this crate also builds for `wasm32`.
 
+pub mod faq;
 pub mod guide;
 pub mod icons;
 pub mod model;

@@ -56,3 +56,13 @@ clear = "Clear"
 filter_by = "Filter by {col}"
 no_match = "No tools match the filters."
 not_listed = "{name} (not listed)"
+
+[seo]
+title = "agent-radar fixture"
+description = "Fixture with {total} tools."
+h1 = "Fixture tools"
+lead = "Fixture lead for {total} tools, updated {date}."
+
+[faq]
+heading = "FAQ"
+see_all = "See all {n}"

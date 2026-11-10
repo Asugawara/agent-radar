@@ -221,3 +221,18 @@ th[aria-sort="ascending"] .sort, th[aria-sort="descending"] .sort { color: var(-
 .per-page { display: inline-flex; align-items: center; gap: 6px; margin-left: 12px; color: var(--muted); white-space: nowrap; }
 .per-page select { height: 36px; padding: 0 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; }
 .per-page select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Intro (h1 and lead) above the table, and the FAQ above the search box. */
+.intro { padding-top: 16px; }
+.intro h1 { font-size: 1.25rem; line-height: 1.3; margin: 0 0 6px; }
+.lead { color: var(--muted); max-width: 72ch; margin: 0 0 16px; font-size: 0.9rem; }
+.faq { margin-bottom: 16px; }
+.faq h2 { font-size: 1rem; margin: 0 0 8px; }
+.faq-list { display: grid; grid-template-columns: 1fr; gap: 6px; align-items: start; }
+@media (min-width: 768px) {
+  .faq-list { grid-template-columns: 1fr 1fr; gap: 8px; }
+}
+.faq-item { border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; background: var(--bg); }
+.faq-item summary { cursor: pointer; }
+.faq-item summary h3 { display: inline; font-size: inherit; font-weight: 600; margin: 0; }
+.faq-item p { margin: 8px 0 2px; line-height: 1.6; font-size: 0.9rem; }

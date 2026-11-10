@@ -13,6 +13,8 @@ pub struct Sources {
     pub ja: SourceFile,
     /// The issue form for suggestions; absent in fixtures.
     pub issue_form: Option<SourceFile>,
+    /// The FAQ above the table; absent in fixtures.
+    pub faq: Option<SourceFile>,
 }
 
 fn read(root: &Path, rel: &str) -> Result<SourceFile> {
@@ -45,6 +47,7 @@ impl Sources {
             en: read(root, "i18n/en.toml")?,
             ja: read(root, "i18n/ja.toml")?,
             issue_form: read(root, radar_core::guide::ISSUE_FORM_PATH).ok(),
+            faq: read(root, radar_core::faq::FAQ_PATH).ok(),
         })
     }
 
@@ -52,6 +55,9 @@ impl Sources {
         let (mut diags, project) = validate(&self.tools, &self.tags, &self.en, &self.ja);
         if let Some(form) = &self.issue_form {
             diags.extend(radar_core::check_issue_form(form, &project.taxonomy));
+        }
+        if let Some(faq) = &self.faq {
+            diags.extend(radar_core::faq::check_faq(faq, &project.taxonomy));
         }
         (diags, project)
     }
@@ -75,6 +81,13 @@ fn is_gtm_id(id: &str) -> bool {
     })
 }
 
+/// The token Search Console shows for the HTML-tag method: 10 to 100 letters, digits, `-` or `_`.
+fn is_site_verification(v: &str) -> bool {
+    (10..=100).contains(&v.len())
+        && v.bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_')
+}
+
 pub fn load_site_config(root: &Path) -> Result<SiteConfig> {
     let f = read(root, "site.toml")?;
     let site =
@@ -83,6 +96,13 @@ pub fn load_site_config(root: &Path) -> Result<SiteConfig> {
         && !is_gtm_id(id)
     {
         anyhow::bail!("site.toml: gtm_id must look like GTM-XXXXXXX (got {id:?})");
+    }
+    if let Some(v) = &site.google_site_verification
+        && !is_site_verification(v)
+    {
+        anyhow::bail!(
+            "site.toml: google_site_verification must be 10-100 letters, digits, '-' or '_' (got {v:?})"
+        );
     }
     Ok(site)
 }

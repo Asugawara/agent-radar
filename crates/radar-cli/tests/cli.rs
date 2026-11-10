@@ -556,3 +556,183 @@ fn issue_form_categories_are_checked_against_tags() {
     assert!(out.contains("suggest-tool.yml"), "{out}");
     assert!(out.contains("        - Gateway"), "{out}");
 }
+
+fn write_faq(root: &Path, text: &str) {
+    fs::write(root.join("data/faq.toml"), text).unwrap();
+}
+
+#[test]
+fn build_renders_seo_head() {
+    let root = fixture("seo");
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+    for file in ["index.html", "ja/index.html"] {
+        let html = fs::read_to_string(out.join(file)).unwrap();
+        assert!(html.contains("<meta name=\"description\""), "{file}");
+        assert!(html.contains("property=\"og:title\""), "{file}");
+        assert_eq!(html.matches("<h1").count(), 1, "{file}");
+        let json = html
+            .split("<script type=\"application/ld+json\">")
+            .nth(1)
+            .and_then(|s| s.split("</script>").next())
+            .unwrap_or_else(|| panic!("{file}: no ld+json"));
+        let v: serde_json::Value = serde_json::from_str(json).unwrap();
+        let types: Vec<&str> = v["@graph"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter_map(|n| n["@type"].as_str())
+            .collect();
+        assert!(
+            types.contains(&"WebSite") && types.contains(&"Dataset"),
+            "{types:?}"
+        );
+    }
+    let sitemap = fs::read_to_string(out.join("sitemap.xml")).unwrap();
+    assert!(
+        sitemap.contains("<loc>https://asugawara.github.io/x/</loc>")
+            && sitemap.contains("<loc>https://asugawara.github.io/x/ja/</loc>"),
+        "{sitemap}"
+    );
+    let removed = fs::read_to_string(out.join("removed/index.html")).unwrap();
+    assert!(!removed.contains("application/ld+json"));
+}
+
+#[test]
+fn build_renders_faq_from_data() {
+    let root = fixture("faq");
+    edit(&root.join("data/tools/alpha.toml"), |s| {
+        format!("{s}repo = \"o/alpha\"\n")
+    });
+    edit(&root.join("data/tools/beta.toml"), |s| {
+        format!("{s}repo = \"o/beta\"\n")
+    });
+    fs::write(
+        root.join("enrich.json"),
+        r#"{"o/alpha": {"stars": 50, "pushed_at": "2026-11-01T00:00:00Z", "archived": false, "license": "MIT"}, "o/beta": {"stars": 900, "pushed_at": "2026-11-01T00:00:00Z", "archived": false, "license": "MIT"}}"#,
+    )
+    .unwrap();
+    write_faq(
+        &root,
+        r#"
+[[faq]]
+id = "clis"
+query = "tag=cli&sort=-stars"
+question.en = "Which CLIs are popular?"
+question.ja = "人気の CLI は？"
+answer.en = "Top: {top}. {n} tools as of {date}, {total} in all."
+answer.ja = "上位: {top}（{n} 件、{date} 時点、全 {total} 件）。"
+
+[[faq]]
+id = "nothing"
+query = "tag=parallel&tag=memory"
+question.en = "Zero match question?"
+question.ja = "該当なし"
+answer.en = "Never shown {n}"
+answer.ja = "表示されない {n}"
+"#,
+    );
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &[
+            "build",
+            "--base-url",
+            "/x/",
+            "--out",
+            out.to_str().unwrap(),
+            "--enrich",
+            root.join("enrich.json").to_str().unwrap(),
+        ],
+    );
+    assert!(o.status.success(), "{} {:?}", stdout(&o), o);
+    assert!(stdout(&o).contains("faq nothing: no tools match; skipped"));
+    let en = fs::read_to_string(out.join("index.html")).unwrap();
+    let ja = fs::read_to_string(out.join("ja/index.html")).unwrap();
+    assert!(
+        en.contains("Top: Beta (900 stars) and Alpha (50 stars). 2 tools as of"),
+        "{en}"
+    );
+    assert!(en.contains("<h3>Which CLIs are popular?</h3>"), "{en}");
+    // askama escapes the `&` of the href as `&#38;`.
+    assert!(
+        en.contains("href=\"/x/?tag=cli&#38;sort=-stars\">See all 2</a>"),
+        "{en}"
+    );
+    assert!(!en.contains("Zero match question?"), "{en}");
+    assert!(ja.contains("Beta（★900）、Alpha（★50）"), "{ja}");
+    assert!(
+        ja.contains("href=\"/x/ja/?tag=cli&#38;sort=-stars\">"),
+        "{ja}"
+    );
+    assert!(!ja.contains("表示されない"), "{ja}");
+}
+
+#[test]
+fn validate_rejects_bad_faq() {
+    let cases = [
+        (
+            "placeholder",
+            "[[faq]]\nid = \"bad\"\nquestion.en = \"Q\"\nquestion.ja = \"Q\"\nanswer.en = \"A {foo}\"\nanswer.ja = \"A\"\n",
+        ),
+        (
+            "query",
+            "[[faq]]\nid = \"bad\"\nquery = \"tag=nope-tag\"\nquestion.en = \"Q\"\nquestion.ja = \"Q\"\nanswer.en = \"A {top}\"\nanswer.ja = \"A {top}\"\n",
+        ),
+        (
+            "missing",
+            "[[faq]]\nid = \"bad\"\nquestion.en = \"Q\"\nquestion.ja = \"Q\"\nanswer.en = \"A\"\n",
+        ),
+    ];
+    for (name, text) in cases {
+        let root = fixture(&format!("faq-bad-{name}"));
+        write_faq(&root, text);
+        let o = radar(&root, &["validate"]);
+        let msg = format!("{}{}", stdout(&o), String::from_utf8_lossy(&o.stderr));
+        assert_eq!(o.status.code(), Some(1), "{name}: {msg}");
+        assert!(msg.contains("data/faq.toml"), "{name}: {msg}");
+    }
+}
+
+#[test]
+fn build_emits_site_verification_meta() {
+    let root = fixture("verify");
+    edit(&root.join("site.toml"), |s| {
+        format!("{s}google_site_verification = \"abcdefghij_-12\"\n")
+    });
+    let out = root.join("out");
+    let o = radar(
+        &root,
+        &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+    );
+    assert!(o.status.success(), "{:?}", o);
+    let en = fs::read_to_string(out.join("index.html")).unwrap();
+    assert!(
+        en.contains("<meta name=\"google-site-verification\" content=\"abcdefghij_-12\">"),
+        "{en}"
+    );
+    for (i, line) in [
+        r#"google_site_verification = "abcdefghij\"x""#,
+        r#"google_site_verification = "abcdefghij<x""#,
+    ]
+    .into_iter()
+    .enumerate()
+    {
+        let root = fixture(&format!("verify-bad-{i}"));
+        edit(&root.join("site.toml"), |s| format!("{s}{line}\n"));
+        let o = radar(
+            &root,
+            &["build", "--base-url", "/x/", "--out", out.to_str().unwrap()],
+        );
+        assert!(!o.status.success(), "{line}");
+        assert!(
+            String::from_utf8_lossy(&o.stderr).contains("google_site_verification"),
+            "{:?}",
+            o
+        );
+    }
+}

@@ -9,6 +9,19 @@
 <link rel="icon" type="image/png" sizes="32x32" href="{{ page.static_url("brand/favicon-32.png") }}">
 <link rel="apple-touch-icon" href="{{ page.static_url("brand/apple-touch-icon.png") }}">
 <title>{{ page.title }}</title>
+{% if let Some(desc) = page.description %}<meta name="description" content="{{ desc }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ page.site_title() }}">
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ page.canonical() }}">
+<meta property="og:image" content="{{ page.og_image() }}">
+<meta property="og:locale" content="{{ page.og_locale() }}">
+<meta property="og:locale:alternate" content="{{ page.og_locale_alt() }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page.title }}">
+<meta name="twitter:description" content="{{ desc }}">
+{% endif %}{{ page.verification_meta()|safe }}
 <script>
 (function () {
   var t;
@@ -22,6 +35,7 @@
 <link rel="alternate" hreflang="en" href="{{ page.abs_url_for("en") }}">
 <link rel="alternate" hreflang="ja" href="{{ page.abs_url_for("ja") }}">
 <link rel="alternate" hreflang="x-default" href="{{ page.abs_url_for("en") }}">
+{% block head %}{% endblock %}
 </head>
 <body>
 <header class="site-header">
