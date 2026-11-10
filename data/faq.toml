@@ -1,0 +1,59 @@
+# FAQ shown above the table on / and /ja/.
+# {top} = the first `top` tools (default 3) of `query` with their GitHub stars,
+# {n} = how many tools match `query`, {total} = all tools, {date} = build date (YYYY-MM-DD).
+# `query` uses the same keys as the table's address (tag, sort, pricing, platform).
+
+[[faq]]
+id = "mcp-servers"
+query = "tag=mcp-server&sort=-stars"
+question.en = "What are the most popular MCP servers?"
+question.ja = "人気の MCP サーバは？"
+answer.en = "The most-starred MCP servers on agent-radar are {top}. An MCP server gives AI agents such as Claude Code, Codex and Cursor access to tools or data through the Model Context Protocol. agent-radar lists {n} MCP servers, ranked by GitHub stars as of {date}."
+answer.ja = "agent-radar で GitHub スター数が多い MCP サーバは {top}です。MCP サーバは、Model Context Protocol を通じて Claude Code・Codex・Cursor などの AI エージェントにツールやデータを提供します。agent-radar には {date} 時点で {n} 件の MCP サーバが載っています。"
+
+[[faq]]
+id = "coding-agents"
+query = "tag=coding-agent&sort=-stars"
+question.en = "What are the most popular AI coding agents?"
+question.ja = "人気の AI コーディングエージェントは？"
+answer.en = "The most-starred AI coding agents on agent-radar are {top}. A coding agent reads, writes and runs code for you from a terminal, an IDE or a desktop app. agent-radar lists {n} coding agents with their pricing, platforms and GitHub stars as of {date}."
+answer.ja = "agent-radar で GitHub スター数が多い AI コーディングエージェントは {top}です。コーディングエージェントは、ターミナル・IDE・デスクトップアプリからコードの読み書きと実行を任せられる AI エージェントです。agent-radar には {date} 時点で {n} 件が載っており、料金・対応 OS・スター数を比べられます。"
+
+[[faq]]
+id = "parallel-agents"
+query = "tag=orchestrator&sort=-stars"
+question.en = "How can I run several coding agents in parallel?"
+question.ja = "複数のコーディングエージェントを並列に動かすには？"
+answer.en = "Use an orchestrator, a tool that starts several coding agents at once and keeps their work apart, for example in separate git worktrees. The most-starred orchestrators on agent-radar are {top}. agent-radar lists {n} orchestrators as of {date}."
+answer.ja = "オーケストレータを使います。複数のコーディングエージェントを同時に起動し、git worktree などで作業を分けて管理するツールです。agent-radar で GitHub スター数が多いオーケストレータは {top}です（{date} 時点で {n} 件掲載）。"
+
+[[faq]]
+id = "claude-code-memory"
+query = "tag=memory&tag=works-with-claude-code&sort=-stars"
+question.en = "How can Claude Code remember context across sessions?"
+question.ja = "Claude Code にセッションをまたいで文脈を覚えさせるには？"
+answer.en = "Add a memory tool, which saves context and knowledge from one session and gives it back to the agent in the next. The most-starred memory tools that work with Claude Code on agent-radar are {top}. agent-radar lists {n} of them as of {date}."
+answer.ja = "メモリツールを追加します。あるセッションの文脈や知識を保存し、次のセッションでエージェントに渡すツールです。Claude Code で使えるメモリツールのうち GitHub スター数が多いものは {top}です（{date} 時点で {n} 件掲載）。"
+
+[[faq]]
+id = "sandbox"
+query = "tag=sandbox&sort=-stars"
+question.en = "How can I run code written by an AI agent safely?"
+question.ja = "AI エージェントが書いたコードを安全に実行するには？"
+answer.en = "Run it in a sandbox, an isolated environment that keeps code written by an agent away from your own files and system. The most-starred sandboxes on agent-radar are {top}. agent-radar lists {n} sandboxes as of {date}."
+answer.ja = "サンドボックスで実行します。エージェントが書いたコードを手元のファイルやシステムから隔離して動かす環境です。agent-radar で GitHub スター数が多いサンドボックスは {top}です（{date} 時点で {n} 件掲載）。"
+
+[[faq]]
+id = "browser"
+query = "tag=browser-automation&sort=-stars"
+question.en = "How can an AI agent use a web browser?"
+question.ja = "AI エージェントに Web ブラウザを操作させるには？"
+answer.en = "Give it a browser automation tool, which lets the agent open pages, click, type and read the results in a real web browser. The most-starred browser automation tools on agent-radar are {top}. agent-radar lists {n} of them as of {date}."
+answer.ja = "ブラウザ自動化ツールを使います。エージェントが実際のブラウザでページを開き、クリックや入力をして結果を読めるようにするツールです。agent-radar で GitHub スター数が多いものは {top}です（{date} 時点で {n} 件掲載）。"
+
+[[faq]]
+id = "updates"
+question.en = "How is agent-radar kept up to date?"
+question.ja = "agent-radar の一覧はどう更新されている？"
+answer.en = "agent-radar refreshes GitHub stars and last-update dates every 6 hours and hides a tool whose site stops responding until it recovers. The platforms and agents shown for each tool come from its official pages. Anyone can suggest a tool on GitHub; agent-radar lists {total} tools as of {date}."
+answer.ja = "agent-radar は GitHub のスター数と最終更新日を 6 時間ごとに更新し、サイトが応答しなくなったツールは復旧するまで非表示にしています。各ツールの対応 OS と対応エージェントは公式ページの記載に基づきます。ツールは GitHub から誰でも提案でき、{date} 時点で {total} 件を掲載しています。"

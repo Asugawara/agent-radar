@@ -66,3 +66,13 @@ pages = "Pages"
 page = "Page {n}"
 page_range = "{from}–{to}"
 per_page = "Per page"
+
+[seo]
+title = "agent-radar: AI agent tools, MCP servers and coding agents"
+description = "Compare {total} tools for AI agents: coding agents, MCP servers, orchestrators, sandboxes and memory, with pricing, platforms, GitHub stars and supported agents."
+h1 = "Tools for AI agents: coding agents, MCP servers and more"
+lead = "agent-radar is a free, open-source directory of {total} tools for building and running AI agents, from coding agents and MCP servers to orchestrators, agent frameworks and sandboxes. Search and filter them by category, pricing, platform and the agent they work with (Claude Code, Codex, Gemini CLI, Cursor). Updated {date}."
+
+[faq]
+heading = "Frequently asked questions"
+see_all = "See all {n} →"

@@ -15,11 +15,15 @@ use time::format_description::well_known::Rfc3339;
 use crate::project::{Sources, load_site_config};
 
 const CSS: &str = include_str!("../../../static/style.css");
-/// Brand images copied to `static/brand/`; `icon-256.png` is only for the README.
+/// Brand images copied to `static/brand/`; `icon-256.png` is also the `og:image`.
 const BRAND: &[(&str, &[u8])] = &[
     (
         "static/brand/favicon-32.png",
         include_bytes!("../../../static/brand/favicon-32.png"),
+    ),
+    (
+        "static/brand/icon-256.png",
+        include_bytes!("../../../static/brand/icon-256.png"),
     ),
     (
         "static/brand/apple-touch-icon.png",
@@ -53,6 +57,8 @@ pub struct Page {
     /// Path below the language root, e.g. `removed/` (empty for the list).
     pub path: String,
     pub title: String,
+    /// `<meta name="description">` and the Open Graph copy; none when absent.
+    pub description: Option<String>,
     pub generated_at: String,
     wasm: bool,
     site: SiteConfig,
@@ -107,6 +113,33 @@ impl Page {
     /// Absolute URL of this very page.
     pub fn canonical(&self) -> String {
         self.abs_url_for(&self.lang)
+    }
+    /// `https://origin/base/`, the site root in every language.
+    pub fn abs_base(&self) -> String {
+        format!(
+            "{}{}",
+            self.site.origin.trim_end_matches('/'),
+            self.base_url
+        )
+    }
+    /// `og:locale` of this page.
+    pub fn og_locale(&self) -> &'static str {
+        if self.lang == "ja" { "ja_JP" } else { "en_US" }
+    }
+    /// `og:locale:alternate`: the other language.
+    pub fn og_locale_alt(&self) -> &'static str {
+        if self.lang == "ja" { "en_US" } else { "ja_JP" }
+    }
+    /// Absolute URL of the icon used as `og:image`.
+    pub fn og_image(&self) -> String {
+        format!("{}static/brand/icon-256.png", self.abs_base())
+    }
+    /// The Search Console verification tag, or nothing when `google_site_verification` is unset.
+    pub fn verification_meta(&self) -> String {
+        match &self.site.google_site_verification {
+            Some(v) => format!("<meta name=\"google-site-verification\" content=\"{v}\">"),
+            None => String::new(),
+        }
     }
     /// `<script type="module">` tag that starts the table, if the WASM was built.
     pub fn wasm_script(&self) -> String {
@@ -295,6 +328,16 @@ pub struct RemovedItem {
     pub since: String,
 }
 
+/// One FAQ entry as the index template shows it.
+pub struct FaqView {
+    pub id: String,
+    pub question: String,
+    pub answer: String,
+    /// The table with the entry's query applied, in this language.
+    pub link: Option<String>,
+    pub link_label: String,
+}
+
 #[derive(Template)]
 #[template(path = "index.html")]
 struct IndexPage<'a> {
@@ -303,6 +346,10 @@ struct IndexPage<'a> {
     rows: Vec<Row>,
     count: String,
     site_json: &'a str,
+    lead: String,
+    faq: Vec<FaqView>,
+    /// JSON-LD (`<` escaped), for the `head` block.
+    ld_json: String,
 }
 
 #[derive(Template)]
@@ -372,6 +419,14 @@ pub fn run(
         return Ok(true);
     }
     let site = load_site_config(root)?;
+    let faq_entries: Vec<radar_core::faq::FaqEntry> = match &sources.faq {
+        Some(f) => {
+            toml::from_str::<radar_core::faq::FaqFile>(&f.text)
+                .with_context(|| format!("parse {}", f.path))?
+                .faq
+        }
+        None => Vec::new(),
+    };
     let base = normalize_base(base_url.unwrap_or(&site.base_url));
     let enrich_map: BTreeMap<String, RepoMeta> = match enrich {
         Some(p) => serde_json::from_str(
@@ -441,6 +496,7 @@ pub fn run(
             base_url: base.clone(),
             path: path.to_string(),
             title,
+            description: None,
             generated_at: generated_at.clone(),
             wasm,
             site: site.clone(),
@@ -454,24 +510,71 @@ pub fn run(
             project: &project,
         };
 
-        let page = make_page("", site.title.clone());
+        let total = data.tools.len().to_string();
+        let date = date_part(&generated_at);
+        let mut page = make_page("", String::new());
+        page.title = page.t("seo.title");
+        page.description = Some(page.t("seo.description").replace("{total}", &total));
+        let lead = page
+            .t("seo.lead")
+            .replace("{total}", &total)
+            .replace("{date}", &date);
+        let faq = faq_views(&page, &faq_entries, &data, &date);
+        let ld = serde_json::json!({
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "name": site.title,
+                    "url": page.canonical(),
+                    "inLanguage": lang,
+                    "description": page.description,
+                },
+                {
+                    "@type": "Dataset",
+                    "name": page.t("seo.h1"),
+                    "description": page.description,
+                    "url": page.canonical(),
+                    "license": "https://opensource.org/licenses/MIT",
+                    "isAccessibleForFree": true,
+                    "dateModified": date,
+                    "inLanguage": lang,
+                    "creator": {
+                        "@type": "Person",
+                        "name": owner(&site.repo),
+                        "url": format!("https://github.com/{}", owner(&site.repo)),
+                    },
+                    "distribution": [{
+                        "@type": "DataDownload",
+                        "encodingFormat": "application/json",
+                        "contentUrl": format!("{}tools.json", page.abs_base()),
+                    }],
+                },
+            ],
+        });
+        let ld_json = serde_json::to_string(&ld)?.replace('<', "\\u003c");
+
         let html = IndexPage {
             page: &page,
             interactive: true,
             rows: ctx.rows(&page, |_| true),
             count: page
                 .t("ui.count")
-                .replace("{shown}", &data.tools.len().to_string())
-                .replace("{total}", &data.tools.len().to_string()),
+                .replace("{shown}", &total)
+                .replace("{total}", &total),
             site_json: &site_json,
+            lead,
+            faq,
+            ld_json,
         }
         .render()?;
         write(out, &format!("{prefix}index.html"), &html)?;
 
-        let page = make_page(
+        let mut page = make_page(
             "removed/",
             format!("{} - {}", page.t("removed.title"), site.title),
         );
+        page.description = Some(page.t("removed.intro"));
         let items = project
             .tools
             .iter()
@@ -492,6 +595,18 @@ pub fn run(
         write(out, &format!("{prefix}removed/index.html"), &html)?;
     }
 
+    // Both language roots; the same absolute URLs as `Page::abs_url_for`.
+    let origin = site.origin.trim_end_matches('/');
+    let today = date_part(&generated_at);
+    let sitemap = format!(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
+         <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n\
+         <url><loc>{origin}{base}</loc><lastmod>{today}</lastmod></url>\n\
+         <url><loc>{origin}{base}ja/</loc><lastmod>{today}</lastmod></url>\n\
+         </urlset>\n"
+    );
+    write(out, "sitemap.xml", sitemap)?;
+
     println!(
         "built {} tools into {} (base {base})",
         data.tools.len(),
@@ -506,6 +621,40 @@ pub fn run(
 /// `YYYY-MM-DD` of a timestamp.
 fn date_part(s: &str) -> String {
     s.chars().take(10).collect()
+}
+
+/// The owner part of `owner/name`.
+fn owner(repo: &str) -> &str {
+    repo.split('/').next().unwrap_or(repo)
+}
+
+/// The FAQ entries in the page's language; an entry whose query matches no tool is skipped.
+fn faq_views(
+    page: &Page,
+    entries: &[radar_core::faq::FaqEntry],
+    data: &SiteData,
+    date: &str,
+) -> Vec<FaqView> {
+    entries
+        .iter()
+        .filter_map(|entry| {
+            let Some(r) = radar_core::faq::render(entry, data, &page.lang, date) else {
+                println!("faq {}: no tools match; skipped", entry.id);
+                return None;
+            };
+            Some(FaqView {
+                id: r.id,
+                question: r.question,
+                answer: r.answer,
+                link: r.link.as_ref().map(|(q, _)| page.url(&format!("?{q}"))),
+                link_label: r
+                    .link
+                    .as_ref()
+                    .map(|(_, n)| page.t("faq.see_all").replace("{n}", &n.to_string()))
+                    .unwrap_or_default(),
+            })
+        })
+        .collect()
 }
 
 struct Ctx<'a> {

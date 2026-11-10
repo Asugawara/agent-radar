@@ -23,6 +23,7 @@ It is for developers choosing tools for Claude Code, Codex and other agents. Any
 - **Search.** Type a name, a summary or a tag to find a tool quickly.
 - **Filter.** Use the filter buttons on the Category and Pricing headers, or open Filters to narrow by the agent a tool works with (Claude Code, Codex, Gemini CLI, Cursor), interface (CLI, IDE extension, desktop app and more), capability and platform. The works-with and platforms columns show tiles of text in the same places on every row: a tile is filled when the tool's official pages name that agent or platform, and outlined and faded when they do not.
 - **Sort.** Click Name, Stars or Updated to sort the table.
+- **FAQ.** Above the table, short answers to common questions (for example, the most-starred MCP servers). Each answer is built from the data: the top tools, the number that match and the date, and "See all" opens the table with that filter.
 - **Pages.** The list shows 25 tools per page; 50 or 100 can be chosen under the table. The page and the page size are kept in the address (`page=2`, `per_page=50`), so a link opens the same page; changing a filter, the search, the sort or the page size goes back to the first page.
 - **Two languages.** The site is in English at `/` and in Japanese at `/ja/`.
 - **Light, dark and phones.** Switch the theme from the header. On a phone, the works-with, platforms, pricing and category columns are hidden and categories appear under each summary.
@@ -70,6 +71,8 @@ python3 -m http.server 8765 -d dist   # open http://localhost:8765/
 
 `build-site.sh` fetches stars and favicons only when `GITHUB_TOKEN` is set / `RADAR_SKIP_FAVICONS` is not `1`; wasm-bindgen-cli is installed under `target/tools` when missing.
 
+The FAQ above the table is in `data/faq.toml`. Each `[[faq]]` entry has an `id`, `question.en/ja` and `answer.en/ja`, and an optional `query` with the table's address keys (`tag`, `sort`, `pricing`, `platform`, for example `tag=mcp-server&sort=-stars`). Optional `top` (default 3) is how many tools `{top}` names. Placeholders: `{top}` (the top tools with their stars), `{n}` (how many tools the query matches), `{total}` (all tools) and `{date}` (the build date). `{top}` and `{n}` need a `query`, and the English and Japanese answers must use the same placeholders. An entry whose query matches no tool is skipped in the build.
+
 When the hooks run:
 
 | Stage | Hook | Runs when |
@@ -88,6 +91,7 @@ To publish your own copy (for example a fork) on GitHub Pages:
 
 1. Settings → Pages → Source: **GitHub Actions**.
 2. `deploy.yml` publishes on every push to `main`. `maintain.yml` runs every 6 hours: it checks links, opens a pull request from the `bot/link-health` branch with any data changes (and starts CI on it), stores link health on the `bot-state` branch and then calls `deploy.yml`. Data changes go live when that pull request is merged.
+3. Search Console: for a URL-prefix property, set `google_site_verification` in `site.toml` to the content value of the "HTML tag" method (letters, digits, `-` or `_`, 10 to 100 characters). The build then adds the `google-site-verification` meta tag. The build also writes `sitemap.xml` with the two language roots.
 
 ## License
 

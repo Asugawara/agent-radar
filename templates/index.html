@@ -1,5 +1,18 @@
 {% extends "base.html" %}
+{% block head %}<script type="application/ld+json">{{ ld_json|safe }}</script>{% endblock %}
 {% block content %}
+<section class="intro">
+<h1>{{ page.t("seo.h1") }}</h1>
+<p class="lead">{{ lead }}</p>
+</section>
+{% if !faq.is_empty() %}
+<section class="faq" aria-labelledby="faq-heading">
+<h2 id="faq-heading">{{ page.t("faq.heading") }}</h2>
+<div class="faq-list">
+{% for f in faq %}<details class="faq-item" id="faq-{{ f.id }}"><summary><h3>{{ f.question }}</h3></summary><p>{{ f.answer }}{% if let Some(href) = f.link %} <a href="{{ href }}">{{ f.link_label }}</a>{% endif %}</p></details>
+{% endfor %}</div>
+</section>
+{% endif %}
 <div id="filters">
 {% if page.has_wasm() %}
 <div class="toolbar">

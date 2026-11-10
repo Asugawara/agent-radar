@@ -66,3 +66,13 @@ pages = "ページ"
 page = "{n}ページ目"
 page_range = "{from}–{to}件目"
 per_page = "表示件数"
+
+[seo]
+title = "agent-radar: AI エージェント向けツール・MCP サーバ・コーディングエージェント一覧"
+description = "AI エージェント向けツール {total} 件を比較。コーディングエージェント、MCP サーバ、オーケストレータ、サンドボックス、メモリを料金・対応 OS・GitHub スター数・対応エージェントで絞り込めます。"
+h1 = "AI エージェント向けツール一覧：コーディングエージェント・MCP サーバなど"
+lead = "agent-radar は、AI エージェントを作る・動かすためのツール {total} 件を集めた無料のオープンソース一覧です。コーディングエージェント、MCP サーバ、オーケストレータ、エージェントフレームワーク、サンドボックスなどを、カテゴリ・料金・OS・対応エージェント（Claude Code、Codex、Gemini CLI、Cursor）で検索・絞り込みできます。{date} 更新。"
+
+[faq]
+heading = "よくある質問"
+see_all = "{n} 件をすべて見る →"

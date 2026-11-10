@@ -212,6 +212,9 @@ pub struct SiteConfig {
     /// Google Tag Manager container ID (`GTM-XXXXXXX`). No tag is emitted when absent.
     #[serde(default)]
     pub gtm_id: Option<String>,
+    /// Google Search Console HTML-tag token (content of google-site-verification). No tag when absent.
+    #[serde(default)]
+    pub google_site_verification: Option<String>,
 }
 
 impl SiteConfig {
