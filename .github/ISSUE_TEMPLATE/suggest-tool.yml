@@ -3,6 +3,11 @@ description: Suggest a tool for agent-radar / agent-radar に載せたいツー�
 title: "[Tool] "
 labels: ["suggestion"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        agent-radar lists a tool only if it meets the [inclusion policy](https://github.com/Asugawara/agent-radar/blob/main/docs/inclusion-policy.md). A suggestion that does not is closed.
+        agent-radar に載せるのは[掲載基準](https://github.com/Asugawara/agent-radar/blob/main/docs/inclusion-policy.ja.md)を満たすツールだけです。満たさない提案は閉じます。
   - type: input
     id: url
     attributes:
@@ -37,6 +42,53 @@ body:
         - Not sure / わからない
     validations:
       required: false
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your relationship to the tool / ツールとの関係
+      options:
+        - I build it, or work for its maker / 開発者、または開発元の関係者
+        - I use it / 利用者
+        - Other / その他
+    validations:
+      required: true
+  - type: input
+    id: usage
+    attributes:
+      label: "Usage (rule 6) / 使われている根拠（基準 6）"
+      description: GitHub stars, weekly package downloads, or "official repository of <provider>" / GitHub のスター数、パッケージの週間ダウンロード数、または「<ベンダー> の公式リポジトリ」
+      placeholder: 1,200 GitHub stars / 5,000 weekly npm downloads
+    validations:
+      required: true
+  - type: dropdown
+    id: provider-sign-in
+    attributes:
+      label: "How it uses AI providers (rule 3) / AI ベンダーの使い方（基準 3）"
+      description: Include the tool's official plugins. Pick all that apply. / 公式プラグインも含めて、当てはまるものをすべて選んでください。
+      multiple: true
+      options:
+        - API keys / API キー
+        - Runs the official CLI or SDK under the user's own sign-in / 公式の CLI・SDK を本人のログインで起動する
+        - A provider's official program for third-party apps / ベンダー公式の第三者向けプログラム
+        - Its own sign-in to a Claude or Gemini CLI subscription (not accepted) / Claude・Gemini CLI のサブスクへの独自ログイン（掲載不可）
+        - It does not use AI providers / AI ベンダーを使わない
+        - Not sure / わからない
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Inclusion policy / 掲載基準
+      description: Check each rule. / 各基準を確認してください。
+      options:
+        - label: "1. It is for building, running, extending or operating AI agents, not a service for one industry. / AI エージェントを作る・動かす・拡張する・運用するためのツールで、特定の業界向けのサービスではない。"
+          required: true
+        - label: "2. It is usable now, not waitlist-only or demo-only. Its repository, if any, is not archived and was updated within the last 12 months. / いま使える（waitlist だけ・デモだけではない）。リポジトリがあれば archived ではなく、12 か月以内に更新がある。"
+          required: true
+        - label: "4. It has no install-time scripts beyond building, no obfuscated code, and collects no credentials or data beyond its purpose. / ビルド以外のインストール時スクリプト、難読化されたコード、目的を超えた認証情報・データの収集がない。"
+          required: true
+        - label: "5. It is not on agent-radar yet. / まだ agent-radar に載っていない。"
+          required: true
   - type: textarea
     id: why
     attributes:

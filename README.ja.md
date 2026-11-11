@@ -32,6 +32,8 @@ Claude Code や Codex などのエージェントに使うツールを選びた�
 
 ## ツールを追加する
 
+掲載するのは[掲載基準](docs/inclusion-policy.ja.md)を満たすツールだけです。
+
 ツールを追加する方法は 3 つあります。手軽な順です。
 
 1. **提案する。** [提案フォーム](https://github.com/Asugawara/agent-radar/issues/new?template=suggest-tool.yml)を開くか、サイトのフッターの「ツールを提案」を使います。準備は不要で、メンテナーが追加します。
