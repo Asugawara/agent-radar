@@ -32,6 +32,8 @@ It is for developers choosing tools for Claude Code, Codex and other agents. Any
 
 ## Add a tool
 
+A tool is listed only if it meets the [inclusion policy](docs/inclusion-policy.md).
+
 Three ways, from easiest to most hands-on:
 
 1. **Suggest it.** [Open the suggestion form](https://github.com/Asugawara/agent-radar/issues/new?template=suggest-tool.yml), or use "Suggest a tool" in the site footer. No setup is needed; a maintainer adds the tool.
