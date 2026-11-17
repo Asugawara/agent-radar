@@ -1,0 +1,10 @@
+name = "kagent"
+url = "https://kagent.dev"
+repo = "kagent-dev/kagent"
+summary.en = "Kubernetes-native framework for building, deploying and managing AI agents in a cluster"
+summary.ja = "Kubernetes 上で AI エージェントを作り、デプロイし、管理するための Kubernetes ネイティブなフレームワーク"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["agent-framework", "library", "api", "self-hostable", "mcp-support"]
+added = 2026-11-17

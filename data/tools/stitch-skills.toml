@@ -1,0 +1,10 @@
+name = "Stitch Skills"
+url = "https://stitch.withgoogle.com/docs/mcp/setup"
+repo = "google-labs-code/stitch-skills"
+summary.en = "Agent skills and plugins from Google Labs for working with the Google Stitch design tool and its MCP server"
+summary.ja = "Google の Stitch（デザインツール）とその MCP サーバを扱うための、Google Labs 製のエージェントスキルとプラグイン"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "library", "mcp-support", "works-with-claude-code", "works-with-codex", "works-with-cursor", "works-with-gemini-cli"]
+added = 2026-11-17

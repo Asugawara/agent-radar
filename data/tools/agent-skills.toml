@@ -1,0 +1,10 @@
+name = "Agent Skills (addyosmani)"
+url = "https://skills.addy.ie"
+repo = "addyosmani/agent-skills"
+summary.en = "Production-grade engineering skills that make AI coding agents follow senior-engineer workflows and quality gates"
+summary.ja = "AI コーディングエージェントに、シニアエンジニアの手順と品質ゲートを守らせるスキル集"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "library", "works-with-claude-code", "works-with-codex", "works-with-cursor", "works-with-gemini-cli"]
+added = 2026-11-17

@@ -1,0 +1,10 @@
+name = "last30days"
+url = "https://github.com/mvanhorn/last30days-skill"
+repo = "mvanhorn/last30days-skill"
+summary.en = "Agent skill that researches any topic from the last 30 days across Reddit, X, YouTube, HN and the web, ranked by upvotes, likes and real money"
+summary.ja = "過去 30 日の話題を Reddit・X・YouTube・HN・Web から調べ、投票数・いいね・賭け金で順位付けするエージェントスキル"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "library", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17

@@ -1,0 +1,10 @@
+name = "Chrome DevTools MCP"
+url = "https://developer.chrome.com/docs/devtools/agents"
+repo = "ChromeDevTools/chrome-devtools-mcp"
+summary.en = "Lets coding agents control and inspect a live Chrome browser through Chrome DevTools, as an MCP server and a CLI"
+summary.ja = "コーディングエージェントが Chrome DevTools 経由で実際の Chrome を操作・検査できる MCP サーバ兼 CLI"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["mcp-server", "browser-automation", "cli", "mcp-support", "works-with-claude-code", "works-with-cursor", "works-with-gemini-cli"]
+added = 2026-11-17

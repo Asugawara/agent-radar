@@ -1,0 +1,10 @@
+name = "Elephant Goldfish Model"
+url = "https://egm.dev"
+repo = "google/elephant-goldfish-model"
+summary.en = "Open-source plugin where an elephant holds project context to draft specs and goldfish reviewers check them without the earlier conversation"
+summary.ja = "プロジェクトの文脈を持つ「象」が仕様を書き、会話の履歴を持たない「金魚」のレビュアーがそれを検証する、AI アシスタント用のオープンソースプラグイン"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "library", "multi-agent", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17

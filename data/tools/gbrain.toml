@@ -1,0 +1,10 @@
+name = "GBrain"
+url = "https://github.com/garrytan/gbrain"
+repo = "garrytan/gbrain"
+summary.en = "One shared brain of notes, decisions and company docs that Claude Code, Codex and other agents search before answering"
+summary.ja = "メモ・意思決定ログ・社内文書を 1 か所にまとめ、Claude Code や Codex などのエージェントが回答前に検索する共有の記憶"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "cli", "self-hostable", "mcp-support", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-17

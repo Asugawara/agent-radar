@@ -1,0 +1,12 @@
+name = "AgentRun"
+url = "https://agentrun.ai"
+repo = "Parcha-ai/agentrun"
+summary.en = "Open-source platform that adds self-improvement, durable execution and a control plane on top of agent harnesses such as Claude Code and Codex"
+summary.ja = "Claude Code や Codex などのエージェントに、自己改善・耐障害な実行・管理画面を足すオープンソースのプラットフォーム"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["orchestrator", "agent-framework", "web", "api", "self-hostable", "multi-agent", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17
+[links]
+hn = "https://news.ycombinator.com/item?id=50471650"

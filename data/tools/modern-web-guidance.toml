@@ -1,0 +1,12 @@
+name = "Modern Web Guidance"
+url = "https://goo.gle/modern-web-guidance"
+repo = "GoogleChrome/modern-web-guidance"
+summary.en = "Skills that keep coding agents on modern web platform practices, stewarded by the Chrome, Edge, Firefox and MDN teams"
+summary.ja = "コーディングエージェントに最新の Web 標準の書き方を守らせるスキル集。Chrome・Edge・Firefox・MDN のチームが管理"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17
+[links]
+hn = "https://news.ycombinator.com/item?id=50443812"

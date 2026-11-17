@@ -1,0 +1,10 @@
+name = "Pinky"
+url = "https://github.com/DIYgod/pinky"
+repo = "DIYgod/pinky"
+summary.en = "App that lets any MCP agent operate a real iPhone or Android phone while you watch, approve risky steps and take over"
+summary.ja = "MCP 対応のエージェントに実機の iPhone・Android を操作させつつ、画面を見て、危険な操作を承認し、いつでも引き継げるアプリ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "remote-control", "desktop", "mcp-support", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-17

@@ -1,0 +1,10 @@
+name = "HA-MCP"
+url = "https://homeassistant-ai.github.io/ha-mcp/"
+repo = "homeassistant-ai/ha-mcp"
+summary.en = "MCP server that lets AI assistants configure and automate Home Assistant"
+summary.ja = "AI アシスタントから Home Assistant の設定や自動化を行えるようにする MCP サーバ"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "api", "mcp-support", "self-hostable", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17
