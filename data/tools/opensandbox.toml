@@ -1,0 +1,10 @@
+name = "OpenSandbox"
+url = "https://open-sandbox.ai"
+repo = "opensandbox-group/OpenSandbox"
+summary.en = "Sandbox runtime that gives AI agents isolated environments to run code, commands and browsers, locally on Docker or on Kubernetes"
+summary.ja = "AI エージェントがコード・コマンド・ブラウザを実行するための隔離環境を、Docker や Kubernetes 上で提供するサンドボックス基盤"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["sandbox", "api", "library", "self-hostable", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-17

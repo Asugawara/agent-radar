@@ -1,0 +1,10 @@
+name = "AstrBot"
+url = "https://astrbot.app"
+repo = "AstrBotDevs/AstrBot"
+summary.en = "Open-source AI agent assistant and development framework that connects many chat platforms, LLMs and plugins"
+summary.ja = "多数のチャットプラットフォーム・LLM・プラグインをつなぐ、オープンソースの AI エージェントアシスタント兼開発フレームワーク"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["agent-framework", "web", "cli", "self-hostable", "mcp-support", "model-agnostic"]
+added = 2026-11-17

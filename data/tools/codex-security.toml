@@ -1,0 +1,10 @@
+name = "Codex Security"
+url = "https://developers.openai.com/codex/security"
+repo = "openai/codex-security"
+summary.en = "OpenAI's CLI and TypeScript SDK for finding, validating and fixing vulnerabilities, also available as security workflows inside Codex"
+summary.ja = "脆弱性の発見・検証・修正を行う OpenAI の CLI と TypeScript SDK。Codex 内のセキュリティワークフローとしても使える"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["coding-agent", "cli", "library", "works-with-codex"]
+added = 2026-11-17

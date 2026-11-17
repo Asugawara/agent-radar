@@ -1,0 +1,12 @@
+name = "Coral"
+url = "https://withcoral.com"
+repo = "withcoral/coral"
+summary.en = "Open-source self-hosted gateway where agents write short TypeScript programs as tools, with policy checks before credentials are added"
+summary.ja = "エージェントが短い TypeScript で書いたツール呼び出しを、ポリシー確認のうえ認証情報を付けて中継する、オープンソースのセルフホスト型ゲートウェイ"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["gateway", "mcp-server", "cli", "api", "self-hostable", "mcp-support", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-17
+[links]
+hn = "https://news.ycombinator.com/item?id=50517803"

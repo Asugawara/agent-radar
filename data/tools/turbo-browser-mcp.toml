@@ -1,0 +1,12 @@
+name = "Turbo Browser MCP"
+url = "https://github.com/Tthanh2k6/turbo-browser-mcp"
+repo = "Tthanh2k6/turbo-browser-mcp"
+summary.en = "Playwright-based MCP server for browser automation that does more per call, such as whole-form fill and batched actions, to cut agent turns and tokens"
+summary.ja = "1 回の呼び出しでフォーム一括入力や操作のまとめ実行ができ、エージェントのターン数とトークンを減らす Playwright ベースのブラウザ自動化 MCP サーバ"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["mcp-server", "browser-automation", "cli", "mcp-support", "works-with-claude-code", "works-with-cursor"]
+added = 2026-11-17
+[links]
+hn = "https://news.ycombinator.com/item?id=50503930"

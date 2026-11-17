@@ -1,0 +1,10 @@
+name = "PR-Agent"
+url = "https://www.pr-agent.ai"
+repo = "The-PR-Agent/pr-agent"
+summary.en = "Open-source AI code review agent that reviews, describes and answers questions about pull requests"
+summary.ja = "プルリクエストのレビュー・説明文の作成・質問への回答を行う、オープンソースの AI コードレビューエージェント"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["coding-agent", "cli", "api", "self-hostable", "model-agnostic"]
+added = 2026-11-17

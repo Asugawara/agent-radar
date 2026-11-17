@@ -1,0 +1,10 @@
+name = "skillshare"
+url = "https://skillshare.runkids.cc"
+repo = "runkids/skillshare"
+summary.en = "Manage skills, agents, rules, MCP connections and hooks for all your AI coding tools in one place and sync them with one command"
+summary.ja = "複数の AI コーディングツールのスキル・エージェント・ルール・MCP 設定・フック を 1 か所で管理し、1 コマンドで同期する"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["skills-plugins", "cli", "desktop", "mcp-support", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17

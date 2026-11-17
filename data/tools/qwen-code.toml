@@ -1,0 +1,10 @@
+name = "Qwen Code"
+url = "https://qwenlm.github.io/qwen-code-docs/en/users/overview"
+repo = "QwenLM/qwen-code"
+summary.en = "Open-source AI coding agent for the terminal, editor, desktop, browser and chat"
+summary.ja = "ターミナル・エディタ・デスクトップ・ブラウザ・チャットで使える、オープンソースのコーディングエージェント"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["coding-agent", "cli", "mcp-support"]
+added = 2026-11-17

@@ -1,0 +1,12 @@
+name = "agweb"
+url = "https://github.com/paul-nameless/agweb"
+repo = "paul-nameless/agweb"
+summary.en = "WebKit browser for coding agents on macOS that never steals focus and gives each agent its own workspace and tabs"
+summary.ja = "フォーカスを奪わず、エージェントごとに専用のワークスペースとタブを持てる、macOS 向けのコーディングエージェント用 WebKit ブラウザ"
+pricing = "free"
+open_source = true
+platforms = ["macos"]
+tags = ["browser-automation", "desktop", "cli", "multi-agent", "parallel", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17
+[links]
+hn = "https://news.ycombinator.com/item?id=50497147"

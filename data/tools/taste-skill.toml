@@ -1,0 +1,10 @@
+name = "Taste Skill"
+url = "https://tasteskill.dev"
+repo = "Leonxlnx/taste-skill"
+summary.en = "Agent skills that give coding agents art direction, reference images and a browser check for better-looking interfaces"
+summary.ja = "コーディングエージェントにアートディレクション・参考画像・ブラウザ確認を与え、見た目の良い UI を作らせるスキル"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "library", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17

@@ -1,0 +1,10 @@
+name = "AG-UI"
+url = "https://ag-ui.com"
+repo = "ag-ui-protocol/ag-ui"
+summary.en = "Open event-based protocol and SDKs that connect agents to user-facing apps, streaming tokens, tool calls and shared state"
+summary.ja = "エージェントとユーザー向けアプリをつなぐ、イベントベースのオープンなプロトコルと SDK。トークン・ツール呼び出し・共有状態をストリーミングする"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["agent-framework", "library"]
+added = 2026-11-17

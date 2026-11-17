@@ -1,0 +1,10 @@
+name = "lot-map"
+url = "https://github.com/alexeyw/lot-map"
+repo = "alexeyw/lot-map"
+summary.en = "Claude Code mod that draws a live map beside the chat of every tool call, model step, hook and skill"
+summary.ja = "Claude Code の横に、ツール呼び出し・モデルの処理・フック・スキルをリアルタイムの地図で表示する Claude Code 用 mod"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["observability", "tui", "works-with-claude-code"]
+added = 2026-11-17

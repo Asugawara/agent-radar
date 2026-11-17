@@ -1,0 +1,10 @@
+name = "Agent Substrate"
+url = "https://ate.dev/"
+repo = "agent-substrate/substrate"
+summary.en = "Zero-trust sandbox runtime on Kubernetes that runs many untrusted agents in gVisor or microVM sandboxes with per-agent identity and egress control"
+summary.ja = "gVisor や microVM のサンドボックスで多数の信頼できないエージェントを動かし、エージェントごとの ID と外向き通信の制御を備えた Kubernetes 向けゼロトラスト実行基盤"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["sandbox", "api", "self-hostable", "mcp-support", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-17
