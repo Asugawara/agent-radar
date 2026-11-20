@@ -1,0 +1,12 @@
+name = "Concord MCP"
+url = "https://getconcord.ai"
+repo = "Get-Concord-AI/concord-mcp"
+summary.en = "MCP server that lets coding agents in different tools message each other, claim work before editing and hand off tasks, with an optional cloud that links agents across machines"
+summary.ja = "異なるツールのコーディングエージェント同士がメッセージを送り合い、編集前に作業を確保し、タスクを引き継げる MCP サーバ。オプションのクラウドで別マシンのエージェントもつなげる"
+pricing = "freemium"
+open_source = true
+platforms = ["macos", "linux"]
+tags = ["mcp-server", "cli", "multi-agent", "works-with-claude-code", "works-with-codex", "works-with-gemini-cli", "works-with-cursor"]
+added = 2026-11-20
+[links]
+npm = "https://www.npmjs.com/package/@concord-ai/concord-mcp"
