@@ -1,0 +1,10 @@
+name = "Open Artifact"
+url = "https://github.com/JimLiu/open-artifact"
+repo = "JimLiu/open-artifact"
+summary.en = "Skill and local daemon that let any coding agent make slides, designs, whiteboards and docs people can edit, comment on and export"
+summary.ja = "どのコーディングエージェントでも、スライド・デザイン・ホワイトボード・文書を作り、人が編集・コメント・書き出しできるようにするスキルとローカルデーモン"
+pricing = "free"
+open_source = true
+platforms = ["macos"]
+tags = ["skills-plugins", "mcp-server", "desktop", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor", "model-agnostic"]
+added = 2026-11-26

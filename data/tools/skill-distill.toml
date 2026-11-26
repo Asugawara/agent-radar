@@ -1,0 +1,10 @@
+name = "Skill Distill"
+url = "https://github.com/sybil-solutions/skill-distill"
+repo = "sybil-solutions/skill-distill"
+summary.en = "Skill that distills a good Claude Code or Codex session into a skill an open-weight model can follow to repeat the task"
+summary.ja = "うまくいった Claude Code や Codex のセッションを、オープンウェイトモデルが同じ作業を再現できるスキルに蒸留するスキル"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-26

@@ -1,0 +1,10 @@
+name = "Claude Code Templates"
+url = "https://www.aitmpl.com"
+repo = "davila7/claude-code-templates"
+summary.en = "Browse and install pre-built Claude Code components such as agents, commands, skills, MCP servers, hooks and settings"
+summary.ja = "エージェント・コマンド・スキル・MCP サーバ・フック・設定など、Claude Code 向けの部品を探してインストールできるレジストリと CLI"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["skills-plugins", "cli", "web", "works-with-claude-code"]
+added = 2026-11-26

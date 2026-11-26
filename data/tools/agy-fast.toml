@@ -1,0 +1,10 @@
+name = "agy-fast"
+url = "https://github.com/INK-Q/agy-fast"
+repo = "INK-Q/agy-fast"
+summary.en = "MCP plugin for Google Antigravity that batches search, multi-file edits and checks to cut agent turns"
+summary.ja = "検索・複数ファイル編集・チェックをまとめて実行し、エージェントのターン数を減らす Google Antigravity 向け MCP プラグイン"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["mcp-server", "skills-plugins", "cli"]
+added = 2026-11-26

@@ -1,0 +1,12 @@
+name = "Brickie"
+url = "https://github.com/hatchet-dev/brickie"
+repo = "hatchet-dev/brickie"
+summary.en = "Run durable sandboxes with forkable snapshots for agents in your own cloud or Kubernetes cluster"
+summary.ja = "フォークできるスナップショット付きの永続的なエージェント用サンドボックスを、自分のクラウドや Kubernetes クラスタで動かす"
+pricing = "free"
+open_source = true
+platforms = ["unspecified"]
+tags = ["sandbox", "library", "self-hostable"]
+added = 2026-11-26
+[links]
+hn = "https://news.ycombinator.com/item?id=50629936"

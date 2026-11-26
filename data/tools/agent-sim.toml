@@ -1,0 +1,10 @@
+name = "agent-sim"
+url = "https://github.com/Developing-Gamer/agent-sim"
+repo = "Developing-Gamer/agent-sim"
+summary.en = "iOS simulators for AI agents on x86-64 Linux, driven through an MCP server and a CLI"
+summary.ja = "x86-64 の Linux 上で iOS シミュレータを動かし、MCP サーバと CLI からエージェントが操作できるようにする"
+pricing = "free"
+open_source = true
+platforms = ["linux"]
+tags = ["mcp-server", "sandbox", "cli", "works-with-claude-code", "works-with-codex", "works-with-cursor"]
+added = 2026-11-26
