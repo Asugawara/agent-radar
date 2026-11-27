@@ -1,0 +1,10 @@
+name = "OpenWorker"
+url = "https://openworker.com"
+repo = "andrewyng/openworker"
+summary.en = "Desktop app and harness SDK for AI coworker agents that run on your own model keys or local models"
+summary.ja = "手元のモデルキーやローカルモデルで動く AI コワーカーのデスクトップアプリと、自作のエージェントアプリを組むためのハーネス SDK"
+pricing = "free"
+open_source = true
+platforms = ["macos", "windows", "linux"]
+tags = ["agent-framework", "desktop", "cli", "library", "mcp-support", "model-agnostic"]
+added = 2026-11-26

@@ -1,0 +1,12 @@
+name = "QMD"
+url = "https://github.com/tobi/qmd"
+repo = "tobi/qmd"
+summary.en = "On-device search engine for markdown notes and docs that agents query through a CLI or an MCP server"
+summary.ja = "Markdown のノートやドキュメントをローカルで検索し、エージェントが CLI や MCP サーバから使える検索エンジン"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows"]
+tags = ["memory", "mcp-server", "cli", "library", "works-with-claude-code"]
+added = 2026-11-26
+[links]
+npm = "https://www.npmjs.com/package/@tobilu/qmd"

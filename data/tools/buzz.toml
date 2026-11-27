@@ -1,0 +1,10 @@
+name = "Buzz"
+url = "https://github.com/block/buzz"
+repo = "block/buzz"
+summary.en = "Self-hostable workspace where people and AI agents share channels, review code and run workflows on a relay you own"
+summary.ja = "自分で持つリレー上で、人と AI エージェントが同じチャンネルに入り、コードレビューやワークフローを実行できるセルフホスト型ワークスペース"
+pricing = "free"
+open_source = true
+platforms = ["macos", "linux", "windows", "ios", "android"]
+tags = ["orchestrator", "desktop", "cli", "multi-agent", "self-hostable", "works-with-claude-code", "works-with-codex"]
+added = 2026-11-26
